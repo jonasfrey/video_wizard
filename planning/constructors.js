@@ -208,7 +208,16 @@ let o_model__o_action = f_o_model({
     ]
 });
 
-let a_s_sense = ['hearing', 'sight', 'touch', 'smell', 'taste'];
+let o_model__o_sense = f_o_model({
+    s_name: 'o_sense',
+    a_o_property: [
+        f_o_model_prop__default_id(s_name_prop_id),
+        f_o_property('s_name', 'string', (s)=>{return s!==''}),
+        f_o_model_prop__timestamp_default(s_name_prop_ts_created),
+        f_o_model_prop__timestamp_default(s_name_prop_ts_updated),
+    ]
+});
+
 let o_model__o_event = f_o_model({
     s_name: 'o_event',
     a_o_property: [
@@ -216,8 +225,8 @@ let o_model__o_event = f_o_model({
         f_o_model_prop__default_id(f_s_name_foreign_key__from_o_model(o_model__o_audio)),
         f_o_model_prop__default_id(f_s_name_foreign_key__from_o_model(o_model__o_object)),
         f_o_model_prop__default_id(f_s_name_foreign_key__from_o_model(o_model__o_action)),
+        f_o_model_prop__default_id(f_s_name_foreign_key__from_o_model(o_model__o_sense)),
         f_o_property('s_type', 'string', (s)=>{return s!==''}),
-        f_o_property('s_sense', 'string', (s)=>{return a_s_sense.includes(s)}),
         f_o_property('n_ms_start', 'number', (n)=>{return Number.isFinite(n) && n >= 0}),
         f_o_property('n_ms_duration', 'number', (n)=>{return Number.isFinite(n) && n >= 0}),
         f_o_model_prop__timestamp_default(s_name_prop_ts_created),
@@ -265,6 +274,7 @@ let a_o_model = [
     o_model__o_audio,
     o_model__o_object,
     o_model__o_action,
+    o_model__o_sense,
     o_model__o_event,
 ];
 
@@ -341,8 +351,8 @@ export {
     o_model__o_audio,
     o_model__o_object,
     o_model__o_action,
+    o_model__o_sense,
     o_model__o_event,
-    a_s_sense,
     a_o_model,
     f_o_property,
     f_o_model,
