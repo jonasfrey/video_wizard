@@ -1,0 +1,1339 @@
+
+[0:00]  Agents are the new apps.
+  [0.70 - 1.10] Agents
+  [1.10 - 1.44] are
+  [1.44 - 2.14] the
+  [2.14 - 2.34] new
+  [2.34 - 2.66] apps.
+
+[0:03]  And we expect someday for there to be thousands of agents available.
+  [3.86 - 4.26] And
+  [4.26 - 4.40] we
+  [4.40 - 4.64] expect
+  [4.64 - 5.14] someday
+  [5.14 - 5.58] for
+  [5.58 - 5.72] there
+  [5.72 - 5.88] to
+  [5.88 - 5.98] be
+  [5.98 - 6.54] thousands
+  [6.54 - 6.80] of
+  [6.80 - 7.06] agents
+  [7.06 - 7.46] available.
+
+[0:07]  We want a thousand agents to bloom.
+  [7.64 - 7.70] We
+  [7.70 - 7.88] want
+  [7.88 - 8.06] a
+  [8.06 - 8.56] thousand
+  [8.56 - 8.92] agents
+  [8.92 - 9.10] to
+  [9.10 - 9.30] bloom.
+
+[0:09]  So I think we're going to live in a world where there are going to be hundreds of millions
+  [9.70 - 9.86] So
+  [9.86 - 9.96] I
+  [9.96 - 10.04] think
+  [10.04 - 10.18] we're
+  [10.18 - 10.28] going
+  [10.28 - 10.30] to
+  [10.30 - 10.42] live
+  [10.42 - 10.52] in
+  [10.52 - 10.56] a
+  [10.56 - 10.76] world
+  [10.76 - 10.92] where
+  [10.92 - 11.02] there
+  [11.02 - 11.08] are
+  [11.08 - 11.18] going
+  [11.18 - 11.22] to
+  [11.22 - 11.32] be
+  [11.32 - 12.10] hundreds
+  [12.10 - 12.30] of
+  [12.30 - 12.54] millions
+
+[0:12]  of billions of different AI agents.
+  [12.54 - 12.80] of
+  [12.80 - 13.32] billions
+  [13.32 - 13.60] of
+  [13.60 - 13.86] different
+  [13.86 - 14.00] AI
+  [14.00 - 14.48] agents.
+
+[0:15]  Eventually, probably more AI agents than there are people in the world.
+  [15.06 - 15.46] Eventually,
+  [15.48 - 15.78] probably
+  [15.78 - 16.00] more
+  [16.00 - 16.26] AI
+  [16.26 - 16.70] agents
+  [16.70 - 16.92] than
+  [16.92 - 17.02] there
+  [17.02 - 17.12] are
+  [17.12 - 17.42] people
+  [17.42 - 17.56] in
+  [17.56 - 17.64] the
+  [17.64 - 17.94] world.
+
+[0:18]  For the very first time, this is going to be an industry of skills.
+  [18.16 - 18.24] For
+  [18.24 - 18.30] the
+  [18.30 - 18.42] very
+  [18.42 - 18.66] first
+  [18.66 - 18.86] time,
+  [18.92 - 19.04] this
+  [19.04 - 19.12] is
+  [19.12 - 19.26] going
+  [19.26 - 19.30] to
+  [19.30 - 19.40] be
+  [19.40 - 19.54] an
+  [19.54 - 20.34] industry
+  [20.34 - 20.66] of
+  [20.66 - 21.02] skills.
+
+[0:21]  And you capture that phrase and you call it agents.
+  [21.94 - 22.12] And
+  [22.12 - 22.36] you
+  [22.36 - 22.80] capture
+  [22.80 - 23.08] that
+  [23.08 - 24.32] phrase
+  [24.32 - 24.66] and
+  [24.66 - 24.80] you
+  [24.80 - 25.86] call
+  [25.86 - 26.00] it
+  [26.00 - 26.38] agents.
+
+[0:26]  But it's going to be for the very first time agents sitting on top of tools.
+  [26.38 - 26.74] But
+  [26.74 - 26.88] it's
+  [26.88 - 26.98] going
+  [26.98 - 27.08] to
+  [27.08 - 27.16] be
+  [27.16 - 27.30] for
+  [27.30 - 27.40] the
+  [27.40 - 27.54] very
+  [27.54 - 27.80] first
+  [27.80 - 28.08] time
+  [28.08 - 28.78] agents
+  [28.78 - 29.58] sitting
+  [29.58 - 29.76] on
+  [29.76 - 29.98] top
+  [29.98 - 30.32] of
+  [30.32 - 30.80] tools.
+
+[0:31]  If you're here, it's probably because you've been hearing a lot about AI agents lately.
+  [31.30 - 31.40] If
+  [31.40 - 31.66] you're
+  [31.66 - 31.96] here,
+  [32.20 - 32.46] it's
+  [32.46 - 32.86] probably
+  [32.86 - 33.20] because
+  [33.20 - 33.54] you've
+  [33.54 - 33.70] been
+  [33.70 - 33.96] hearing
+  [33.96 - 34.18] a
+  [34.18 - 34.46] lot
+  [34.46 - 35.02] about
+  [35.02 - 35.26] AI
+  [35.26 - 35.74] agents
+  [35.74 - 36.08] lately.
+
+[0:36]  Maybe you've even checked out some other videos that go way too technical.
+  [36.54 - 36.98] Maybe
+  [36.98 - 37.44] you've
+  [37.44 - 37.62] even
+  [37.62 - 37.80] checked
+  [37.80 - 37.98] out
+  [37.98 - 38.14] some
+  [38.14 - 38.32] other
+  [38.32 - 38.66] videos
+  [38.66 - 38.96] that
+  [38.96 - 39.10] go
+  [39.10 - 39.62] way
+  [39.62 - 40.04] too
+  [40.04 - 40.48] technical.
+
+[0:40]  And you thought, why don't you explain this to me like I'm five?
+  [40.90 - 40.96] And
+  [40.96 - 41.04] you
+  [41.04 - 41.32] thought,
+  [41.58 - 41.98] why
+  [41.98 - 42.10] don't
+  [42.10 - 42.22] you
+  [42.22 - 42.54] explain
+  [42.54 - 42.74] this
+  [42.74 - 42.80] to
+  [42.80 - 42.88] me
+  [42.88 - 43.04] like
+  [43.04 - 43.22] I'm
+  [43.22 - 43.40] five?
+
+[0:43]  Well, guess what?
+  [43.98 - 44.14] Well,
+  [44.36 - 44.74] guess
+  [44.74 - 45.08] what?
+
+[0:45]  That's exactly what I'm going to do.
+  [45.44 - 45.88] That's
+  [45.88 - 46.20] exactly
+  [46.20 - 46.46] what
+  [46.46 - 46.60] I'm
+  [46.60 - 46.70] going
+  [46.70 - 46.88] to
+  [46.88 - 47.06] do.
+
+[0:47]  I'm going to give you the most straightforward real world explanation of what an AI agent is.
+  [47.66 - 47.88] I'm
+  [47.88 - 48.02] going
+  [48.02 - 48.20] to
+  [48.20 - 48.42] give
+  [48.42 - 48.66] you
+  [48.66 - 49.18] the
+  [49.18 - 49.70] most
+  [49.70 - 50.32] straightforward
+  [50.32 - 51.08] real
+  [51.08 - 51.30] world
+  [51.30 - 51.82] explanation
+  [51.82 - 52.26] of
+  [52.26 - 52.56] what
+  [52.56 - 52.88] an
+  [52.88 - 53.22] AI
+  [53.22 - 53.80] agent
+  [53.80 - 54.22] is.
+
+[0:58]  So what is it?
+  [58.50 - 59.08] So
+  [59.08 - 59.26] what
+  [59.26 - 59.40] is
+  [59.40 - 59.58] it?
+
+[1:00]  You probably already know that AI stands for artificial intelligence.
+  [60.02 - 60.24] You
+  [60.24 - 60.62] probably
+  [60.62 - 60.98] already
+  [60.98 - 61.22] know
+  [61.22 - 61.50] that
+  [61.50 - 61.70] AI
+  [61.70 - 62.14] stands
+  [62.14 - 62.40] for
+  [62.40 - 62.84] artificial
+  [62.84 - 63.44] intelligence.
+
+[1:03]  But here's where it gets interesting.
+  [63.98 - 64.16] But
+  [64.16 - 64.70] here's
+  [64.70 - 64.84] where
+  [64.84 - 64.98] it
+  [64.98 - 65.06] gets
+  [65.06 - 65.54] interesting.
+
+[1:06]  AI by itself is like raw brain power.
+  [66.12 - 66.38] AI
+  [66.38 - 66.72] by
+  [66.72 - 67.14] itself
+  [67.14 - 67.68] is
+  [67.68 - 67.90] like
+  [67.90 - 68.26] raw
+  [68.26 - 68.76] brain
+  [68.76 - 69.04] power.
+
+[1:09]  It's got all this potential, but it's not really useful until you give it a job.
+  [69.46 - 69.72] It's
+  [69.72 - 69.84] got
+  [69.84 - 70.06] all
+  [70.06 - 70.22] this
+  [70.22 - 70.68] potential,
+  [71.00 - 71.14] but
+  [71.14 - 71.34] it's
+  [71.34 - 71.46] not
+  [71.46 - 71.74] really
+  [71.74 - 72.18] useful
+  [72.18 - 72.52] until
+  [72.52 - 72.70] you
+  [72.70 - 72.84] give
+  [72.84 - 72.96] it
+  [72.96 - 73.00] a
+  [73.00 - 73.28] job.
+
+[1:13]  Enter the AI agent.
+  [73.70 - 73.98] Enter
+  [73.98 - 74.38] the
+  [74.38 - 74.68] AI
+  [74.68 - 75.06] agent.
+
+[1:15]  Think of AI as the genius with a million ideas and the AI agent is the one who actually gets stuff done.
+  [75.68 - 75.90] Think
+  [75.90 - 76.08] of
+  [76.08 - 76.38] AI
+  [76.38 - 76.74] as
+  [76.74 - 76.88] the
+  [76.88 - 77.34] genius
+  [77.34 - 77.68] with
+  [77.68 - 77.76] a
+  [77.76 - 78.04] million
+  [78.04 - 78.50] ideas
+  [78.50 - 78.96] and
+  [78.96 - 79.08] the
+  [79.08 - 79.40] AI
+  [79.40 - 79.84] agent
+  [79.84 - 80.12] is
+  [80.12 - 80.26] the
+  [80.26 - 80.42] one
+  [80.42 - 80.76] who
+  [80.76 - 81.34] actually
+  [81.34 - 81.60] gets
+  [81.60 - 81.94] stuff
+  [81.94 - 82.24] done.
+
+[1:22]  While AI is all about smarts, an AI agent is the practical hands-on version.
+  [82.24 - 83.18] While
+  [83.18 - 83.44] AI
+  [83.44 - 83.88] is
+  [83.88 - 84.10] all
+  [84.10 - 84.34] about
+  [84.34 - 85.06] smarts,
+  [85.28 - 85.44] an
+  [85.44 - 85.72] AI
+  [85.72 - 86.16] agent
+  [86.16 - 86.44] is
+  [86.44 - 86.60] the
+  [86.60 - 87.08] practical
+  [87.08 - 87.58] hands
+  [87.58 - 87.82] -on
+  [87.82 - 88.22] version.
+
+[1:28]  It's like giving that genius a task and saying, okay, now go do something useful with all that brain power.
+  [88.58 - 89.02] It's
+  [89.02 - 89.12] like
+  [89.12 - 89.42] giving
+  [89.42 - 89.88] that
+  [89.88 - 90.30] genius
+  [90.30 - 90.58] a
+  [90.58 - 90.88] task
+  [90.88 - 91.08] and
+  [91.08 - 91.34] saying,
+  [91.76 - 91.96] okay,
+  [92.52 - 92.70] now
+  [92.70 - 92.86] go
+  [92.86 - 93.02] do
+  [93.02 - 93.28] something
+  [93.28 - 93.66] useful
+  [93.66 - 93.92] with
+  [93.92 - 94.04] all
+  [94.04 - 94.20] that
+  [94.20 - 94.40] brain
+  [94.40 - 94.66] power.
+
+[1:35]  The AI agent takes the intelligence of AI and turns it into action,
+  [95.28 - 95.50] The
+  [95.50 - 95.84] AI
+  [95.84 - 96.38] agent
+  [96.38 - 96.68] takes
+  [96.68 - 96.88] the
+  [96.88 - 97.30] intelligence
+  [97.30 - 97.52] of
+  [97.52 - 97.78] AI
+  [97.78 - 98.22] and
+  [98.22 - 98.50] turns
+  [98.50 - 98.68] it
+  [98.68 - 98.88] into
+  [98.88 - 99.28] action,
+
+[1:39]  whether it's answering your questions, automating your work, or handling your to-do list.
+  [99.58 - 99.98] whether
+  [99.98 - 100.16] it's
+  [100.16 - 100.44] answering
+  [100.44 - 100.60] your
+  [100.60 - 100.94] questions,
+  [101.62 - 101.92] automating
+  [101.92 - 102.14] your
+  [102.14 - 102.38] work,
+  [102.90 - 103.00] or
+  [103.00 - 103.44] handling
+  [103.44 - 103.90] your
+  [103.90 - 104.12] to
+  [104.12 - 104.38] -do
+  [104.38 - 104.78] list.
+
+[1:45]  It's the difference between knowing how to do something and actually doing it.
+  [105.32 - 105.88] It's
+  [105.88 - 105.96] the
+  [105.96 - 106.24] difference
+  [106.24 - 106.70] between
+  [106.70 - 107.04] knowing
+  [107.04 - 107.34] how
+  [107.34 - 107.60] to
+  [107.60 - 108.08] do
+  [108.08 - 108.48] something
+  [108.48 - 108.64] and
+  [108.64 - 108.98] actually
+  [108.98 - 109.72] doing
+  [109.72 - 109.88] it.
+
+[1:50]  So while AI is the brains, the AI agent is the one rolling up its sleeves and making things happen.
+  [110.60 - 110.90] So
+  [110.90 - 111.20] while
+  [111.20 - 111.50] AI
+  [111.50 - 111.90] is
+  [111.90 - 112.02] the
+  [112.02 - 112.36] brains,
+  [112.78 - 112.88] the
+  [112.88 - 113.26] AI
+  [113.26 - 113.72] agent
+  [113.72 - 114.00] is
+  [114.00 - 114.18] the
+  [114.18 - 114.48] one
+  [114.48 - 114.94] rolling
+  [114.94 - 115.12] up
+  [115.12 - 115.28] its
+  [115.28 - 115.60] sleeves
+  [115.60 - 116.24] and
+  [116.24 - 116.58] making
+  [116.58 - 117.10] things
+  [117.10 - 117.46] happen.
+
+[1:58]  Here is the one two three of AI agents.
+  [118.26 - 118.64] Here
+  [118.64 - 118.86] is
+  [118.86 - 118.96] the
+  [118.96 - 119.20] one
+  [119.20 - 119.40] two
+  [119.40 - 119.72] three
+  [119.72 - 120.06] of
+  [120.06 - 120.34] AI
+  [120.34 - 120.84] agents.
+
+[2:01]  Number one, they understand.
+  [121.46 - 121.58] Number
+  [121.58 - 121.90] one,
+  [122.16 - 122.40] they
+  [122.40 - 122.94] understand.
+
+[2:03]  AI agents listen to what you're asking or needing.
+  [123.52 - 123.70] AI
+  [123.70 - 124.12] agents
+  [124.12 - 124.36] listen
+  [124.36 - 124.62] to
+  [124.62 - 124.92] what
+  [124.92 - 125.16] you're
+  [125.16 - 125.60] asking
+  [125.60 - 125.90] or
+  [125.90 - 126.18] needing.
+
+[2:06]  Number two, they think.
+  [126.92 - 127.10] Number
+  [127.10 - 127.40] two,
+  [127.74 - 127.98] they
+  [127.98 - 128.28] think.
+
+[2:08]  They process this information and figure out the best way to help you.
+  [128.88 - 129.14] They
+  [129.14 - 129.54] process
+  [129.54 - 129.82] this
+  [129.82 - 130.30] information
+  [130.30 - 130.56] and
+  [130.56 - 130.82] figure
+  [130.82 - 131.00] out
+  [131.00 - 131.26] the
+  [131.26 - 131.56] best
+  [131.56 - 131.76] way
+  [131.76 - 132.14] to
+  [132.14 - 132.34] help
+  [132.34 - 132.56] you.
+
+[2:13]  And number three, they act.
+  [133.14 - 133.34] And
+  [133.34 - 133.54] number
+  [133.54 - 133.88] three,
+  [134.34 - 134.48] they
+  [134.48 - 134.80] act.
+
+[2:14]  They don't.
+  [134.80 - 134.90] They
+  [134.90 - 134.90] don't.
+
+[2:15]  Finally, they deliver what you need, whether it's an answer, a solution, or help completing a task.
+  [135.20 - 135.72] Finally,
+  [135.96 - 136.10] they
+  [136.10 - 136.42] deliver
+  [136.42 - 136.70] what
+  [136.70 - 136.88] you
+  [136.88 - 137.16] need,
+  [137.40 - 137.66] whether
+  [137.66 - 137.82] it's
+  [137.82 - 137.90] an
+  [137.90 - 138.22] answer,
+  [138.64 - 138.72] a
+  [138.72 - 139.24] solution,
+  [139.56 - 139.84] or
+  [139.84 - 140.18] help
+  [140.18 - 140.96] completing
+  [140.96 - 141.28] a
+  [141.28 - 141.60] task.
+
+[2:22]  Now how do they work?
+  [142.40 - 142.50] Now
+  [142.50 - 142.64] how
+  [142.64 - 142.72] do
+  [142.72 - 142.82] they
+  [142.82 - 143.04] work?
+
+[2:23]  Imagine your parents are heading out for the evening and leaving the babysitter in charge.
+  [143.68 - 144.00] Imagine
+  [144.00 - 144.18] your
+  [144.18 - 144.50] parents
+  [144.50 - 144.76] are
+  [144.76 - 145.12] heading
+  [145.12 - 145.30] out
+  [145.30 - 145.54] for
+  [145.54 - 145.82] the
+  [145.82 - 146.14] evening
+  [146.14 - 146.30] and
+  [146.30 - 146.58] leaving
+  [146.58 - 146.86] the
+  [146.86 - 147.36] babysitter
+  [147.36 - 147.54] in
+  [147.54 - 147.86] charge.
+
+[2:28]  Remember, you're only five.
+  [148.36 - 148.68] Remember,
+  [148.88 - 148.94] you're
+  [148.94 - 149.06] only
+  [149.06 - 149.40] five.
+
+[2:30]  They don't just walk out the door.
+  [150.28 - 150.48] They
+  [150.48 - 150.90] don't
+  [150.90 - 151.14] just
+  [151.14 - 151.36] walk
+  [151.36 - 151.56] out
+  [151.56 - 151.70] the
+  [151.70 - 151.96] door.
+
+[2:32]  They give them instructions.
+  [152.42 - 152.52] They
+  [152.52 - 152.74] give
+  [152.74 - 153.02] them
+  [153.02 - 153.74] instructions.
+
+[2:34]  What time you need to go to bed.
+  [154.20 - 154.40] What
+  [154.40 - 154.62] time
+  [154.62 - 154.80] you
+  [154.80 - 154.92] need
+  [154.92 - 155.06] to
+  [155.06 - 155.18] go
+  [155.18 - 155.28] to
+  [155.28 - 155.46] bed.
+
+[2:36]  What you can have for a snack.
+  [156.32 - 156.84] What
+  [156.84 - 157.00] you
+  [157.00 - 157.26] can
+  [157.26 - 157.62] have
+  [157.62 - 157.90] for
+  [157.90 - 158.10] a
+  [158.10 - 158.26] snack.
+
+[2:38]  And what to do in case of an emergency.
+  [158.90 - 159.02] And
+  [159.02 - 159.18] what
+  [159.18 - 159.34] to
+  [159.34 - 159.54] do
+  [159.54 - 159.88] in
+  [159.88 - 160.20] case
+  [160.20 - 160.46] of
+  [160.46 - 160.58] an
+  [160.58 - 161.04] emergency.
+
+[2:41]  That's exactly how AI agents are trained.
+  [161.68 - 161.96] That's
+  [161.96 - 162.40] exactly
+  [162.40 - 162.72] how
+  [162.72 - 163.00] AI
+  [163.00 - 163.40] agents
+  [163.40 - 163.56] are
+  [163.56 - 163.98] trained.
+
+[2:43]  Developers provide these agents with detailed instructions using data.
+  [163.98 - 165.48] Developers
+  [165.48 - 165.86] provide
+  [165.86 - 166.26] these
+  [166.26 - 166.62] agents
+  [166.62 - 166.90] with
+  [166.90 - 167.36] detailed
+  [167.36 - 167.98] instructions
+  [167.98 - 168.38] using
+  [168.38 - 168.74] data.
+
+[2:49]  So they know exactly how to respond in different situations.
+  [169.24 - 169.46] So
+  [169.46 - 169.70] they
+  [169.70 - 170.02] know
+  [170.02 - 170.66] exactly
+  [170.66 - 171.10] how
+  [171.10 - 171.28] to
+  [171.28 - 171.68] respond
+  [171.68 - 172.14] in
+  [172.14 - 172.50] different
+  [172.50 - 173.36] situations.
+
+[2:54]  Some agents come pre-programmed with basic instructions, like a babysitter who's already experienced.
+  [174.22 - 174.66] Some
+  [174.66 - 175.12] agents
+  [175.12 - 175.56] come
+  [175.56 - 175.86] pre
+  [175.86 - 176.54] -programmed
+  [176.54 - 176.76] with
+  [176.76 - 177.10] basic
+  [177.10 - 177.74] instructions,
+  [178.14 - 178.34] like
+  [178.34 - 178.46] a
+  [178.46 - 178.98] babysitter
+  [178.98 - 179.30] who's
+  [179.30 - 179.50] already
+  [179.50 - 180.24] experienced.
+
+[3:01]  Others can be customized to fit your needs, like giving the babysitter special rules for kids.
+  [181.64 - 182.02] Others
+  [182.02 - 182.30] can
+  [182.30 - 182.44] be
+  [182.44 - 183.02] customized
+  [183.02 - 183.42] to
+  [183.42 - 183.64] fit
+  [183.64 - 183.88] your
+  [183.88 - 184.30] needs,
+  [184.74 - 184.88] like
+  [184.88 - 185.12] giving
+  [185.12 - 185.28] the
+  [185.28 - 185.86] babysitter
+  [185.86 - 186.64] special
+  [186.64 - 187.02] rules
+  [187.02 - 187.26] for
+  [187.26 - 187.56] kids.
+
+[3:08]  Once set up, these AI agents handle tasks just as smoothly as a well-informed babysitter,
+  [188.34 - 188.94] Once
+  [188.94 - 189.22] set
+  [189.22 - 189.38] up,
+  [189.68 - 189.88] these
+  [189.88 - 190.20] AI
+  [190.20 - 190.64] agents
+  [190.64 - 191.00] handle
+  [191.00 - 191.44] tasks
+  [191.44 - 192.04] just
+  [192.04 - 192.26] as
+  [192.26 - 192.72] smoothly
+  [192.72 - 193.04] as
+  [193.04 - 193.18] a
+  [193.18 - 193.40] well
+  [193.40 - 193.98] -informed
+  [193.98 - 194.58] babysitter,
+
+[3:15]  freeing you up to focus on other things.
+  [195.10 - 195.56] freeing
+  [195.56 - 195.82] you
+  [195.82 - 196.36] up
+  [196.36 - 196.52] to
+  [196.52 - 196.84] focus
+  [196.84 - 197.10] on
+  [197.10 - 197.56] other
+  [197.56 - 198.06] things.
+
+[3:18]  So what does an AI agent actually look like?
+  [198.44 - 198.62] So
+  [198.62 - 198.74] what
+  [198.74 - 198.86] does
+  [198.86 - 198.98] an
+  [198.98 - 199.18] AI
+  [199.18 - 199.56] agent
+  [199.56 - 199.90] actually
+  [199.90 - 200.12] look
+  [200.12 - 200.36] like?
+
+[3:20]  When we talk about what an AI agent looks like, it's helpful to think of it as a combination of two things.
+  [200.76 - 201.16] When
+  [201.16 - 201.28] we
+  [201.28 - 201.48] talk
+  [201.48 - 201.78] about
+  [201.78 - 202.02] what
+  [202.02 - 202.26] an
+  [202.26 - 202.50] AI
+  [202.50 - 202.92] agent
+  [202.92 - 203.12] looks
+  [203.12 - 203.48] like,
+  [203.72 - 203.94] it's
+  [203.94 - 204.16] helpful
+  [204.16 - 204.60] to
+  [204.60 - 204.86] think
+  [204.86 - 205.02] of
+  [205.02 - 205.14] it
+  [205.14 - 205.34] as
+  [205.34 - 205.48] a
+  [205.48 - 206.08] combination
+  [206.08 - 206.36] of
+  [206.36 - 206.54] two
+  [206.54 - 206.90] things.
+
+[3:27]  An interface and a workflow.
+  [207.74 - 207.96] An
+  [207.96 - 208.48] interface
+  [208.48 - 209.48] and
+  [209.48 - 209.62] a
+  [209.62 - 210.00] workflow.
+
+[3:30]  The interface is how you interact with the AI agent.
+  [210.46 - 210.90] The
+  [210.90 - 211.44] interface
+  [211.44 - 211.82] is
+  [211.82 - 212.06] how
+  [212.06 - 212.32] you
+  [212.32 - 212.78] interact
+  [212.78 - 213.12] with
+  [213.12 - 213.28] the
+  [213.28 - 213.58] AI
+  [213.58 - 214.06] agent.
+
+[3:34]  Maybe through a chat window, a voice assistant, or even a button on a website.
+  [214.06 - 214.74] Maybe
+  [214.74 - 215.08] through
+  [215.08 - 215.24] a
+  [215.24 - 215.42] chat
+  [215.42 - 215.98] window,
+  [216.64 - 216.72] a
+  [216.72 - 216.96] voice
+  [216.96 - 217.54] assistant,
+  [217.92 - 218.06] or
+  [218.06 - 218.38] even
+  [218.38 - 218.58] a
+  [218.58 - 218.94] button
+  [218.94 - 219.28] on
+  [219.28 - 219.36] a
+  [219.36 - 219.80] website.
+
+[3:40]  But behind that interface is where the real magic happens, and that's the workflow.
+  [220.34 - 220.72] But
+  [220.72 - 221.20] behind
+  [221.20 - 221.52] that
+  [221.52 - 222.00] interface
+  [222.00 - 222.32] is
+  [222.32 - 222.60] where
+  [222.60 - 222.94] the
+  [222.94 - 223.26] real
+  [223.26 - 223.58] magic
+  [223.58 - 224.06] happens,
+  [224.48 - 224.60] and
+  [224.60 - 225.12] that's
+  [225.12 - 225.30] the
+  [225.30 - 225.72] workflow.
+
+[3:47]  Imagine a flow chart.
+  [227.04 - 227.48] Imagine
+  [227.48 - 227.92] a
+  [227.92 - 228.28] flow
+  [228.28 - 228.58] chart.
+
+[3:49]  You ask the AI agent a question or give it a command through the interface.
+  [229.16 - 229.32] You
+  [229.32 - 229.74] ask
+  [229.74 - 230.00] the
+  [230.00 - 230.30] AI
+  [230.30 - 230.72] agent
+  [230.72 - 230.92] a
+  [230.92 - 231.36] question
+  [231.36 - 231.74] or
+  [231.74 - 231.96] give
+  [231.96 - 232.18] it
+  [232.18 - 232.44] a
+  [232.44 - 232.84] command
+  [232.84 - 233.44] through
+  [233.44 - 233.62] the
+  [233.62 - 234.08] interface.
+
+[3:54]  That's the starting point.
+  [234.68 - 235.10] That's
+  [235.10 - 235.18] the
+  [235.18 - 235.48] starting
+  [235.48 - 235.80] point.
+
+[3:56]  From there, the AI agent follows a series of steps or nodes in a workflow.
+  [236.80 - 237.10] From
+  [237.10 - 237.40] there,
+  [237.68 - 237.74] the
+  [237.74 - 238.06] AI
+  [238.06 - 238.50] agent
+  [238.50 - 238.80] follows
+  [238.80 - 239.10] a
+  [239.10 - 239.54] series
+  [239.54 - 239.74] of
+  [239.74 - 240.04] steps
+  [240.04 - 240.64] or
+  [240.64 - 241.14] nodes
+  [241.14 - 242.02] in
+  [242.02 - 242.24] a
+  [242.24 - 242.82] workflow.
+
+[4:03]  These nodes could involve accessing information from a database,
+  [243.60 - 243.92] These
+  [243.92 - 244.40] nodes
+  [244.40 - 245.06] could
+  [245.06 - 245.42] involve
+  [245.42 - 245.90] accessing
+  [245.90 - 246.50] information
+  [246.50 - 246.80] from
+  [246.80 - 247.12] a
+  [247.12 - 247.50] database,
+
+[4:08]  making a decision based on what it finds, or even performing a task like sending an email.
+  [248.16 - 248.60] making
+  [248.60 - 248.72] a
+  [248.72 - 249.06] decision
+  [249.06 - 249.40] based
+  [249.40 - 249.58] on
+  [249.58 - 249.88] what
+  [249.88 - 250.04] it
+  [250.04 - 250.48] finds,
+  [250.92 - 251.04] or
+  [251.04 - 251.36] even
+  [251.36 - 251.88] performing
+  [251.88 - 252.14] a
+  [252.14 - 252.56] task
+  [252.56 - 252.98] like
+  [252.98 - 253.28] sending
+  [253.28 - 253.42] an
+  [253.42 - 253.76] email.
+
+[4:14]  The nodes in this workflow might change depending on what you ask or what the AI agent needs to do next.
+  [254.66 - 254.80] The
+  [254.80 - 255.06] nodes
+  [255.06 - 255.26] in
+  [255.26 - 255.40] this
+  [255.40 - 255.62] workflow
+  [255.62 - 256.10] might
+  [256.10 - 256.44] change
+  [256.44 - 256.84] depending
+  [256.84 - 257.08] on
+  [257.08 - 257.30] what
+  [257.30 - 257.48] you
+  [257.48 - 257.92] ask
+  [257.92 - 258.30] or
+  [258.30 - 258.48] what
+  [258.48 - 258.68] the
+  [258.68 - 258.94] AI
+  [258.94 - 259.44] agent
+  [259.44 - 259.76] needs
+  [259.76 - 259.98] to
+  [259.98 - 260.14] do
+  [260.14 - 260.46] next.
+
+[4:20]  But it's all behind the scenes.
+  [260.96 - 261.08] But
+  [261.08 - 261.30] it's
+  [261.30 - 261.60] all
+  [261.60 - 262.16] behind
+  [262.16 - 262.56] the
+  [262.56 - 262.86] scenes.
+
+[4:23]  So while you only see the interface, what's really happening is that the AI agent is working through a whole process
+  [263.36 - 263.54] So
+  [263.54 - 263.80] while
+  [263.80 - 264.06] you
+  [264.06 - 264.40] only
+  [264.40 - 264.72] see
+  [264.72 - 264.92] the
+  [264.92 - 265.36] interface,
+  [265.72 - 266.02] what's
+  [266.02 - 266.24] really
+  [266.24 - 266.64] happening
+  [266.64 - 266.96] is
+  [266.96 - 267.10] that
+  [267.10 - 267.26] the
+  [267.26 - 267.54] AI
+  [267.54 - 268.06] agent
+  [268.06 - 268.32] is
+  [268.32 - 268.68] working
+  [268.68 - 268.94] through
+  [268.94 - 269.18] a
+  [269.18 - 269.48] whole
+  [269.48 - 270.06] process
+
+[4:30]  to get you the best result.
+  [270.06 - 270.64] to
+  [270.64 - 270.88] get
+  [270.88 - 271.36] you
+  [271.36 - 272.04] the
+  [272.04 - 272.34] best
+  [272.34 - 272.68] result.
+
+[4:33]  Now here's a simple four step illustration of that process.
+  [273.02 - 273.10] Now
+  [273.10 - 273.62] here's
+  [273.62 - 273.74] a
+  [273.74 - 274.18] simple
+  [274.18 - 274.68] four
+  [274.68 - 275.20] step
+  [275.20 - 275.80] illustration
+  [275.80 - 276.66] of
+  [276.66 - 277.04] that
+  [277.04 - 277.52] process.
+
+[4:38]  The first is the input.
+  [278.10 - 278.22] The
+  [278.22 - 278.50] first
+  [278.50 - 278.84] is
+  [278.84 - 279.06] the
+  [279.06 - 279.38] input.
+
+[4:39]  You ask a question or give a command.
+  [279.94 - 280.04] You
+  [280.04 - 280.46] ask
+  [280.46 - 280.64] a
+  [280.64 - 281.08] question
+  [281.08 - 281.58] or
+  [281.58 - 281.84] give
+  [281.84 - 282.10] a
+  [282.10 - 282.52] command.
+
+[4:43]  The second is processing.
+  [283.52 - 283.62] The
+  [283.62 - 283.96] second
+  [283.96 - 284.28] is
+  [284.28 - 284.84] processing.
+
+[4:45]  The AI agent thinks about what you've asked and searches for the best way to respond.
+  [285.36 - 285.48] The
+  [285.48 - 285.84] AI
+  [285.84 - 286.34] agent
+  [286.34 - 286.70] thinks
+  [286.70 - 287.04] about
+  [287.04 - 287.38] what
+  [287.38 - 287.70] you've
+  [287.70 - 288.00] asked
+  [288.00 - 288.32] and
+  [288.32 - 288.70] searches
+  [288.70 - 288.94] for
+  [288.94 - 289.08] the
+  [289.08 - 289.40] best
+  [289.40 - 289.58] way
+  [289.58 - 289.78] to
+  [289.78 - 290.12] respond.
+
+[4:51]  Number three is action.
+  [291.04 - 291.22] Number
+  [291.22 - 291.50] three
+  [291.50 - 292.02] is
+  [292.02 - 292.42] action.
+
+[4:53]  The AI agent gives you an answer, finds information, or performs a task.
+  [293.00 - 293.10] The
+  [293.10 - 293.42] AI
+  [293.42 - 293.86] agent
+  [293.86 - 294.04] gives
+  [294.04 - 294.24] you
+  [294.24 - 294.42] an
+  [294.42 - 294.90] answer,
+  [295.54 - 295.76] finds
+  [295.76 - 296.44] information,
+  [296.68 - 296.86] or
+  [296.86 - 297.46] performs
+  [297.46 - 297.82] a
+  [297.82 - 298.26] task.
+
+[4:58]  And fourth is learning.
+  [298.26 - 298.94] And
+  [298.94 - 299.24] fourth
+  [299.24 - 299.78] is
+  [299.78 - 300.16] learning.
+
+[5:00]  The more you use it, the smarter it gets.
+  [300.68 - 300.74] The
+  [300.74 - 301.04] more
+  [301.04 - 301.38] you
+  [301.38 - 301.70] use
+  [301.70 - 301.90] it,
+  [302.04 - 302.22] the
+  [302.22 - 302.70] smarter
+  [302.70 - 303.06] it
+  [303.06 - 303.36] gets.
+
+[5:04]  Learning from past interactions to improve.
+  [304.00 - 304.18] Learning
+  [304.18 - 304.40] from
+  [304.40 - 304.70] past
+  [304.70 - 305.42] interactions
+  [305.42 - 305.98] to
+  [305.98 - 306.34] improve.
+
+[5:07]  So why is it important?
+  [307.32 - 307.60] So
+  [307.60 - 307.94] why
+  [307.94 - 308.14] is
+  [308.14 - 308.20] it
+  [308.20 - 308.58] important?
+
+[5:09]  AI agents are about to trigger a seismic shift in how we live and work, especially for local businesses and those who support them.
+  [309.24 - 309.42] AI
+  [309.42 - 309.82] agents
+  [309.82 - 310.02] are
+  [310.02 - 310.24] about
+  [310.24 - 310.40] to
+  [310.40 - 310.68] trigger
+  [310.68 - 310.92] a
+  [310.92 - 311.60] seismic
+  [311.60 - 311.92] shift
+  [311.92 - 312.22] in
+  [312.22 - 312.48] how
+  [312.48 - 312.74] we
+  [312.74 - 312.96] live
+  [312.96 - 313.08] and
+  [313.08 - 313.40] work,
+  [313.84 - 314.36] especially
+  [314.36 - 314.56] for
+  [314.56 - 314.80] local
+  [314.80 - 315.24] businesses
+  [315.24 - 315.82] and
+  [315.82 - 316.08] those
+  [316.08 - 316.26] who
+  [316.26 - 316.60] support
+  [316.60 - 316.88] them.
+
+[5:17]  Imagine AI handling routine tasks, freeing business owners to focus on growth and innovation.
+  [317.60 - 317.88] Imagine
+  [317.88 - 318.26] AI
+  [318.26 - 318.74] handling
+  [318.74 - 319.20] routine
+  [319.20 - 319.68] tasks,
+  [320.36 - 320.60] freeing
+  [320.60 - 320.88] business
+  [320.88 - 321.24] owners
+  [321.24 - 321.56] to
+  [321.56 - 321.84] focus
+  [321.84 - 322.04] on
+  [322.04 - 322.30] growth
+  [322.30 - 322.84] and
+  [322.84 - 323.28] innovation.
+
+[5:23]  For local businesses, this could mean smarter customer service and more efficient operations.
+  [323.28 - 324.06] For
+  [324.06 - 324.30] local
+  [324.30 - 324.80] businesses,
+  [325.26 - 325.40] this
+  [325.40 - 325.58] could
+  [325.58 - 325.82] mean
+  [325.82 - 326.58] smarter
+  [326.58 - 327.00] customer
+  [327.00 - 327.56] service
+  [327.56 - 328.04] and
+  [328.04 - 328.40] more
+  [328.40 - 328.84] efficient
+  [328.84 - 329.52] operations.
+
+[5:29]  While agencies and service providers can deliver more value with less effort.
+  [329.88 - 330.14] While
+  [330.14 - 330.52] agencies
+  [330.52 - 331.16] and
+  [331.16 - 331.52] service
+  [331.52 - 332.08] providers
+  [332.08 - 332.56] can
+  [332.56 - 332.88] deliver
+  [332.88 - 333.22] more
+  [333.22 - 333.62] value
+  [333.62 - 334.26] with
+  [334.26 - 334.54] less
+  [334.54 - 334.90] effort.
+
+[5:35]  This isn't just like another tech upgrade.
+  [335.60 - 335.88] This
+  [335.88 - 336.16] isn't
+  [336.16 - 336.36] just
+  [336.36 - 336.58] like
+  [336.58 - 337.00] another
+  [337.00 - 337.32] tech
+  [337.32 - 337.80] upgrade.
+
+[5:38]  It's likely the biggest transformation we'll see in our lifetime.
+  [338.14 - 338.34] It's
+  [338.34 - 338.60] likely
+  [338.60 - 338.94] the
+  [338.94 - 339.42] biggest
+  [339.42 - 340.08] transformation
+  [340.08 - 340.64] we'll
+  [340.64 - 340.94] see
+  [340.94 - 341.32] in
+  [341.32 - 341.48] our
+  [341.48 - 341.88] lifetime.
+
+[5:42]  Those who embrace AI agents now will have a major advantage.
+  [342.36 - 342.54] Those
+  [342.54 - 342.84] who
+  [342.84 - 343.22] embrace
+  [343.22 - 343.48] AI
+  [343.48 - 343.98] agents
+  [343.98 - 344.48] now
+  [344.48 - 344.98] will
+  [344.98 - 345.30] have
+  [345.30 - 345.60] a
+  [345.60 - 346.04] major
+  [346.04 - 346.56] advantage.
+
+[5:47]  While those who don't risk being left behind in a rapidly changing world.
+  [347.02 - 347.42] While
+  [347.42 - 347.64] those
+  [347.64 - 347.86] who
+  [347.86 - 348.22] don't
+  [348.22 - 348.64] risk
+  [348.64 - 348.92] being
+  [348.92 - 349.12] left
+  [349.12 - 349.56] behind
+  [349.56 - 349.98] in
+  [349.98 - 350.08] a
+  [350.08 - 350.40] rapidly
+  [350.40 - 350.90] changing
+  [350.90 - 351.28] world.
+
+[5:51]  In short, AI agents are set to revolutionize how work gets done.
+  [351.28 - 351.82] In
+  [351.82 - 352.14] short,
+  [352.50 - 352.62] AI
+  [352.62 - 353.10] agents
+  [353.10 - 353.38] are
+  [353.38 - 353.68] set
+  [353.68 - 354.06] to
+  [354.06 - 355.08] revolutionize
+  [355.08 - 355.72] how
+  [355.72 - 356.20] work
+  [356.20 - 356.54] gets
+  [356.54 - 356.82] done.
+
+[5:57]  And the impact will be massive.
+  [357.34 - 357.46] And
+  [357.46 - 357.58] the
+  [357.58 - 357.94] impact
+  [357.94 - 358.52] will
+  [358.52 - 358.72] be
+  [358.72 - 359.12] massive.
+
+[5:59]  I hope this video helped you learn the basics of AI in a way that's easy to understand.
+  [359.66 - 359.76] I
+  [359.76 - 359.92] hope
+  [359.92 - 360.12] this
+  [360.12 - 360.36] video
+  [360.36 - 360.64] helped
+  [360.64 - 360.84] you
+  [360.84 - 361.04] learn
+  [361.04 - 361.24] the
+  [361.24 - 361.58] basics
+  [361.58 - 361.82] of
+  [361.82 - 362.02] AI
+  [362.02 - 362.42] in
+  [362.42 - 362.50] a
+  [362.50 - 362.66] way
+  [362.66 - 362.96] that's
+  [362.96 - 363.20] easy
+  [363.20 - 363.38] to
+  [363.38 - 363.82] understand.
+
+[6:04]  I know there's a lot of complicated stuff out there.
+  [364.42 - 364.64] I
+  [364.64 - 364.80] know
+  [364.80 - 365.08] there's
+  [365.08 - 365.16] a
+  [365.16 - 365.48] lot
+  [365.48 - 365.72] of
+  [365.72 - 366.14] complicated
+  [366.14 - 366.50] stuff
+  [366.50 - 366.74] out
+  [366.74 - 366.92] there.
+
+[6:07]  So if you like simple explanations, I'd really appreciate it if you could give this video a like.
+  [367.22 - 367.44] So
+  [367.44 - 367.60] if
+  [367.60 - 367.70] you
+  [367.70 - 367.92] like
+  [367.92 - 368.38] simple
+  [368.38 - 368.96] explanations,
+  [369.02 - 369.68] I'd
+  [369.68 - 370.00] really
+  [370.00 - 370.48] appreciate
+  [370.48 - 370.72] it
+  [370.72 - 370.90] if
+  [370.90 - 371.00] you
+  [371.00 - 371.12] could
+  [371.12 - 371.24] give
+  [371.24 - 371.44] this
+  [371.44 - 371.66] video
+  [371.66 - 371.80] a
+  [371.80 - 372.02] like.
+
+[6:12]  Subscribe to our channel and hit that notification bell.
+  [372.52 - 373.02] Subscribe
+  [373.02 - 373.32] to
+  [373.32 - 373.42] our
+  [373.42 - 373.76] channel
+  [373.76 - 374.12] and
+  [374.12 - 374.32] hit
+  [374.32 - 374.56] that
+  [374.56 - 374.94] notification
+  [374.94 - 375.38] bell.
+
+[6:15]  If you want to learn more and see how AI is helping businesses with things like customer service, sales and project planning.
+  [375.38 - 376.08] If
+  [376.08 - 376.24] you
+  [376.24 - 376.42] want
+  [376.42 - 376.58] to
+  [376.58 - 376.78] learn
+  [376.78 - 377.12] more
+  [377.12 - 377.50] and
+  [377.50 - 377.78] see
+  [377.78 - 378.02] how
+  [378.02 - 378.34] AI
+  [378.34 - 378.66] is
+  [378.66 - 378.90] helping
+  [378.90 - 379.38] businesses
+  [379.38 - 379.62] with
+  [379.62 - 379.82] things
+  [379.82 - 380.04] like
+  [380.04 - 380.40] customer
+  [380.40 - 380.82] service,
+  [381.38 - 381.60] sales
+  [381.60 - 382.06] and
+  [382.06 - 382.38] project
+  [382.38 - 382.84] planning.
+
+[6:23]  Give it an even live demo of how AI agents work.
+  [383.14 - 383.32] Give
+  [383.32 - 383.44] it
+  [383.44 - 383.56] an
+  [383.56 - 383.70] even
+  [383.70 - 384.22] live
+  [384.22 - 384.70] demo
+  [384.70 - 384.88] of
+  [384.88 - 385.02] how
+  [385.02 - 385.32] AI
+  [385.32 - 385.68] agents
+  [385.68 - 385.92] work.
+
+[6:26]  Check out this video here.
+  [386.38 - 386.48] Check
+  [386.48 - 386.62] out
+  [386.62 - 386.80] this
+  [386.80 - 387.04] video
+  [387.04 - 387.36] here.
+
+[6:27]  So there you have it.
+  [387.58 - 387.60] So
+  [387.60 - 387.76] there
+  [387.76 - 387.92] you
+  [387.92 - 388.08] have
+  [388.08 - 388.22] it.
+
+[6:28]  An AI agent is a smart digital assistant that understands things and acts to help you get things done.
+  [388.46 - 388.56] An
+  [388.56 - 388.90] AI
+  [388.90 - 389.40] agent
+  [389.40 - 389.70] is
+  [389.70 - 389.84] a
+  [389.84 - 390.20] smart
+  [390.20 - 390.50] digital
+  [390.50 - 390.98] assistant
+  [390.98 - 391.24] that
+  [391.24 - 391.78] understands
+  [391.78 - 392.54] things
+  [392.54 - 393.16] and
+  [393.16 - 393.50] acts
+  [393.50 - 393.90] to
+  [393.90 - 394.14] help
+  [394.14 - 394.32] you
+  [394.32 - 394.44] get
+  [394.44 - 394.70] things
+  [394.70 - 394.92] done.
+
+[6:35]  Whether at home or work.
+  [395.36 - 395.52] Whether
+  [395.52 - 395.72] at
+  [395.72 - 395.90] home
+  [395.90 - 396.22] or
+  [396.22 - 396.60] work.
+
+[6:37]  And remember, this is just the beginning.
+  [397.12 - 397.20] And
+  [397.20 - 397.46] remember,
+  [397.78 - 397.90] this
+  [397.90 - 398.06] is
+  [398.06 - 398.26] just
+  [398.26 - 398.42] the
+  [398.42 - 398.66] beginning.
+
+[6:39]  These AI agents are going to be everywhere soon.
+  [399.40 - 399.58] These
+  [399.58 - 399.90] AI
+  [399.90 - 400.36] agents
+  [400.36 - 400.60] are
+  [400.60 - 400.78] going
+  [400.78 - 400.96] to
+  [400.96 - 401.06] be
+  [401.06 - 401.60] everywhere
+  [401.60 - 402.02] soon.
+
+[6:42]  Making life easier in ways we're just starting to imagine.
+  [402.02 - 402.76] Making
+  [402.76 - 403.00] life
+  [403.00 - 403.54] easier
+  [403.54 - 403.90] in
+  [403.90 - 404.20] ways
+  [404.20 - 404.58] we're
+  [404.58 - 404.76] just
+  [404.76 - 405.12] starting
+  [405.12 - 405.40] to
+  [405.40 - 405.74] imagine.
+
+[6:46]  Again, if you found this helpful, please hit that like button and subscribe for more practical content that breaks down tech into real world terms.
+  [406.32 - 406.72] Again,
+  [406.96 - 407.10] if
+  [407.10 - 407.18] you
+  [407.18 - 407.38] found
+  [407.38 - 407.56] this
+  [407.56 - 407.82] helpful,
+  [408.26 - 408.48] please
+  [408.48 - 408.62] hit
+  [408.62 - 408.78] that
+  [408.78 - 409.00] like
+  [409.00 - 409.32] button
+  [409.32 - 409.68] and
+  [409.68 - 410.08] subscribe
+  [410.08 - 410.36] for
+  [410.36 - 410.52] more
+  [410.52 - 410.90] practical
+  [410.90 - 411.36] content
+  [411.36 - 411.70] that
+  [411.70 - 411.98] breaks
+  [411.98 - 412.20] down
+  [412.20 - 412.50] tech
+  [412.50 - 413.00] into
+  [413.00 - 413.38] real
+  [413.38 - 413.70] world
+  [413.70 - 414.18] terms.
+
+[6:54]  Share it with your friends too because now you've got the clearest understanding of AI agents out there.
+  [414.94 - 415.24] Share
+  [415.24 - 415.36] it
+  [415.36 - 415.44] with
+  [415.44 - 415.56] your
+  [415.56 - 415.78] friends
+  [415.78 - 416.06] too
+  [416.06 - 416.42] because
+  [416.42 - 416.66] now
+  [416.66 - 417.02] you've
+  [417.02 - 417.10] got
+  [417.10 - 417.42] the
+  [417.42 - 417.66] clearest
+  [417.66 - 418.24] understanding
+  [418.24 - 418.54] of
+  [418.54 - 418.72] AI
+  [418.72 - 419.14] agents
+  [419.14 - 419.40] out
+  [419.40 - 419.60] there.
+
+[7:00]  Good luck on your journey.
+  [420.18 - 420.30] Good
+  [420.30 - 420.42] luck
+  [420.42 - 420.54] on
+  [420.54 - 420.66] your
+  [420.66 - 420.92] journey.

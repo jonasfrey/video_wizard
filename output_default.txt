@@ -1,0 +1,137 @@
+AI Agents Explained Like You're 5
+===================================
+
+[0:00] Agents are the new apps. And we expect someday for there to be thousands of agents
+available. We want a thousand agents to bloom. So I think we're going to live in a world
+where there are going to be hundreds of millions of billions of different AI agents.
+Eventually, probably more AI agents than there are people in the world. For the very first
+time, this is going to be an industry of skills. And you capture that phrase and you call it
+agents. But it's going to be for the very first time agents sitting on top of tools.
+
+[0:31] If you're here, it's probably because you've been hearing a lot about AI agents
+lately. Maybe you've even checked out some other videos that got way too technical. And you
+thought, why don't you explain this to me like I'm five? Well, guess what? That's exactly
+what I'm going to do. I'm going to give you the most straightforward real world explanation
+of what an AI agent is.
+
+
+What Is an AI Agent?
+--------------------
+
+[0:56] So what is it? You probably already know that AI stands for artificial intelligence.
+But here's where it gets interesting. AI by itself is like raw brain power. It's got all
+this potential, but it's not really useful until you give it a job.
+
+[1:14] Enter the AI agent. Think of AI as the genius with a million ideas and the AI agent
+is the one who actually gets stuff done. While AI is all about smarts, an AI agent is the
+practical hands on version. It's like giving that genius a task and saying, okay, now go do
+something useful with all that brain power.
+
+[1:35] The AI agent takes the intelligence of AI and turns it into action, whether it's
+answering your questions, automating your work, or handling your to do list. It's the
+difference between knowing how to do something and actually doing it. So while AI is the
+brains, the AI agent is the one rolling up its sleeves and making things happen.
+
+
+The 1-2-3 of AI Agents
+-----------------------
+
+[1:58] Here is the one, two, three of AI agents.
+
+  1. They understand - AI agents listen to what you're asking or needing.
+  2. They think - They process this information and figure out the best way to help you.
+  3. They act - They deliver what you need, whether it's an answer, a solution, or help
+     completing a task.
+
+
+How Do They Work?
+-----------------
+
+[2:22] Now how do they work? Imagine your parents are heading out for the evening and
+leaving the babysitter in charge. Remember you're only five. They don't just walk out the
+door, they give them instructions. What time you need to go to bed. What you can have for a
+snack and what to do in case of an emergency.
+
+[2:41] That's exactly how AI agents are trained. Developers provide these agents with
+detailed instructions using data so they know exactly how to respond in different
+situations. Some agents come pre-programmed with basic instructions, like a babysitter
+who's already experienced. Others can be customized to fit your needs, like giving the
+babysitter special rules for kids.
+
+[3:09] Once set up, these AI agents handle tasks just as smoothly as a well-informed
+babysitter, freeing you up to focus on other things.
+
+
+What Does an AI Agent Look Like?
+--------------------------------
+
+[3:18] So what does an AI agent actually look like? When we talk about what an AI agent
+looks like, it's helpful to think of it as a combination of two things: an interface and a
+workflow.
+
+[3:30] The interface is how you interact with the AI agent, maybe through a chat window, a
+voice assistant, or even a button on a website. But behind that interface is where the real
+magic happens, and that's the workflow.
+
+[3:46] Imagine a flow chart. You ask the AI agent a question or give it a command through
+the interface. That's the starting point. From there, the AI agent follows a series of
+steps or nodes in a workflow. These nodes could involve accessing information from a
+database, making a decision based on what it finds, or even performing a task like sending
+an email.
+
+[4:14] The nodes in this workflow might change depending on what you ask or what the AI
+agent needs to do next, but it's all behind the scenes. So while you only see the
+interface, what's really happening is that the AI agent is working through a whole process
+to get you the best result.
+
+
+The Four-Step Process
+---------------------
+
+[4:32] Now here's a simple four step illustration of that process:
+
+  1. Input - You ask a question or give a command.
+  2. Processing - The AI agent thinks about what you've asked and searches for the best
+     way to respond.
+  3. Action - The AI agent gives you an answer, finds information, or performs a task.
+  4. Learning - The more you use it, the smarter it gets. Learning from past interactions
+     to improve.
+
+
+Why Is It Important?
+--------------------
+
+[5:07] So why is it important? AI agents are about to trigger a seismic shift in how we
+live and work, especially for local businesses and those who support them. Imagine AI
+handling routine tasks, freeing business owners to focus on growth and innovation.
+
+[5:24] For local businesses, this could mean smarter customer service and more efficient
+operations, while agencies and service providers can deliver more value with less effort.
+
+[5:36] This isn't just like another tech upgrade. It's likely the biggest transformation
+we'll see in our lifetime. Those who embrace AI agents now will have a major advantage.
+While those who don't risk being left behind in a rapidly changing world, AI agents are set
+to revolutionize how work gets done and the impact will be massive.
+
+
+Closing
+-------
+
+[5:59] I hope this video helped you learn the basics of AI in a way that's easy to
+understand. I know there's a lot of complicated stuff out there, so if you like simple
+explanations, I'd really appreciate it if you could give this video a like. Subscribe to
+our channel and hit that notification bell.
+
+[6:16] If you want to learn more and see how AI is helping businesses with things like
+customer service, sales, and project planning, and giving you even a live demo of how AI
+agents work, check out this video here.
+
+[6:27] So there you have it, an AI agent is a smart digital assistant that understands
+things and acts to help you get things done, whether at home or work. And remember, this is
+just the beginning. These AI agents are going to be everywhere soon, making life easier in
+ways we're just starting to imagine.
+
+[6:46] Again, if you found this helpful, please hit that like button and subscribe for more
+practical content that breaks down tech into real world terms. Share it with your friends
+too, because now you've got the clearest understanding of AI agents out there. Good luck on
+your journey.
