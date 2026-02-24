@@ -26,6 +26,58 @@ let a_o_data_default = [
             s_key: 's_path_absolute__filebrowser',
             s_value: '/home'
         }
+    },
+    {
+        o_event: {
+            s_type: 'sound',
+            s_sense: 'hearing',
+            n_ms_start: 0,
+            n_ms_duration: 2000,
+            o_audio: {
+                n_ms_duration: 10000,
+                o_video: {
+                    n_ms_duration: 10000,
+                    n_scl_x: 1920,
+                    n_scl_y: 1080,
+                    o_fsnode: {
+                        s_name: 'example.mp4',
+                        s_path_absolute: '/home/example.mp4',
+                        b_folder: false,
+                        b_image: false,
+                        b_video: true,
+                        n_bytes: 0
+                    }
+                }
+            },
+            o_object: {s_name: 'bird'},
+            o_action: {s_name: 'tweeting'}
+        }
+    },
+    {
+        o_event: {
+            s_type: 'speech',
+            s_sense: 'hearing',
+            n_ms_start: 3000,
+            n_ms_duration: 1500,
+            o_audio: {
+                n_ms_duration: 10000,
+                o_video: {
+                    n_ms_duration: 10000,
+                    n_scl_x: 1920,
+                    n_scl_y: 1080,
+                    o_fsnode: {
+                        s_name: 'example.mp4',
+                        s_path_absolute: '/home/example.mp4',
+                        b_folder: false,
+                        b_image: false,
+                        b_video: true,
+                        n_bytes: 0
+                    }
+                }
+            },
+            o_object: {s_name: 'person'},
+            o_action: {s_name: 'talking'}
+        }
     }
 ]
 // expected result in db:

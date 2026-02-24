@@ -152,13 +152,74 @@ let o_model__o_fsnode = f_o_model({
 });
 let o_model__o_keyvalpair = f_o_model({
     // a generic key-value pair model that ca be used for
-    // config data 
+    // config data
     // temporary data storage
     s_name: 'o_keyvalpair',
     a_o_property: [
         f_o_model_prop__default_id('n_id'),
         f_o_property('s_key', 'string', (s)=>{return s!==''}),
         f_o_property('s_value', 'string', (s)=>{return s!==''}),
+        f_o_model_prop__timestamp_default(s_name_prop_ts_created),
+        f_o_model_prop__timestamp_default(s_name_prop_ts_updated),
+    ]
+});
+
+let o_model__o_video = f_o_model({
+    s_name: 'o_video',
+    a_o_property: [
+        f_o_model_prop__default_id(s_name_prop_id),
+        f_o_model_prop__default_id(f_s_name_foreign_key__from_o_model(o_model__o_fsnode)),
+        f_o_property('n_ms_duration', 'number', (n)=>{return Number.isFinite(n) && n >= 0}),
+        f_o_property('n_scl_x', 'number', (n)=>{return Number.isFinite(n) && n > 0}),
+        f_o_property('n_scl_y', 'number', (n)=>{return Number.isFinite(n) && n > 0}),
+        f_o_model_prop__timestamp_default(s_name_prop_ts_created),
+        f_o_model_prop__timestamp_default(s_name_prop_ts_updated),
+    ]
+});
+
+let o_model__o_audio = f_o_model({
+    s_name: 'o_audio',
+    a_o_property: [
+        f_o_model_prop__default_id(s_name_prop_id),
+        f_o_model_prop__default_id(f_s_name_foreign_key__from_o_model(o_model__o_video)),
+        f_o_property('n_ms_duration', 'number', (n)=>{return Number.isFinite(n) && n >= 0}),
+        f_o_model_prop__timestamp_default(s_name_prop_ts_created),
+        f_o_model_prop__timestamp_default(s_name_prop_ts_updated),
+    ]
+});
+
+let o_model__o_object = f_o_model({
+    s_name: 'o_object',
+    a_o_property: [
+        f_o_model_prop__default_id(s_name_prop_id),
+        f_o_property('s_name', 'string', (s)=>{return s!==''}),
+        f_o_model_prop__timestamp_default(s_name_prop_ts_created),
+        f_o_model_prop__timestamp_default(s_name_prop_ts_updated),
+    ]
+});
+
+let o_model__o_action = f_o_model({
+    s_name: 'o_action',
+    a_o_property: [
+        f_o_model_prop__default_id(s_name_prop_id),
+        f_o_property('s_name', 'string', (s)=>{return s!==''}),
+        f_o_model_prop__timestamp_default(s_name_prop_ts_created),
+        f_o_model_prop__timestamp_default(s_name_prop_ts_updated),
+    ]
+});
+
+let a_s_sense = ['hearing', 'sight', 'touch', 'smell', 'taste'];
+let o_model__o_event = f_o_model({
+    s_name: 'o_event',
+    a_o_property: [
+        f_o_model_prop__default_id(s_name_prop_id),
+        f_o_model_prop__default_id(f_s_name_foreign_key__from_o_model(o_model__o_audio)),
+        f_o_model_prop__default_id(f_s_name_foreign_key__from_o_model(o_model__o_object)),
+        f_o_model_prop__default_id(f_s_name_foreign_key__from_o_model(o_model__o_action)),
+        f_o_property('s_type', 'string', (s)=>{return s!==''}),
+        f_o_property('s_sense', 'string', (s)=>{return a_s_sense.includes(s)}),
+        f_o_property('n_ms_start', 'number', (n)=>{return Number.isFinite(n) && n >= 0}),
+        f_o_property('n_ms_duration', 'number', (n)=>{return Number.isFinite(n) && n >= 0}),
         f_o_model_prop__timestamp_default(s_name_prop_ts_created),
         f_o_model_prop__timestamp_default(s_name_prop_ts_updated),
     ]
@@ -199,7 +260,12 @@ let a_o_model = [
     o_model__o_course_o_student,
     o_model__o_wsclient,
     o_model__o_fsnode,
-    o_model__o_keyvalpair
+    o_model__o_keyvalpair,
+    o_model__o_video,
+    o_model__o_audio,
+    o_model__o_object,
+    o_model__o_action,
+    o_model__o_event,
 ];
 
 // definition factory — creates message type templates for the a_o_wsmsg registry
@@ -271,6 +337,12 @@ export {
     o_model__o_wsclient,
     o_model__o_fsnode,
     o_model__o_keyvalpair,
+    o_model__o_video,
+    o_model__o_audio,
+    o_model__o_object,
+    o_model__o_action,
+    o_model__o_event,
+    a_s_sense,
     a_o_model,
     f_o_property,
     f_o_model,
