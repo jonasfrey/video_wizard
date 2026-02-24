@@ -55,3 +55,4 @@ whisper is speech only. meaningn it cannot detect and label noises like for exam
     - animal sounds
         - bird twitter
         - snake hiss
+
