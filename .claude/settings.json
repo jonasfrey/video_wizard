@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(grep -n \"keyvalpair\" /home/legion5pro/code/browser_crud_app_template/serverside/testing/*.js)",
-      "Bash(ffmpeg -version)"
+      "Bash(ffmpeg -version)",
+      "Bash(git status:*)",
+      "Bash(git rm:*)"
     ]
   }
 }
