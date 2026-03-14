@@ -2,3 +2,6 @@
 .gitignored/
 AI_responses_summaries.md
 planning/
+venv/
+__pycache__/
+node_modules/

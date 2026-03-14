@@ -1,103 +1,62 @@
 // Copyright (C) [2026] [Jonas Immanuel Frey] - Licensed under GPLv2. See LICENSE file for details.
 
+import {
+    f_o_property,
+    f_o_model,
+    f_s_name_table__from_o_model,
+    f_s_name_foreign_key__params,
+    f_a_s_error__invalid_model_instance,
+    f_o_model__from_params,
+    f_o_model_prop__default_id,
+    f_o_model_prop__timestamp_default,
+    f_o_model_instance,
+    f_o_example_instance_connected_cricular_from_o_model,
+    f_apply_crud_to_a_o,
+    f_o_logmsg,
+    f_o_wsmsg_def,
+    f_o_wsmsg,
+    f_o_relation_map__from_a_o_model,
+    f_denormalize_o_state,
+    f_denormalize_o_instance,
+} from "@apn/websersocketgui/constructors_framework"
+
 let s_name_prop_ts_created = 'n_ts_ms_created';
 let s_name_prop_ts_updated = 'n_ts_ms_updated';
 let s_name_prop_id = 'n_id';
 
-let f_s_name_table__from_o_model = function(o_model) {
-    return 'a_' + o_model.s_name;
-}
-let f_s_name_foreign_key__from_o_model = function(o_model) {
-    return 'n_' + o_model.s_name + '_' + s_name_prop_id;
-}
-let f_o_property = function(
-    s_name, 
-    s_type, 
-    f_b_val_valid = function(){return true},
-){
-    return {
-        s_name,
-        s_type,
-        f_b_val_valid
-    }
-}
-let f_o_model = function({
-    s_name,
-    a_o_property
-}){
-    return {
-        s_name,
-        a_o_property
-    }
-}
-let f_a_s_error__invalid_model_instance = function(
-    o_model,
-    o_instance
-){
-    let a_s_error = [];
-    // console.log(o_instance)
-    for(let o_model_prop of o_model.a_o_property){
-        let value = o_instance[o_model_prop.s_name];
-        // if the property has a validation function, check if the value is valid
-        let b_valid = true;
-        if(o_model_prop.f_b_val_valid){
-            b_valid = o_model_prop.f_b_val_valid(value);
-            if(!b_valid){
-                let s_error = `Invalid value for property ${o_model_prop.s_name}: ${value}
-                validator function is: ${o_model_prop.f_b_val_valid.toString()}
-                got value : ${value} of type ${typeof value}`;
-                a_s_error.push(s_error);
-            }
-        }
-    }
-    // check if instance has property that is not in model
-    for(let s_prop in o_instance){
-        let o_model_prop = o_model.a_o_property.find(function(o_prop){
-            return o_prop.s_name === s_prop;
-        });
-        if(!o_model_prop){
-            let s_error = `Instance has property ${s_prop} that is not defined in model ${o_model.s_name}`;
-            a_s_error.push(s_error);
-        }
-    }
-
-    return a_s_error;
-}
-let f_o_model_prop__default_id = function(s_name){
-    return f_o_property(s_name, 'number', (n_id)=>{
-        // id will be undefined or null if the object does not exist in the database, but it will be set to a number if it does exist in the database
-        if (n_id === undefined || n_id === null) return true;
-        return Number.isInteger(n_id);
-    });
-}
-let f_o_model_prop__timestamp_default = function(s_name){
-    return f_o_property(s_name, 'number', (n_timestamp)=>{
-        // created timestamp will be undefined or null if the object does not exist in the database, but it will be set to a number if it does exist in the database
-        if (n_timestamp === undefined || n_timestamp === null) return true;
-        return Number.isInteger(n_timestamp);
-    });
-}
-let f_o_model__from_s_name_table = function(s_name_table) {
-    return a_o_model.find(function(o_model) {
-        return f_s_name_table__from_o_model(o_model) === s_name_table;
-    });
-};
 
 
 
+let o_model__o_student = f_o_model({
+    s_name: 'o_student',
+    a_o_property: [
+        f_o_model_prop__default_id(s_name_prop_id),
+        f_o_property('s_name', 'string', (s)=>{return s!==''}),
+        f_o_model_prop__timestamp_default(s_name_prop_ts_created),
+        f_o_model_prop__timestamp_default(s_name_prop_ts_updated),
+    ]
+})
 
-let f_o_model_instance = function(
-    o_model, 
-    o_data
-){
-    // check if the data is valid for the model properties
-    let a_s_error = f_a_s_error__invalid_model_instance(o_model, o_data);
-    if(a_s_error.length > 0){
-        throw new Error('Invalid model instance: ' + a_s_error.join('; '));
-    }
-    return o_data;
-}
+let o_model__o_course = f_o_model({
+    s_name: 'o_course',
+    a_o_property: [
+        f_o_model_prop__default_id(s_name_prop_id),
+        f_o_property('s_name', 'string', (s)=>{return s!==''}),
+        f_o_model_prop__timestamp_default(s_name_prop_ts_created),
+        f_o_model_prop__timestamp_default(s_name_prop_ts_updated),
+    ]
+})
 
+let o_model__o_course_o_student = f_o_model({
+    s_name: 'o_course_o_student', //'enrolment' table to link students and courses in a many-to-many relationship
+    a_o_property: [
+        f_o_model_prop__default_id(s_name_prop_id),
+        f_o_model_prop__default_id(f_s_name_foreign_key__params(o_model__o_course, s_name_prop_id)),
+        f_o_model_prop__default_id(f_s_name_foreign_key__params(o_model__o_student, s_name_prop_id)),
+        f_o_model_prop__timestamp_default(s_name_prop_ts_created),
+        f_o_model_prop__timestamp_default(s_name_prop_ts_updated),
+    ]
+})
 let o_model__o_wsclient = f_o_model({
     s_name: 'o_wsclient',
     a_o_property: [
@@ -129,9 +88,20 @@ let o_model__o_keyvalpair = f_o_model({
     s_name: 'o_keyvalpair',
     a_o_property: [
         f_o_model_prop__default_id('n_id'),
-        f_o_property('s_key', 'string', (s)=>{return s!==''}),
+        f_o_property('s_key', 'string', (s)=>{return s!==''}, true),
         f_o_property('s_value', 'string', (s)=>{return s!==''}),
         f_o_model_prop__timestamp_default(s_name_prop_ts_created),
+        f_o_model_prop__timestamp_default(s_name_prop_ts_updated),
+    ]
+});
+
+let o_model__o_utterance = f_o_model({
+    s_name: 'o_utterance',
+    a_o_property: [
+        f_o_model_prop__default_id('n_id'),
+        f_o_property('s_text', 'string', (s)=>{return s!==''}),
+        f_o_model_prop__timestamp_default(s_name_prop_ts_created),
+        f_o_model_prop__default_id(f_s_name_foreign_key__params(o_model__o_fsnode, s_name_prop_id)),
         f_o_model_prop__timestamp_default(s_name_prop_ts_updated),
     ]
 });
@@ -140,10 +110,9 @@ let o_model__o_video = f_o_model({
     s_name: 'o_video',
     a_o_property: [
         f_o_model_prop__default_id(s_name_prop_id),
-        f_o_model_prop__default_id(f_s_name_foreign_key__from_o_model(o_model__o_fsnode)),
-        f_o_property('n_ms_duration', 'number', (n)=>{return Number.isFinite(n) && n >= 0}),
-        f_o_property('n_scl_x', 'number', (n)=>{return Number.isFinite(n) && n > 0}),
-        f_o_property('n_scl_y', 'number', (n)=>{return Number.isFinite(n) && n > 0}),
+        f_o_model_prop__default_id(f_s_name_foreign_key__params(o_model__o_fsnode, s_name_prop_id)),
+        f_o_property('n_ms_duration', 'number'),
+        f_o_property('s_status', 'string'), // 'pending', 'extracting', 'extracted', 'analyzing', 'done', 'error'
         f_o_model_prop__timestamp_default(s_name_prop_ts_created),
         f_o_model_prop__timestamp_default(s_name_prop_ts_updated),
     ]
@@ -153,82 +122,13 @@ let o_model__o_audio = f_o_model({
     s_name: 'o_audio',
     a_o_property: [
         f_o_model_prop__default_id(s_name_prop_id),
-        f_o_model_prop__default_id(f_s_name_foreign_key__from_o_model(o_model__o_video)),
-        f_o_property('n_ms_duration', 'number', (n)=>{return Number.isFinite(n) && n >= 0}),
+        f_o_model_prop__default_id(f_s_name_foreign_key__params(o_model__o_video, s_name_prop_id)),
+        f_o_property('n_ms_duration', 'number'),
+        f_o_property('s_path_abs', 'string'), // absolute path to extracted .wav file
         f_o_model_prop__timestamp_default(s_name_prop_ts_created),
         f_o_model_prop__timestamp_default(s_name_prop_ts_updated),
     ]
 });
-
-let o_model__o_object = f_o_model({
-    s_name: 'o_object',
-    a_o_property: [
-        f_o_model_prop__default_id(s_name_prop_id),
-        f_o_property('s_name', 'string', (s)=>{return s!==''}),
-        f_o_model_prop__timestamp_default(s_name_prop_ts_created),
-        f_o_model_prop__timestamp_default(s_name_prop_ts_updated),
-    ]
-});
-
-let o_model__o_action = f_o_model({
-    s_name: 'o_action',
-    a_o_property: [
-        f_o_model_prop__default_id(s_name_prop_id),
-        f_o_property('s_name', 'string', (s)=>{return s!==''}),
-        f_o_model_prop__timestamp_default(s_name_prop_ts_created),
-        f_o_model_prop__timestamp_default(s_name_prop_ts_updated),
-    ]
-});
-
-let o_model__o_sense = f_o_model({
-    s_name: 'o_sense',
-    a_o_property: [
-        f_o_model_prop__default_id(s_name_prop_id),
-        f_o_property('s_name', 'string', (s)=>{return s!==''}),
-        f_o_model_prop__timestamp_default(s_name_prop_ts_created),
-        f_o_model_prop__timestamp_default(s_name_prop_ts_updated),
-    ]
-});
-
-let o_model__o_event = f_o_model({
-    s_name: 'o_event',
-    a_o_property: [
-        f_o_model_prop__default_id(s_name_prop_id),
-        f_o_model_prop__default_id(f_s_name_foreign_key__from_o_model(o_model__o_audio)),
-        f_o_model_prop__default_id(f_s_name_foreign_key__from_o_model(o_model__o_object)),
-        f_o_model_prop__default_id(f_s_name_foreign_key__from_o_model(o_model__o_action)),
-        f_o_model_prop__default_id(f_s_name_foreign_key__from_o_model(o_model__o_sense)),
-        f_o_property('s_type', 'string', (s)=>{return s!==''}),
-        f_o_property('n_ms_start', 'number', (n)=>{return Number.isFinite(n) && n >= 0}),
-        f_o_property('n_ms_duration', 'number', (n)=>{return Number.isFinite(n) && n >= 0}),
-        f_o_model_prop__timestamp_default(s_name_prop_ts_created),
-        f_o_model_prop__timestamp_default(s_name_prop_ts_updated),
-    ]
-});
-
-
-
-
-
-let o_sense__hear = f_o_model_instance(o_model__o_sense,{s_name: 'hear'});
-let o_sense__sight = f_o_model_instance(o_model__o_sense,{s_name: 'sight'});
-let o_sense__touch = f_o_model_instance(o_model__o_sense,{s_name: 'touch'});
-let o_sense__smell = f_o_model_instance(o_model__o_sense,{s_name: 'smell'});
-let o_sense__taste = f_o_model_instance(o_model__o_sense,{s_name: 'taste'});
-
-let a_o_data_default = [
-    {o_sense: o_sense__hear},
-    {o_sense: o_sense__sight},
-    {o_sense: o_sense__touch},
-    {o_sense: o_sense__smell},
-    {o_sense: o_sense__taste},
-    {
-        o_keyvalpair: {
-            s_key: 's_path_absolute__filebrowser',
-            s_value: '/home'
-        }
-    }
-]
 
 
 let s_o_logmsg_s_type__log = 'log';
@@ -238,61 +138,20 @@ let s_o_logmsg_s_type__info = 'info';
 let s_o_logmsg_s_type__debug = 'debug';
 let s_o_logmsg_s_type__table = 'table';
 
-let f_o_logmsg = function(
-    s_message, 
-    b_consolelog = true,
-    b_guilog = false,
-    s_type, 
-    n_ts_ms_created,
-    n_ttl_ms
-){
-    return {
-        s_message, 
-        b_consolelog,
-        b_guilog,
-        s_type, 
-        n_ts_ms_created,
-        n_ttl_ms
-    }
-}
-
 
 let a_o_model = [
+    o_model__o_student,
+    o_model__o_course,
+    o_model__o_course_o_student,
     o_model__o_wsclient,
     o_model__o_fsnode,
     o_model__o_keyvalpair,
+    o_model__o_utterance,
     o_model__o_video,
     o_model__o_audio,
-    o_model__o_object,
-    o_model__o_action,
-    o_model__o_sense,
-    o_model__o_event
 ];
 
-// definition factory — creates message type templates for the a_o_wsmsg registry
-let f_o_wsmsg_def = function(
-    s_name,
-    b_expecting_response = false
-){
-    return {
-        s_name,
-        b_expecting_response,
-        f_v_client_implementation: null,
-        f_v_server_implementation: null
-    }
-}
 
-// instance factory — creates actual messages to send over the wire
-let f_o_wsmsg = function(
-    s_name,
-    v_data
-){
-    return {
-        s_name,
-        v_data,
-        s_uuid: crypto.randomUUID()
-    }
-}
 
 // message type definitions
 let o_wsmsg__deno_copy_file = f_o_wsmsg_def('deno_copy_file', false);
@@ -303,6 +162,9 @@ let o_wsmsg__f_delete_table_data = f_o_wsmsg_def('f_delete_table_data', true);
 let o_wsmsg__f_a_o_fsnode = f_o_wsmsg_def('f_a_o_fsnode', true);
 let o_wsmsg__logmsg = f_o_wsmsg_def('logmsg', false);
 let o_wsmsg__set_state_data = f_o_wsmsg_def('set_state_data', false);
+let o_wsmsg__utterance = f_o_wsmsg_def('utterance', false);
+let o_wsmsg__syncdata = f_o_wsmsg_def('syncdata', true);
+let o_wsmsg__f_extract_audio = f_o_wsmsg_def('f_extract_audio', true);
 
 // client implementations
 o_wsmsg__logmsg.f_v_client_implementation = function(o_wsmsg, o_wsmsg__existing, o_state){
@@ -313,11 +175,34 @@ o_wsmsg__logmsg.f_v_client_implementation = function(o_wsmsg, o_wsmsg__existing,
     if(o_logmsg.b_guilog){
         o_logmsg.n_ts_ms_created = o_logmsg.n_ts_ms_created || Date.now();
         o_logmsg.n_ttl_ms = o_logmsg.n_ttl_ms || 5000;
-        o_state.a_o_toast.push(o_logmsg);
+        o_state.a_o_logmsg.push(o_logmsg);
     }
 }
 o_wsmsg__set_state_data.f_v_client_implementation = function(o_wsmsg, o_wsmsg__existing, o_state){
     o_state[o_wsmsg.v_data.s_property] = o_wsmsg.v_data.value;
+    // denormalize newly arrived array if relation map is available on o_state
+    if (o_state.o_relation_map) {
+        let o_model = f_o_model__from_params(o_wsmsg.v_data.s_property, a_o_model);
+        if (o_model) {
+            let a_o_relation = o_state.o_relation_map[o_model.s_name];
+            if (a_o_relation && a_o_relation.length > 0) {
+                let a_o = o_state[o_wsmsg.v_data.s_property];
+                for (let o_instance of a_o) {
+                    f_denormalize_o_instance(o_instance, o_model, o_state, s_name_prop_id, o_state.o_relation_map);
+                }
+            }
+        }
+    }
+}
+o_wsmsg__utterance.f_v_client_implementation = function(o_wsmsg, o_wsmsg__existing, o_state){
+    if(o_state.b_utterance_muted) return;
+    let v_data = o_wsmsg.v_data;
+    if(!v_data || !v_data.o_fsnode || !v_data.o_fsnode.s_path_absolute) return;
+    let s_url = '/api/file?path=' + encodeURIComponent(v_data.o_fsnode.s_path_absolute);
+    let o_audio = new Audio(s_url);
+    o_audio.play().catch(function(o_error){
+        console.warn('utterance audio playback failed (user interaction may be required):', o_error.message);
+    });
 }
 
 let a_o_wsmsg = [
@@ -329,27 +214,30 @@ let a_o_wsmsg = [
     o_wsmsg__f_a_o_fsnode,
     o_wsmsg__logmsg,
     o_wsmsg__set_state_data,
+    o_wsmsg__utterance,
+    o_wsmsg__syncdata,
+    o_wsmsg__f_extract_audio,
 ]
 
 export {
+    o_model__o_student,
+    o_model__o_course,
+    o_model__o_course_o_student,
     o_model__o_wsclient,
     o_model__o_fsnode,
     o_model__o_keyvalpair,
+    o_model__o_utterance,
     o_model__o_video,
     o_model__o_audio,
-    o_model__o_object,
-    o_model__o_action,
-    o_model__o_sense,
-    o_model__o_event,
     a_o_model,
     f_o_property,
     f_o_model,
     f_o_model_prop__default_id,
     f_o_model_prop__timestamp_default,
     f_s_name_table__from_o_model,
-    f_s_name_foreign_key__from_o_model,
+    f_s_name_foreign_key__params,
     f_o_model_instance,
-    f_o_model__from_s_name_table,
+    f_o_model__from_params,
     s_name_prop_ts_created,
     s_name_prop_ts_updated,
     f_a_s_error__invalid_model_instance,
@@ -364,6 +252,9 @@ export {
     o_wsmsg__f_delete_table_data,
     o_wsmsg__f_a_o_fsnode,
     o_wsmsg__logmsg,
+    o_wsmsg__utterance,
+    o_wsmsg__syncdata,
+    o_wsmsg__f_extract_audio,
     f_o_wsmsg,
     f_o_wsmsg_def,
     s_o_logmsg_s_type__log,
@@ -372,5 +263,9 @@ export {
     s_o_logmsg_s_type__info,
     s_o_logmsg_s_type__debug,
     s_o_logmsg_s_type__table,
-    a_o_data_default
+    f_o_example_instance_connected_cricular_from_o_model,
+    f_apply_crud_to_a_o,
+    f_o_relation_map__from_a_o_model,
+    f_denormalize_o_state,
+    f_denormalize_o_instance,
 }

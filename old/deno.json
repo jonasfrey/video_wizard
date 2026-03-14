@@ -1,0 +1,10 @@
+{
+    "imports": {
+        "@apn/websersocketgui": "jsr:@apn/websersocketgui@^0.1.0"
+    },
+    "tasks": {
+        "run": "B_DENO_TASK=1 deno run --allow-net --allow-read --allow-write --allow-env --allow-ffi --env websersocket_79cc1f1c-ea3e-4460-8fdc-91e563d017bf.js",
+        "test": "deno test --allow-net --allow-read --allow-write --allow-env --allow-ffi function_testings.js",
+        "uninit": "deno run --allow-read --allow-write --allow-env --env uninit.js"
+    }
+}

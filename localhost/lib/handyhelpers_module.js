@@ -3951,8 +3951,8 @@ let f_a_o_img__gallery_from_a_s_url_and_resize_images_and_container = async func
 
 }
 
-let o_state_a_o_toast = {
-    a_o_toast: []
+let o_state_a_o_logmsg = {
+    a_o_logmsg: []
 };      
 let f_o_toast = function(
     s_message, 
@@ -3968,13 +3968,13 @@ let f_o_toast = function(
         b_render: true,
         n_id_interval: 0,
     };
-    o_state.a_o_toast.push(o_toast);
+    o_state.a_o_logmsg.push(o_toast);
 
-    let o = o_state.a_o_toast.find(o=>{return o.s_uuidv4 == s_uuidv4})
+    let o = o_state.a_o_logmsg.find(o=>{return o.s_uuidv4 == s_uuidv4})
     o.f_hide = function(){
         o.b_render = false;
         clearInterval(o.n_id_interval);
-        o_state.a_o_toast = o_state.a_o_toast.filter((o, n_idx)=>{
+        o_state.a_o_logmsg = o_state.a_o_logmsg.filter((o, n_idx)=>{
             let b = o.s_uuidv4 != s_uuidv4
             return b
         });
@@ -3994,8 +3994,8 @@ let f_o_toast = function(
     }
     return o
 }
-let s_css_a_o_toast = `
-.a_o_toast {
+let s_css_a_o_logmsg = `
+.a_o_logmsg {
     position:fixed;
     top: 1rem;
     right: 1rem;
@@ -4033,14 +4033,14 @@ let s_css_a_o_toast = `
     background:rgba(218, 103, 111, 0.6);
     color: #fff;
 }`
-let f_o_js_a_o_toast = function(o_state){
-    let o_js_a_o_toast = {
+let f_o_js_a_o_logmsg = function(o_state){
+    let o_js_a_o_logmsg = {
         f_a_o:async ()=> [
             {
-                a_s_prop_sync: 'a_o_toast',
-                class: 'a_o_toast',
+                a_s_prop_sync: 'a_o_logmsg',
+                class: 'a_o_logmsg',
                 f_a_o: ()=>{
-                    return o_state.a_o_toast.map((o, n_idx)=>{
+                    return o_state.a_o_logmsg.map((o, n_idx)=>{
                         
                         // console.log(sp)
                         return {
@@ -4048,12 +4048,12 @@ let f_o_js_a_o_toast = function(o_state){
                             f_s_innerText: ()=>{return o.s_message},
                             f_b_render: ()=>{return o.b_render},
                             onclick: ()=>{
-                                o_state.a_o_toast = o_state.a_o_toast.filter((o2, n_idx2)=>{
+                                o_state.a_o_logmsg = o_state.a_o_logmsg.filter((o2, n_idx2)=>{
                                     return n_idx != n_idx2
                                 })
                             },
                             a_s_prop_sync: [
-                                `a_o_toast.${n_idx}.s_message`,
+                                `a_o_logmsg.${n_idx}.s_message`,
                             ],
                         }
                     })
@@ -4063,7 +4063,7 @@ let f_o_js_a_o_toast = function(o_state){
         ],
         a_s_prop_sync: 'a_s_name',
     }
-    return o_js_a_o_toast
+    return o_js_a_o_logmsg
 }
 
 
@@ -4193,10 +4193,10 @@ export {
    f_o_img_cached,
    f_a_o_img__gallery_from_a_s_url_and_resize_images_and_container, 
    f_o_shader_info_and_compile_shader,
-   o_state_a_o_toast,
+   o_state_a_o_logmsg,
    f_o_toast,
-   s_css_a_o_toast,
-   f_o_js_a_o_toast,
+   s_css_a_o_logmsg,
+   f_o_js_a_o_logmsg,
    f_s_image_url_from_s_text
 }
 
