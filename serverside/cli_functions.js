@@ -3,10 +3,18 @@
 // functions that spawn CLI subprocesses (python, pip, etc.)
 
 import { s_ds, s_root_dir, s_uuid, s_bin__python, s_path__venv, s_path__audio, s_bin__ffmpeg, s_bin__ffprobe, s_bin__which, s_bin__sudo, s_bin__pip3 } from './runtimedata.js';
-import { f_s_name_table__from_o_model, o_model__o_fsnode, o_model__o_utterance, o_model__o_video, o_model__o_audio, o_wsmsg__syncdata } from '../localhost/constructors.js';
+import { f_s_name_table__from_o_model, o_model__o_fsnode, o_model__o_utterance, o_model__o_video, o_model__o_audio, o_model__o_audio_event, o_model__o_composition, o_model__o_composition_o_audio_event, o_wsmsg__syncdata } from '../localhost/constructors.js';
 
+let f_install_cli_dependencies = async function(){
+    let b_ffmpeg = await f_check_ffmpeg();
+    if (!b_ffmpeg) {
+        console.log('[f_install_cli_dependencies] ffmpeg not found, attempting install...');
+        await f_install_linux_binary(s_bin__ffmpeg);
+    }
+    await f_init_python();
+}
 let f_init_python = async function(){
-    let a_s_package = ['python-dotenv', 'pyttsx3'];
+    let a_s_package = ['python-dotenv', 'pyttsx3', 'openai-whisper', 'torch', 'transformers', 'numpy'];
 
     // check if venv exists
     let b_venv_exists = true;
@@ -386,11 +394,339 @@ let f_extract_audio = async function(s_path_video, f_on_progress){
     };
 };
 
+// analyze audio file using whisper + BEATs, returns array of o_audio_event
+// f_on_progress: callback(s_line) called with stdout lines for progress streaming
+let f_analyze_audio = async function(n_o_audio_n_id, f_on_progress){
+    // look up the o_audio record
+    let s_name_table__audio = f_s_name_table__from_o_model(o_model__o_audio);
+    let a_o_audio = o_wsmsg__syncdata.f_v_sync({
+        s_name_table: s_name_table__audio,
+        s_operation: 'read',
+        o_data: { n_id: n_o_audio_n_id }
+    }) || [];
+    let o_audio = a_o_audio[0];
+    if (!o_audio) {
+        throw new Error(`f_analyze_audio: o_audio with n_id=${n_o_audio_n_id} not found`);
+    }
+
+    // update o_video status to 'analyzing'
+    let s_name_table__video = f_s_name_table__from_o_model(o_model__o_video);
+    let a_o_video = o_wsmsg__syncdata.f_v_sync({
+        s_name_table: s_name_table__video,
+        s_operation: 'read',
+        o_data: { n_id: o_audio.n_o_video_n_id }
+    }) || [];
+    let o_video = a_o_video[0];
+    if (o_video) {
+        o_wsmsg__syncdata.f_v_sync({
+            s_name_table: s_name_table__video,
+            s_operation: 'update',
+            o_data: { n_id: o_video.n_id, s_status: 'analyzing' }
+        });
+    }
+
+    let s_name_script = 'f_analyze_audio.py';
+    let s_path__script = `${s_root_dir}${s_ds}serverside${s_ds}${s_name_script}`;
+    // prefer venv python if it exists, fall back to system python
+    let s_path__python = `${s_path__venv}${s_ds}bin${s_ds}python3`;
+    try { await Deno.stat(s_path__python); } catch { s_path__python = s_bin__python; }
+
+    let a_s_cmd = [s_path__python, s_path__script, o_audio.s_path_abs, '--s-uuid', s_uuid];
+
+    let o_cmd = new Deno.Command(a_s_cmd[0], {
+        args: a_s_cmd.slice(1),
+        cwd: s_root_dir,
+        stdout: 'piped',
+        stderr: 'piped',
+    });
+
+    let o_child = o_cmd.spawn();
+
+    // stream stdout line by line for progress
+    let o_reader__stdout = o_child.stdout.getReader();
+    let s_buf__stdout = '';
+    let s_stdout__full = '';
+    let f_read_stdout = async function(){
+        while(true){
+            let { value, done } = await o_reader__stdout.read();
+            if(done) break;
+            let s_chunk = new TextDecoder().decode(value);
+            s_stdout__full += s_chunk;
+            s_buf__stdout += s_chunk;
+            let a_s_line = s_buf__stdout.split('\n');
+            s_buf__stdout = a_s_line.pop();
+            for(let s_line of a_s_line){
+                if(f_on_progress && s_line.trim()) f_on_progress(s_line.trim());
+            }
+        }
+    };
+
+    // collect stderr
+    let o_reader__stderr = o_child.stderr.getReader();
+    let s_stderr = '';
+    let f_read_stderr = async function(){
+        while(true){
+            let { value, done } = await o_reader__stderr.read();
+            if(done) break;
+            s_stderr += new TextDecoder().decode(value);
+        }
+    };
+
+    await Promise.all([f_read_stdout(), f_read_stderr()]);
+    let o_status = await o_child.status;
+
+    if (!o_status.success) {
+        if (o_video) {
+            o_wsmsg__syncdata.f_v_sync({
+                s_name_table: s_name_table__video,
+                s_operation: 'update',
+                o_data: { n_id: o_video.n_id, s_status: 'error' }
+            });
+        }
+        let s_error_detail = s_stderr.trim() || s_stdout__full.slice(-500);
+        throw new Error(`${s_name_script} failed (code ${o_status.code}): ${s_error_detail.slice(-500)}`);
+    }
+
+    // parse IPC block from stdout
+    let s_tag__start = `${s_uuid}_start_json`;
+    let s_tag__end = `${s_uuid}_end_json`;
+    let n_idx__start = s_stdout__full.indexOf(s_tag__start);
+    let n_idx__end = s_stdout__full.indexOf(s_tag__end);
+
+    if(n_idx__start === -1 || n_idx__end === -1){
+        if (o_video) {
+            o_wsmsg__syncdata.f_v_sync({
+                s_name_table: s_name_table__video,
+                s_operation: 'update',
+                o_data: { n_id: o_video.n_id, s_status: 'error' }
+            });
+        }
+        console.error(`${s_name_script}: no IPC block found in stdout:\n`, s_stdout__full);
+        throw new Error(`${s_name_script} did not emit IPC json block`);
+    }
+
+    let s_json = s_stdout__full.slice(n_idx__start + s_tag__start.length, n_idx__end).trim();
+    let a_o_event = JSON.parse(s_json);
+
+    // bulk-insert o_audio_event records
+    let s_name_table__audio_event = f_s_name_table__from_o_model(o_model__o_audio_event);
+    let a_o_audio_event = [];
+    for (let o_event of a_o_event) {
+        let o_audio_event = o_wsmsg__syncdata.f_v_sync({
+            s_name_table: s_name_table__audio_event,
+            s_operation: 'create',
+            o_data: {
+                n_o_audio_n_id: n_o_audio_n_id,
+                n_ms_start: o_event.n_ms_start,
+                n_ms_duration: o_event.n_ms_duration,
+                s_type: o_event.s_type,
+                s_text: o_event.s_text || '',
+            }
+        });
+        a_o_audio_event.push(o_audio_event);
+    }
+
+    // update o_video status to 'done'
+    if (o_video) {
+        o_wsmsg__syncdata.f_v_sync({
+            s_name_table: s_name_table__video,
+            s_operation: 'update',
+            o_data: { n_id: o_video.n_id, s_status: 'done' }
+        });
+    }
+
+    return {
+        o_audio,
+        o_video,
+        a_o_audio_event,
+    };
+};
+
+// combined handler: extract audio -> analyze audio -> update status to done
+let f_analyze_video = async function(s_path_video, f_on_progress){
+    // step 1: extract audio
+    if(f_on_progress) f_on_progress('[analyze_video] starting audio extraction...');
+    let o_result__extract = await f_extract_audio(s_path_video, f_on_progress);
+
+    // step 2: analyze extracted audio
+    if(f_on_progress) f_on_progress('[analyze_video] starting audio analysis...');
+    let o_result__analyze = await f_analyze_audio(o_result__extract.o_audio.n_id, f_on_progress);
+
+    if(f_on_progress) f_on_progress('[analyze_video] analysis complete');
+
+    return {
+        o_fsnode: o_result__extract.o_fsnode,
+        o_video: o_result__analyze.o_video,
+        o_audio: o_result__analyze.o_audio,
+        a_o_audio_event: o_result__analyze.a_o_audio_event,
+    };
+};
+
+// render a composition: query DB for events, spawn ffmpeg via Python script
+let f_render_composition = async function(n_o_composition_n_id, f_on_progress){
+    // look up composition
+    let s_name_table__composition = f_s_name_table__from_o_model(o_model__o_composition);
+    let a_o_comp = o_wsmsg__syncdata.f_v_sync({
+        s_name_table: s_name_table__composition,
+        s_operation: 'read',
+        o_data: { n_id: n_o_composition_n_id }
+    }) || [];
+    let o_composition = a_o_comp[0];
+    if (!o_composition) {
+        throw new Error(`f_render_composition: o_composition with n_id=${n_o_composition_n_id} not found`);
+    }
+
+    // look up video + fsnode to get source path
+    let s_name_table__video = f_s_name_table__from_o_model(o_model__o_video);
+    let a_o_video = o_wsmsg__syncdata.f_v_sync({
+        s_name_table: s_name_table__video,
+        s_operation: 'read',
+        o_data: { n_id: o_composition.n_o_video_n_id }
+    }) || [];
+    let o_video = a_o_video[0];
+    if (!o_video) throw new Error('f_render_composition: o_video not found');
+
+    let s_name_table__fsnode = f_s_name_table__from_o_model(o_model__o_fsnode);
+    let a_o_fsnode = o_wsmsg__syncdata.f_v_sync({
+        s_name_table: s_name_table__fsnode,
+        s_operation: 'read',
+        o_data: { n_id: o_video.n_o_fsnode_n_id }
+    }) || [];
+    let o_fsnode = a_o_fsnode[0];
+    if (!o_fsnode) throw new Error('f_render_composition: o_fsnode not found');
+
+    // look up junction table entries, ordered
+    let s_name_table__junction = f_s_name_table__from_o_model(o_model__o_composition_o_audio_event);
+    let a_o_junction = o_wsmsg__syncdata.f_v_sync({
+        s_name_table: s_name_table__junction,
+        s_operation: 'read',
+        o_data: { n_o_composition_n_id: n_o_composition_n_id }
+    }) || [];
+    a_o_junction.sort(function(a, b){ return a.n_order - b.n_order; });
+
+    if (a_o_junction.length === 0) {
+        throw new Error('f_render_composition: no events in composition');
+    }
+
+    // look up audio events
+    let s_name_table__audio_event = f_s_name_table__from_o_model(o_model__o_audio_event);
+    let a_o_audio_event_all = o_wsmsg__syncdata.f_v_sync({
+        s_name_table: s_name_table__audio_event,
+        s_operation: 'read',
+        o_data: {}
+    }) || [];
+    let o_map__event = new Map();
+    for (let o_ev of a_o_audio_event_all) o_map__event.set(o_ev.n_id, o_ev);
+
+    let a_o_event__ordered = [];
+    for (let o_j of a_o_junction) {
+        let o_ev = o_map__event.get(o_j.n_o_audio_event_n_id);
+        if (o_ev) {
+            a_o_event__ordered.push({
+                n_ms_start: o_ev.n_ms_start,
+                n_ms_duration: o_ev.n_ms_duration,
+            });
+        }
+    }
+
+    // spawn python script
+    let s_name_script = 'f_render_composition.py';
+    let s_path__script = `${s_root_dir}${s_ds}serverside${s_ds}${s_name_script}`;
+    let s_path__python = `${s_path__venv}${s_ds}bin${s_ds}python3`;
+    try { await Deno.stat(s_path__python); } catch { s_path__python = s_bin__python; }
+
+    let a_s_cmd = [
+        s_path__python, s_path__script,
+        o_fsnode.s_path_absolute,
+        '--s-uuid', s_uuid,
+        '--s-name', o_composition.s_name,
+    ];
+
+    let s_json__event = JSON.stringify(a_o_event__ordered);
+
+    let o_cmd = new Deno.Command(a_s_cmd[0], {
+        args: a_s_cmd.slice(1),
+        cwd: s_root_dir,
+        stdin: 'piped',
+        stdout: 'piped',
+        stderr: 'piped',
+    });
+
+    let o_child = o_cmd.spawn();
+
+    // write event data to stdin
+    let o_writer = o_child.stdin.getWriter();
+    await o_writer.write(new TextEncoder().encode(s_json__event));
+    await o_writer.close();
+
+    // stream stdout
+    let o_reader__stdout = o_child.stdout.getReader();
+    let s_buf__stdout = '';
+    let s_stdout__full = '';
+    let f_read_stdout = async function(){
+        while(true){
+            let { value, done } = await o_reader__stdout.read();
+            if(done) break;
+            let s_chunk = new TextDecoder().decode(value);
+            s_stdout__full += s_chunk;
+            s_buf__stdout += s_chunk;
+            let a_s_line = s_buf__stdout.split('\n');
+            s_buf__stdout = a_s_line.pop();
+            for(let s_line of a_s_line){
+                if(f_on_progress && s_line.trim()) f_on_progress(s_line.trim());
+            }
+        }
+    };
+
+    let o_reader__stderr = o_child.stderr.getReader();
+    let s_stderr = '';
+    let f_read_stderr = async function(){
+        while(true){
+            let { value, done } = await o_reader__stderr.read();
+            if(done) break;
+            s_stderr += new TextDecoder().decode(value);
+        }
+    };
+
+    await Promise.all([f_read_stdout(), f_read_stderr()]);
+    let o_status = await o_child.status;
+
+    if (!o_status.success) {
+        let s_error_detail = s_stderr.trim() || s_stdout__full.slice(-500);
+        throw new Error(`${s_name_script} failed (code ${o_status.code}): ${s_error_detail.slice(-500)}`);
+    }
+
+    // parse IPC
+    let s_tag__start = `${s_uuid}_start_json`;
+    let s_tag__end = `${s_uuid}_end_json`;
+    let n_idx__start = s_stdout__full.indexOf(s_tag__start);
+    let n_idx__end = s_stdout__full.indexOf(s_tag__end);
+
+    if(n_idx__start === -1 || n_idx__end === -1){
+        throw new Error(`${s_name_script} did not emit IPC json block`);
+    }
+
+    let s_json = s_stdout__full.slice(n_idx__start + s_tag__start.length, n_idx__end).trim();
+    let o_ipc = JSON.parse(s_json);
+
+    return {
+        o_composition,
+        s_path_output: o_ipc.s_path_output,
+        n_bytes: o_ipc.n_bytes,
+        n_cnt__event: o_ipc.n_cnt__event,
+        n_sec__render: o_ipc.n_sec__render,
+    };
+};
+
 export {
+    f_install_cli_dependencies,
     f_init_python,
     f_o_uttdatainfo,
     f_install_linux_binary,
     f_check_ffmpeg,
     f_n_ms_duration__from_s_path,
     f_extract_audio,
+    f_analyze_audio,
+    f_analyze_video,
+    f_render_composition,
 };

@@ -130,6 +130,42 @@ let o_model__o_audio = f_o_model({
     ]
 });
 
+let o_model__o_audio_event = f_o_model({
+    s_name: 'o_audio_event',
+    a_o_property: [
+        f_o_model_prop__default_id(s_name_prop_id),
+        f_o_model_prop__default_id(f_s_name_foreign_key__params(o_model__o_audio, s_name_prop_id)),
+        f_o_property('n_ms_start', 'number'),
+        f_o_property('n_ms_duration', 'number'),
+        f_o_property('s_type', 'string'), // 'speech', 'music', 'utterance'
+        f_o_property('s_text', 'string'),
+        f_o_model_prop__timestamp_default(s_name_prop_ts_created),
+        f_o_model_prop__timestamp_default(s_name_prop_ts_updated),
+    ]
+});
+
+let o_model__o_composition = f_o_model({
+    s_name: 'o_composition',
+    a_o_property: [
+        f_o_model_prop__default_id(s_name_prop_id),
+        f_o_model_prop__default_id(f_s_name_foreign_key__params(o_model__o_video, s_name_prop_id)),
+        f_o_property('s_name', 'string', (s)=>{return s!==''}),
+        f_o_model_prop__timestamp_default(s_name_prop_ts_created),
+        f_o_model_prop__timestamp_default(s_name_prop_ts_updated),
+    ]
+});
+
+let o_model__o_composition_o_audio_event = f_o_model({
+    s_name: 'o_composition_o_audio_event',
+    a_o_property: [
+        f_o_model_prop__default_id(s_name_prop_id),
+        f_o_model_prop__default_id(f_s_name_foreign_key__params(o_model__o_composition, s_name_prop_id)),
+        f_o_model_prop__default_id(f_s_name_foreign_key__params(o_model__o_audio_event, s_name_prop_id)),
+        f_o_property('n_order', 'number'),
+        f_o_model_prop__timestamp_default(s_name_prop_ts_created),
+        f_o_model_prop__timestamp_default(s_name_prop_ts_updated),
+    ]
+});
 
 let s_o_logmsg_s_type__log = 'log';
 let s_o_logmsg_s_type__error = 'error';
@@ -149,6 +185,9 @@ let a_o_model = [
     o_model__o_utterance,
     o_model__o_video,
     o_model__o_audio,
+    o_model__o_audio_event,
+    o_model__o_composition,
+    o_model__o_composition_o_audio_event,
 ];
 
 
@@ -165,6 +204,10 @@ let o_wsmsg__set_state_data = f_o_wsmsg_def('set_state_data', false);
 let o_wsmsg__utterance = f_o_wsmsg_def('utterance', false);
 let o_wsmsg__syncdata = f_o_wsmsg_def('syncdata', true);
 let o_wsmsg__f_extract_audio = f_o_wsmsg_def('f_extract_audio', true);
+let o_wsmsg__f_analyze_audio = f_o_wsmsg_def('f_analyze_audio', true);
+let o_wsmsg__f_analyze_video = f_o_wsmsg_def('f_analyze_video', true);
+let o_wsmsg__f_render_composition = f_o_wsmsg_def('f_render_composition', true);
+let o_wsmsg__deno_remove = f_o_wsmsg_def('deno_remove', true);
 
 // client implementations
 o_wsmsg__logmsg.f_v_client_implementation = function(o_wsmsg, o_wsmsg__existing, o_state){
@@ -176,6 +219,18 @@ o_wsmsg__logmsg.f_v_client_implementation = function(o_wsmsg, o_wsmsg__existing,
         o_logmsg.n_ts_ms_created = o_logmsg.n_ts_ms_created || Date.now();
         o_logmsg.n_ttl_ms = o_logmsg.n_ttl_ms || 5000;
         o_state.a_o_logmsg.push(o_logmsg);
+    }
+    // feed log lines into the most recent running CLI task
+    if(o_state.a_o_cli_task && o_state.a_o_cli_task.length > 0){
+        let s_msg = o_logmsg.s_message || '';
+        if(s_msg.startsWith('[analyze_video]') || s_msg.startsWith('[ffmpeg]') || s_msg.startsWith('[whisper/beats]') || s_msg.startsWith('[render]')){
+            for(let n_idx = o_state.a_o_cli_task.length - 1; n_idx >= 0; n_idx--){
+                if(o_state.a_o_cli_task[n_idx].s_status === 'running'){
+                    o_state.a_o_cli_task[n_idx].a_s_log.push(s_msg);
+                    break;
+                }
+            }
+        }
     }
 }
 o_wsmsg__set_state_data.f_v_client_implementation = function(o_wsmsg, o_wsmsg__existing, o_state){
@@ -217,6 +272,10 @@ let a_o_wsmsg = [
     o_wsmsg__utterance,
     o_wsmsg__syncdata,
     o_wsmsg__f_extract_audio,
+    o_wsmsg__f_analyze_audio,
+    o_wsmsg__f_analyze_video,
+    o_wsmsg__f_render_composition,
+    o_wsmsg__deno_remove,
 ]
 
 export {
@@ -229,6 +288,9 @@ export {
     o_model__o_utterance,
     o_model__o_video,
     o_model__o_audio,
+    o_model__o_audio_event,
+    o_model__o_composition,
+    o_model__o_composition_o_audio_event,
     a_o_model,
     f_o_property,
     f_o_model,
@@ -255,6 +317,10 @@ export {
     o_wsmsg__utterance,
     o_wsmsg__syncdata,
     o_wsmsg__f_extract_audio,
+    o_wsmsg__f_analyze_audio,
+    o_wsmsg__f_analyze_video,
+    o_wsmsg__f_render_composition,
+    o_wsmsg__deno_remove,
     f_o_wsmsg,
     f_o_wsmsg_def,
     s_o_logmsg_s_type__log,

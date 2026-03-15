@@ -6,7 +6,7 @@ import {
     f_v_crud__indb,
 } from "./serverside/database_functions.js";
 import { f_a_o_fsnode, f_o_uttdatainfo__read_or_create, f_v_result_from_o_wsmsg } from "./serverside/functions.js";
-import { f_init_python, f_check_ffmpeg } from "./serverside/cli_functions.js";
+import { f_install_cli_dependencies } from "./serverside/cli_functions.js";
 import {
     a_o_model,
     f_o_model__from_params,
@@ -41,6 +41,8 @@ import {
     s_root_dir,
     n_port,
     s_dir__static,
+    s_path__audio,
+    s_path__export,
 } from "./serverside/runtimedata.js";
 import { s_db_create, s_db_read, s_db_update, s_db_delete } from "./localhost/runtimedata.js";
 
@@ -97,8 +99,7 @@ let o_state = {}
 let a_o_socket = [];
 
 await f_init_db();
-await f_init_python();
-await f_check_ffmpeg();
+await f_install_cli_dependencies();
 await f_generate_model_constructors_for_cli_languages();
 
 // server-side syncdata: DB operation, o_state update, broadcast to clients
@@ -275,6 +276,16 @@ let f_handler = async function(o_request, o_conninfo) {
                 ));
 
             }
+
+            // send resolved paths for disk usage
+            let s_path__audio_abs = s_path__audio.startsWith('/') ? s_path__audio : `${s_root_dir}${s_ds}${s_path__audio}`;
+            let s_path__export_abs = s_path__export.startsWith('/') ? s_path__export : `${s_root_dir}${s_ds}${s_path__export}`;
+            o_socket.send(JSON.stringify(
+                f_o_wsmsg(o_wsmsg__set_state_data.s_name, { s_property: 's_path__audio', value: s_path__audio_abs })
+            ));
+            o_socket.send(JSON.stringify(
+                f_o_wsmsg(o_wsmsg__set_state_data.s_name, { s_property: 's_path__export', value: s_path__export_abs })
+            ));
 
             // annoying interval to test toast + utterance audio
             let a_s_msg_annoying = [

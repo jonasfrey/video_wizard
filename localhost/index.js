@@ -28,6 +28,9 @@ import {
 } from "./lib/handyhelpers.js"
 import { o_component__data } from './o_component__data.js';
 import { o_component__filebrowser } from './o_component__filebrowser.js';
+import { o_component__cli_monitor } from './o_component__cli_monitor.js';
+import { o_component__composition } from './o_component__composition.js';
+import { o_component__export } from './o_component__export.js';
 import './css_helper.js';
 
 import { o_logmsg__run_command } from "./runtimedata.js";
@@ -51,6 +54,21 @@ let o_state = reactive({
             name: 'filebrowser',
             component: markRaw(o_component__filebrowser),
         },
+        {
+            path: '/cli',
+            name: 'cli',
+            component: markRaw(o_component__cli_monitor),
+        },
+        {
+            path: '/composition',
+            name: 'composition',
+            component: markRaw(o_component__composition),
+        },
+        {
+            path: '/export',
+            name: 'export',
+            component: markRaw(o_component__export),
+        },
     ],
     a_o_model,
     a_o_logmsg: [
@@ -59,6 +77,7 @@ let o_state = reactive({
     n_ts_ms_now: Date.now(),
     b_utterance_muted: true,
     o_logmsg__run_command,
+    a_o_cli_task: [],
 });
 
 // auto-derive reactive keys for each model table so Vue tracks them before the server sends data
@@ -85,12 +104,13 @@ let f_register_handler = function(f_handler) {
 
 let n_ms__wsmsg_timeout = 10000;
 
-let f_send_wsmsg_with_response = async function(o_wsmsg){
+let f_send_wsmsg_with_response = async function(o_wsmsg, n_ms_timeout){
+    let n_ms = n_ms_timeout || n_ms__wsmsg_timeout;
     return new Promise(function(resolve, reject) {
         let n_id__timeout = setTimeout(function(){
             f_unregister();
-            reject(new Error(`wsmsg '${o_wsmsg.s_name}' timed out after ${n_ms__wsmsg_timeout}ms (uuid: ${o_wsmsg.s_uuid})`));
-        }, n_ms__wsmsg_timeout);
+            reject(new Error(`wsmsg '${o_wsmsg.s_name}' timed out after ${n_ms}ms (uuid: ${o_wsmsg.s_uuid})`));
+        }, n_ms);
         let f_handler_response = function(o_wsmsg2){
             if(o_wsmsg2.s_uuid === o_wsmsg.s_uuid){
                 clearTimeout(n_id__timeout);
@@ -222,14 +242,14 @@ let o_app = createApp({
                     id: "background"
                 },
                 {
-                    class: "nav", 
+                    class: "nav",
                     a_o: [
                         {
                             's_tag': "router-link",
                             'class': "interactable",
-                            'v-for': "o_route in a_o_route",
+                            'v-for': "o_route in a_o_route.filter(o => o.name)",
                             ':to': 'o_route.path',
-                            innerText: "{{ o_route.path }}",
+                            innerText: "{{ o_route.name }}",
                         }
                     ]
                 },

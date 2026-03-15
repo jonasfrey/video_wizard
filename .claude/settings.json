@@ -4,7 +4,14 @@
       "Bash(grep -n \"keyvalpair\" /home/legion5pro/code/browser_crud_app_template/serverside/testing/*.js)",
       "Bash(ffmpeg -version)",
       "Bash(git status:*)",
-      "Bash(git rm:*)"
+      "Bash(git rm:*)",
+      "Bash(./venv/bin/python3 serverside/f_analyze_audio.py ./.gitignored/audio/lotr.wav --s-uuid test123)",
+      "Bash(./venv/bin/pip install:*)",
+      "Bash(while ps:*)",
+      "Bash(do sleep:*)",
+      "Bash(done)",
+      "Bash(grep -v '^\\\\s*$')",
+      "Bash(while ! grep -q '=== results' /tmp/claude-1000/-home-legion5pro-code-video-wizard/5fd7f6d9-6713-4c10-b0da-8c7b7fc0ab24/tasks/biush07aa.output)"
     ]
   }
 }

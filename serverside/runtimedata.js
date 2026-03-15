@@ -32,6 +32,7 @@ let s_bin__which = Deno.env.get('BIN_WHICH') ?? 'which';
 let s_bin__sudo = Deno.env.get('BIN_SUDO') ?? 'sudo';
 let s_bin__pip3 = Deno.env.get('BIN_PIP3') ?? 'pip3';
 let s_path__audio = Deno.env.get('S_PATH__AUDIO') ?? './.gitignored/audio/';
+let s_path__export = Deno.env.get('S_PATH__EXPORT') ?? './.gitignored/export/';
 
 export {
     s_root_dir,
@@ -52,4 +53,5 @@ export {
     s_bin__sudo,
     s_bin__pip3,
     s_path__audio,
+    s_path__export,
 }
