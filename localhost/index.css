@@ -775,8 +775,12 @@ main {
 .event_type__music { border-left: 3px solid var(--c-success); }
 .event_type__music .o_event__type { color: var(--c-success); }
 
+.event_type__unknown { border-left: 3px solid var(--c-text-mute); }
+.event_type__unknown .o_event__type { color: var(--c-text-mute); }
+.event_type__unknown .o_event__text { color: var(--c-text-mute); font-style: italic; }
+
 /* other audio event types (owl, horse, etc.) get default styling */
-.o_event:not(.event_type__speech):not(.event_type__music) {
+.o_event:not(.event_type__speech):not(.event_type__music):not(.event_type__unknown) {
     border-left: 3px solid var(--c-text-mute);
 }
 
@@ -908,6 +912,30 @@ main {
     border: 1px solid var(--c-danger);
     color: var(--c-danger);
     font-size: 0.75rem;
+}
+
+/* CLI progress status bar */
+.a_o_cli_progress {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9998;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: rgba(0, 0, 0, 0.85);
+    border-top: 1px solid var(--c-accent);
+}
+
+.o_cli_progress {
+    padding: 0.3rem 1rem;
+    font-family: monospace;
+    font-size: 0.75rem;
+    color: var(--c-info);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* mute toggle */

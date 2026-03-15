@@ -258,6 +258,20 @@ let o_app = createApp({
                 },  
                 {
                     s_tag: "div",
+                    class: "a_o_cli_progress",
+                    'v-if': "a_o_keyvalpair.filter(o => o.s_key && o.s_key.startsWith('s_cli_progress__')).length > 0",
+                    a_o: [
+                        {
+                            s_tag: "div",
+                            'v-for': "o_kv in a_o_keyvalpair.filter(o => o.s_key && o.s_key.startsWith('s_cli_progress__'))",
+                            ':key': 'o_kv.n_id',
+                            class: "o_cli_progress",
+                            innerText: "{{ o_kv.s_value }}",
+                        },
+                    ]
+                },
+                {
+                    s_tag: "div",
                     class: "a_o_logmsg",
                     a_o: [
                         {
@@ -338,6 +352,19 @@ let f_o_socket = function() {
 o_wsmsg__syncdata.f_v_client_implementation = function(o_wsmsg, o_wsmsg__existing, o_state_ref){
     let v_data = o_wsmsg.v_data;
     f_apply_crud_to_a_o(o_state_ref[v_data.s_name_table], v_data.s_operation, v_data.o_data, s_name_prop_id);
+    // feed cli progress keyvalpair updates into the latest running CLI task
+    if(v_data.s_name_table === 'a_o_keyvalpair' && v_data.s_operation === 'update' && v_data.o_data){
+        let o_kv = (o_state_ref.a_o_keyvalpair || []).find(function(o){ return o.n_id === v_data.o_data.n_id; });
+        if(o_kv && o_kv.s_key && o_kv.s_key.startsWith('s_cli_progress__')){
+            let a_o_task = o_state_ref.a_o_cli_task || [];
+            for(let n_idx = a_o_task.length - 1; n_idx >= 0; n_idx--){
+                if(a_o_task[n_idx].s_status === 'running'){
+                    a_o_task[n_idx].a_s_log.push(v_data.o_data.s_value || o_kv.s_value);
+                    break;
+                }
+            }
+        }
+    }
     // denormalize newly created instance from broadcast
     if (v_data.s_operation === 'create') {
         let o_model = f_o_model__from_params(v_data.s_name_table, a_o_model);

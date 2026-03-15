@@ -220,7 +220,7 @@ let o_component__composition = {
             o_set__n_id__selected: new Set(),
             n_idx__drag: -1,
             b_previewing: false,
-            n_id__preview_timeout: null,
+            n_id__raf: null,
         };
     },
     computed: {
@@ -414,7 +414,7 @@ let o_component__composition = {
             // also save name
             await this.f_save_name();
         },
-        // preview playback
+        // preview playback using requestAnimationFrame
         f_preview: function(){
             if(this.b_previewing){
                 this.f_stop_preview();
@@ -426,27 +426,55 @@ let o_component__composition = {
             let a_o_event = this.a_o_audio_event__selected;
             let n_idx = 0;
             let o_self = this;
-            let f_play_next = function(){
+            let b_seeking = false;
+
+            let f_seek_to_event = function(){
                 if(n_idx >= a_o_event.length || !o_self.b_previewing){
                     o_self.f_stop_preview();
                     return;
                 }
+                b_seeking = true;
                 let o_event = a_o_event[n_idx];
-                el_video.currentTime = o_event.n_ms_start / 1000;
-                el_video.play();
-                n_idx++;
-                o_self.n_id__preview_timeout = setTimeout(function(){
-                    el_video.pause();
-                    f_play_next();
-                }, o_event.n_ms_duration);
+                let n_sec__target = o_event.n_ms_start / 1000;
+                el_video.currentTime = n_sec__target;
+
+                // wait for the seek to complete before playing
+                let f_on_seeked = function(){
+                    el_video.removeEventListener('seeked', f_on_seeked);
+                    b_seeking = false;
+                    if(!o_self.b_previewing) return;
+                    el_video.play();
+                };
+                el_video.addEventListener('seeked', f_on_seeked);
             };
-            f_play_next();
+
+            let f_frame = function(){
+                if(!o_self.b_previewing) return;
+                if(!b_seeking && n_idx < a_o_event.length){
+                    let o_event = a_o_event[n_idx];
+                    let n_sec__end = (o_event.n_ms_start + o_event.n_ms_duration) / 1000;
+                    if(el_video.currentTime >= n_sec__end){
+                        el_video.pause();
+                        n_idx++;
+                        if(n_idx < a_o_event.length){
+                            f_seek_to_event();
+                        } else {
+                            o_self.f_stop_preview();
+                            return;
+                        }
+                    }
+                }
+                o_self.n_id__raf = requestAnimationFrame(f_frame);
+            };
+
+            f_seek_to_event();
+            o_self.n_id__raf = requestAnimationFrame(f_frame);
         },
         f_stop_preview: function(){
             this.b_previewing = false;
-            if(this.n_id__preview_timeout){
-                clearTimeout(this.n_id__preview_timeout);
-                this.n_id__preview_timeout = null;
+            if(this.n_id__raf){
+                cancelAnimationFrame(this.n_id__raf);
+                this.n_id__raf = null;
             }
             let el_video = this.$refs.el_video;
             if(el_video) el_video.pause();

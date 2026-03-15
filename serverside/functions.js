@@ -5,7 +5,7 @@
 
 import { s_ds } from './runtimedata.js';
 import { s_db_create, s_db_read, s_db_update, s_db_delete } from '../localhost/runtimedata.js';
-import { a_o_wsmsg, f_o_model_instance, f_s_name_table__from_o_model, f_o_logmsg, s_o_logmsg_s_type__info, s_o_logmsg_s_type__error, o_model__o_fsnode, o_model__o_utterance, o_wsmsg__deno_copy_file, o_wsmsg__deno_mkdir, o_wsmsg__deno_stat, o_wsmsg__deno_remove, o_wsmsg__f_a_o_fsnode, o_wsmsg__f_delete_table_data, o_wsmsg__f_v_crud__indb, o_wsmsg__logmsg, o_wsmsg__set_state_data, o_wsmsg__syncdata, o_wsmsg__f_extract_audio, o_wsmsg__f_analyze_audio, o_wsmsg__f_analyze_video, o_wsmsg__f_render_composition, f_o_wsmsg } from '../localhost/constructors.js';
+import { a_o_wsmsg, f_o_model_instance, f_s_name_table__from_o_model, f_o_logmsg, s_o_logmsg_s_type__info, s_o_logmsg_s_type__error, o_model__o_fsnode, o_model__o_utterance, o_model__o_keyvalpair, o_wsmsg__deno_copy_file, o_wsmsg__deno_mkdir, o_wsmsg__deno_stat, o_wsmsg__deno_remove, o_wsmsg__f_a_o_fsnode, o_wsmsg__f_delete_table_data, o_wsmsg__f_v_crud__indb, o_wsmsg__logmsg, o_wsmsg__set_state_data, o_wsmsg__syncdata, o_wsmsg__f_extract_audio, o_wsmsg__f_analyze_audio, o_wsmsg__f_analyze_video, o_wsmsg__f_render_composition, f_o_wsmsg } from '../localhost/constructors.js';
 import { f_v_crud__indb, f_db_delete_table_data } from './database_functions.js';
 import { f_o_uttdatainfo, f_extract_audio, f_analyze_audio, f_analyze_video, f_render_composition } from './cli_functions.js';
 
@@ -132,31 +132,51 @@ let f_o_uttdatainfo__read_or_create = async function(s_text){
     return await f_o_uttdatainfo(s_text);
 };
 
+// helper: create a o_keyvalpair for process progress, return update + cleanup functions
+let f_o_cli_progress = function(s_key, s_initial_value){
+    let s_name_table = f_s_name_table__from_o_model(o_model__o_keyvalpair);
+    // create keyvalpair
+    let o_kv = o_wsmsg__syncdata.f_v_sync({
+        s_name_table,
+        s_operation: 'create',
+        o_data: { s_key, s_value: s_initial_value }
+    });
+    return {
+        o_keyvalpair: o_kv,
+        f_update: function(s_value){
+            o_wsmsg__syncdata.f_v_sync({
+                s_name_table,
+                s_operation: 'update',
+                o_data: { n_id: o_kv.n_id, s_value }
+            });
+        },
+        f_delete: function(){
+            o_wsmsg__syncdata.f_v_sync({
+                s_name_table,
+                s_operation: 'delete',
+                o_data: { n_id: o_kv.n_id }
+            });
+        },
+    };
+};
+
 o_wsmsg__f_extract_audio.f_v_server_implementation = async function(o_wsmsg, o_wsmsg__existing, o_state, o_socket__sender){
     let s_path_video = o_wsmsg.v_data;
     if(!s_path_video || typeof s_path_video !== 'string'){
         throw new Error('f_extract_audio: v_data must be a video file path string');
     }
-    // stream ffmpeg progress lines to the requesting client as log messages
+    let s_key = `s_cli_progress__extract_${Date.now()}`;
+    let o_progress = f_o_cli_progress(s_key, '[ffmpeg] starting extraction...');
     let f_on_progress = function(s_line){
-        if(o_socket__sender && o_socket__sender.readyState === WebSocket.OPEN){
-            o_socket__sender.send(JSON.stringify(
-                f_o_wsmsg(
-                    o_wsmsg__logmsg.s_name,
-                    f_o_logmsg(
-                        `[ffmpeg] ${s_line}`,
-                        true,
-                        true,
-                        s_o_logmsg_s_type__info,
-                        Date.now(),
-                        3000
-                    )
-                )
-            ));
-        }
+        console.log(`[ffmpeg] ${s_line}`);
+        o_progress.f_update(`[ffmpeg] ${s_line}`);
     };
-    let o_result = await f_extract_audio(s_path_video, f_on_progress);
-    return o_result;
+    try {
+        let o_result = await f_extract_audio(s_path_video, f_on_progress);
+        return o_result;
+    } finally {
+        o_progress.f_delete();
+    }
 };
 
 o_wsmsg__f_analyze_audio.f_v_server_implementation = async function(o_wsmsg, o_wsmsg__existing, o_state, o_socket__sender){
@@ -164,25 +184,18 @@ o_wsmsg__f_analyze_audio.f_v_server_implementation = async function(o_wsmsg, o_w
     if(!n_o_audio_n_id || typeof n_o_audio_n_id !== 'number'){
         throw new Error('f_analyze_audio: v_data must be an o_audio n_id (number)');
     }
+    let s_key = `s_cli_progress__analyze_${Date.now()}`;
+    let o_progress = f_o_cli_progress(s_key, '[whisper/beats] starting analysis...');
     let f_on_progress = function(s_line){
-        if(o_socket__sender && o_socket__sender.readyState === WebSocket.OPEN){
-            o_socket__sender.send(JSON.stringify(
-                f_o_wsmsg(
-                    o_wsmsg__logmsg.s_name,
-                    f_o_logmsg(
-                        `[whisper/beats] ${s_line}`,
-                        true,
-                        true,
-                        s_o_logmsg_s_type__info,
-                        Date.now(),
-                        3000
-                    )
-                )
-            ));
-        }
+        console.log(`[whisper/beats] ${s_line}`);
+        o_progress.f_update(`[whisper/beats] ${s_line}`);
     };
-    let o_result = await f_analyze_audio(n_o_audio_n_id, f_on_progress);
-    return o_result;
+    try {
+        let o_result = await f_analyze_audio(n_o_audio_n_id, f_on_progress);
+        return o_result;
+    } finally {
+        o_progress.f_delete();
+    }
 };
 
 o_wsmsg__f_analyze_video.f_v_server_implementation = async function(o_wsmsg, o_wsmsg__existing, o_state, o_socket__sender){
@@ -190,25 +203,18 @@ o_wsmsg__f_analyze_video.f_v_server_implementation = async function(o_wsmsg, o_w
     if(!s_path_video || typeof s_path_video !== 'string'){
         throw new Error('f_analyze_video: v_data must be a video file path string');
     }
+    let s_key = `s_cli_progress__analyze_video_${Date.now()}`;
+    let o_progress = f_o_cli_progress(s_key, '[analyze_video] starting...');
     let f_on_progress = function(s_line){
-        if(o_socket__sender && o_socket__sender.readyState === WebSocket.OPEN){
-            o_socket__sender.send(JSON.stringify(
-                f_o_wsmsg(
-                    o_wsmsg__logmsg.s_name,
-                    f_o_logmsg(
-                        `[analyze_video] ${s_line}`,
-                        true,
-                        true,
-                        s_o_logmsg_s_type__info,
-                        Date.now(),
-                        3000
-                    )
-                )
-            ));
-        }
+        console.log(`[analyze_video] ${s_line}`);
+        o_progress.f_update(`[analyze_video] ${s_line}`);
     };
-    let o_result = await f_analyze_video(s_path_video, f_on_progress);
-    return o_result;
+    try {
+        let o_result = await f_analyze_video(s_path_video, f_on_progress);
+        return o_result;
+    } finally {
+        o_progress.f_delete();
+    }
 };
 
 o_wsmsg__f_render_composition.f_v_server_implementation = async function(o_wsmsg, o_wsmsg__existing, o_state, o_socket__sender){
@@ -216,25 +222,18 @@ o_wsmsg__f_render_composition.f_v_server_implementation = async function(o_wsmsg
     if(!n_o_composition_n_id || typeof n_o_composition_n_id !== 'number'){
         throw new Error('f_render_composition: v_data must be an o_composition n_id (number)');
     }
+    let s_key = `s_cli_progress__render_${Date.now()}`;
+    let o_progress = f_o_cli_progress(s_key, '[render] starting...');
     let f_on_progress = function(s_line){
-        if(o_socket__sender && o_socket__sender.readyState === WebSocket.OPEN){
-            o_socket__sender.send(JSON.stringify(
-                f_o_wsmsg(
-                    o_wsmsg__logmsg.s_name,
-                    f_o_logmsg(
-                        `[render] ${s_line}`,
-                        true,
-                        true,
-                        s_o_logmsg_s_type__info,
-                        Date.now(),
-                        3000
-                    )
-                )
-            ));
-        }
+        console.log(`[render] ${s_line}`);
+        o_progress.f_update(`[render] ${s_line}`);
     };
-    let o_result = await f_render_composition(n_o_composition_n_id, f_on_progress);
-    return o_result;
+    try {
+        let o_result = await f_render_composition(n_o_composition_n_id, f_on_progress);
+        return o_result;
+    } finally {
+        o_progress.f_delete();
+    }
 };
 
 let f_v_result_from_o_wsmsg = async function(

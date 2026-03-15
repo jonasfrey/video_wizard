@@ -508,10 +508,43 @@ let f_analyze_audio = async function(n_o_audio_n_id, f_on_progress){
     let s_json = s_stdout__full.slice(n_idx__start + s_tag__start.length, n_idx__end).trim();
     let a_o_event = JSON.parse(s_json);
 
+    // sort events by start time
+    a_o_event.sort(function(a, b){ return a.n_ms_start - b.n_ms_start; });
+
+    // fill gaps with 'unknown' events (silence or undetected audio)
+    let n_ms_total = o_audio.n_ms_duration;
+    let a_o_event__with_gap = [];
+    let n_ms_cursor = 0;
+
+    for (let o_event of a_o_event) {
+        if (o_event.n_ms_start > n_ms_cursor) {
+            // gap before this event
+            a_o_event__with_gap.push({
+                n_ms_start: n_ms_cursor,
+                n_ms_duration: o_event.n_ms_start - n_ms_cursor,
+                s_type: 'unknown',
+                s_text: '',
+            });
+        }
+        a_o_event__with_gap.push(o_event);
+        let n_ms_end = o_event.n_ms_start + o_event.n_ms_duration;
+        if (n_ms_end > n_ms_cursor) n_ms_cursor = n_ms_end;
+    }
+
+    // trailing gap after last event
+    if (n_ms_total > 0 && n_ms_cursor < n_ms_total) {
+        a_o_event__with_gap.push({
+            n_ms_start: n_ms_cursor,
+            n_ms_duration: n_ms_total - n_ms_cursor,
+            s_type: 'unknown',
+            s_text: '',
+        });
+    }
+
     // bulk-insert o_audio_event records
     let s_name_table__audio_event = f_s_name_table__from_o_model(o_model__o_audio_event);
     let a_o_audio_event = [];
-    for (let o_event of a_o_event) {
+    for (let o_event of a_o_event__with_gap) {
         let o_audio_event = o_wsmsg__syncdata.f_v_sync({
             s_name_table: s_name_table__audio_event,
             s_operation: 'create',

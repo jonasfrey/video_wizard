@@ -220,18 +220,6 @@ o_wsmsg__logmsg.f_v_client_implementation = function(o_wsmsg, o_wsmsg__existing,
         o_logmsg.n_ttl_ms = o_logmsg.n_ttl_ms || 5000;
         o_state.a_o_logmsg.push(o_logmsg);
     }
-    // feed log lines into the most recent running CLI task
-    if(o_state.a_o_cli_task && o_state.a_o_cli_task.length > 0){
-        let s_msg = o_logmsg.s_message || '';
-        if(s_msg.startsWith('[analyze_video]') || s_msg.startsWith('[ffmpeg]') || s_msg.startsWith('[whisper/beats]') || s_msg.startsWith('[render]')){
-            for(let n_idx = o_state.a_o_cli_task.length - 1; n_idx >= 0; n_idx--){
-                if(o_state.a_o_cli_task[n_idx].s_status === 'running'){
-                    o_state.a_o_cli_task[n_idx].a_s_log.push(s_msg);
-                    break;
-                }
-            }
-        }
-    }
 }
 o_wsmsg__set_state_data.f_v_client_implementation = function(o_wsmsg, o_wsmsg__existing, o_state){
     o_state[o_wsmsg.v_data.s_property] = o_wsmsg.v_data.value;
