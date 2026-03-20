@@ -1,1 +1,0 @@
-# this is a template for a plan for an application

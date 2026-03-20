@@ -115,12 +115,14 @@ o_parser.add_argument("s_path_audio", help="Path to the .wav audio file to analy
 o_parser.add_argument("--s-uuid", default=s_uuid__default, help="S_UUID for IPC output (default from .env)")
 o_parser.add_argument("--s-whisper-model", default="base", help="Whisper model size: tiny, base, small, medium, large (default: base)")
 o_parser.add_argument("--b-skip-beats", action="store_true", help="Skip BEATs classification (only run Whisper)")
+o_parser.add_argument("--s-language", default="en", help="Language for Whisper transcription, e.g. en, de, fr (default: en)")
 
 o_arg = o_parser.parse_args()
 s_path_audio = o_arg.s_path_audio
 s_uuid = o_arg.s_uuid
 s_whisper_model = o_arg.s_whisper_model
 b_skip_beats = o_arg.b_skip_beats
+s_language = o_arg.s_language
 
 # detect which args were explicitly provided via sys.argv
 a_s_arg__provided = set()
@@ -136,6 +138,7 @@ print(f"  | s_path_audio        {s_path_audio[:25]:30s} {'(provided)':12s}|")
 print(f"  | --s-uuid            {s_uuid[:25]:30s} {f_s_source('--s-uuid'):12s}|")
 print(f"  | --s-whisper-model   {s_whisper_model:30s} {f_s_source('--s-whisper-model'):12s}|")
 print(f"  | --b-skip-beats      {str(b_skip_beats):30s} {f_s_source('--b-skip-beats'):12s}|")
+print(f"  | --s-language        {s_language:30s} {f_s_source('--s-language'):12s}|")
 print("  +------------------------------------------------------+")
 
 if not os.path.exists(s_path_audio):
@@ -180,6 +183,7 @@ f_log(f"Transcribing audio: {s_path_audio}")
 o_result__whisper = whisper.transcribe(
     o_model__whisper,
     s_path_audio,
+    language=s_language,
     word_timestamps=True,
     verbose=False
 )

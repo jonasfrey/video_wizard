@@ -33,44 +33,71 @@ let o_component__export = {
                         s_tag: 'div',
                         'v-for': 'o_entry of a_o_composition__display',
                         ':key': 'o_entry.o_composition.n_id',
-                        class: 'o_export__item',
+                        class: 'o_export__entry',
                         a_o: [
                             {
                                 s_tag: 'div',
-                                class: 'o_export__item_info',
+                                class: 'o_export__item',
                                 a_o: [
                                     {
                                         s_tag: 'div',
-                                        class: 'o_export__item_name',
-                                        innerText: '{{ o_entry.o_composition.s_name }}',
+                                        class: 'o_export__item_info',
+                                        a_o: [
+                                            {
+                                                s_tag: 'div',
+                                                class: 'o_export__item_name',
+                                                innerText: '{{ o_entry.o_composition.s_name }}',
+                                            },
+                                            {
+                                                s_tag: 'div',
+                                                class: 'o_export__item_detail',
+                                                innerText: '{{ o_entry.s_video_name }} | {{ o_entry.n_cnt__event }} events',
+                                            },
+                                        ],
                                     },
                                     {
                                         s_tag: 'div',
-                                        class: 'o_export__item_detail',
-                                        innerText: '{{ o_entry.s_video_name }} | {{ o_entry.n_cnt__event }} events',
+                                        'v-if': 'o_map__result.has(o_entry.o_composition.n_id)',
+                                        class: 'o_export__item_size',
+                                        innerText: '{{ f_s_filesize(o_map__result.get(o_entry.o_composition.n_id).n_bytes) }}',
+                                    },
+                                    {
+                                        s_tag: 'div',
+                                        'v-if': 'o_map__result.has(o_entry.o_composition.n_id)',
+                                        class: 'o_export__preview interactable',
+                                        'v-on:click': 'f_toggle_preview(o_entry.o_composition.n_id)',
+                                        innerText: "{{ n_id__preview === o_entry.o_composition.n_id ? 'Hide' : 'Preview' }}",
+                                    },
+                                    {
+                                        s_tag: 'a',
+                                        'v-if': 'o_map__result.has(o_entry.o_composition.n_id)',
+                                        ':href': "'/api/file?path=' + encodeURIComponent(o_map__result.get(o_entry.o_composition.n_id).s_path_output)",
+                                        target: '_blank',
+                                        download: '',
+                                        class: 'o_export__download interactable',
+                                        innerText: 'Download',
+                                    },
+                                    {
+                                        s_tag: 'div',
+                                        ':class': "'o_export__render interactable' + (o_set__n_id__rendering.has(o_entry.o_composition.n_id) ? ' loading' : '')",
+                                        'v-on:click': 'f_render(o_entry.o_composition)',
+                                        innerText: "{{ o_set__n_id__rendering.has(o_entry.o_composition.n_id) ? 'Rendering...' : (o_map__result.has(o_entry.o_composition.n_id) ? 'Re-render' : 'Render') }}",
                                     },
                                 ],
                             },
                             {
                                 s_tag: 'div',
-                                'v-if': 'o_map__result.has(o_entry.o_composition.n_id)',
-                                class: 'o_export__item_size',
-                                innerText: '{{ f_s_filesize(o_map__result.get(o_entry.o_composition.n_id).n_bytes) }}',
-                            },
-                            {
-                                s_tag: 'a',
-                                'v-if': 'o_map__result.has(o_entry.o_composition.n_id)',
-                                ':href': "'/api/file?path=' + encodeURIComponent(o_map__result.get(o_entry.o_composition.n_id).s_path_output)",
-                                target: '_blank',
-                                download: '',
-                                class: 'o_export__download interactable',
-                                innerText: 'Download',
-                            },
-                            {
-                                s_tag: 'div',
-                                ':class': "'o_export__render interactable' + (o_set__n_id__rendering.has(o_entry.o_composition.n_id) ? ' loading' : '')",
-                                'v-on:click': 'f_render(o_entry.o_composition)',
-                                innerText: "{{ o_set__n_id__rendering.has(o_entry.o_composition.n_id) ? 'Rendering...' : (o_map__result.has(o_entry.o_composition.n_id) ? 'Re-render' : 'Render') }}",
+                                'v-if': 'n_id__preview === o_entry.o_composition.n_id && o_map__result.has(o_entry.o_composition.n_id)',
+                                class: 'o_export__video_wrap',
+                                a_o: [
+                                    {
+                                        s_tag: 'video',
+                                        ':src': "'/api/file?path=' + encodeURIComponent(o_map__result.get(o_entry.o_composition.n_id).s_path_output)",
+                                        class: 'o_export__video',
+                                        controls: true,
+                                        preload: 'auto',
+                                    },
+                                ],
                             },
                         ],
                     },
@@ -124,6 +151,7 @@ let o_component__export = {
         return {
             o_set__n_id__rendering: new Set(),
             o_map__result: new Map(),
+            n_id__preview: null,
             n_bytes__audio: 0,
             n_bytes__export: 0,
         };
@@ -157,6 +185,9 @@ let o_component__export = {
                 n_idx++;
             }
             return n_val.toFixed(1) + ' ' + a_s_unit[n_idx];
+        },
+        f_toggle_preview: function(n_id){
+            this.n_id__preview = this.n_id__preview === n_id ? null : n_id;
         },
         f_render: async function(o_composition){
             if(this.o_set__n_id__rendering.has(o_composition.n_id)) return;

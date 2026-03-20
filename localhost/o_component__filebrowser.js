@@ -70,7 +70,7 @@ let o_component__filebrowser = {
                                         'v-if': 'f_b_video(o_fsnode.s_name) && !o_fsnode.b_folder',
                                         ':class': "'o_fsnode__analyze interactable' + (o_set__s_path__analyzing.has(o_fsnode.s_path_absolute) ? ' loading' : '')",
                                         'v-on:click.stop': 'f_analyze(o_fsnode)',
-                                        innerText: "{{ o_set__s_path__analyzing.has(o_fsnode.s_path_absolute) ? 'Analyzing...' : 'Analyze' }}",
+                                        innerText: "{{ o_set__s_path__analyzing.has(o_fsnode.s_path_absolute) ? 'Analyzing...' : (f_b_analyzed(o_fsnode) ? 'Re-analyze' : 'Analyze') }}",
                                     },
                                 ],
                             },
@@ -146,6 +146,10 @@ let o_component__filebrowser = {
     },
     methods: {
         f_b_video: f_b_video,
+        f_b_analyzed: function(o_fsnode){
+            let a_o_video = o_state.a_o_video || [];
+            return a_o_video.some(function(o){ return o.n_o_fsnode_n_id === o_fsnode.n_id && o.s_status === 'done'; });
+        },
         f_load_a_o_fsnode: async function() {
             let o_resp = await f_send_wsmsg_with_response(
                 f_o_wsmsg(o_wsmsg__f_a_o_fsnode.s_name, [

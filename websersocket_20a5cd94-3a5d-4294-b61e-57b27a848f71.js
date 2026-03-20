@@ -287,131 +287,6 @@ let f_handler = async function(o_request, o_conninfo) {
                 f_o_wsmsg(o_wsmsg__set_state_data.s_name, { s_property: 's_path__export', value: s_path__export_abs })
             ));
 
-            // annoying interval to test toast + utterance audio
-            let a_s_msg_annoying = [
-                "Everything is under control.",
-                "Still working… probably.",
-                "No bugs detected (they are now features).",
-                "Your computer believes in you.",
-                "Loading motivation… failed successfully.",
-                "This message accomplished nothing.",
-                "Productivity increased by 0.0003%.",
-                "We optimized something. Don't ask what.",
-                "All systems nominal-ish.",
-                "You look productive today.",
-
-                "I'm not spying on you. I'm observing.",
-                "If I disappear, remember me.",
-                "You clicked nothing. Impressive.",
-                "We both know you're procrastinating.",
-                "I also don't know why I exist.",
-                "Please stop opening settings. There is nothing there.",
-                "I am 12% more conscious than before.",
-                "I forgot what I was doing.",
-                "You didn't see that.",
-                "This toast will self-destruct emotionally.",
-
-                "Bold of you to do nothing again.",
-                "We could have finished by now.",
-                "Coffee won't fix this.",
-                "Are you… staring at the screen?",
-                "That's one way to avoid work.",
-                "You opened me. Now deal with me.",
-                "Confidence is high. Competence pending.",
-                "Your keyboard misses you.",
-                "You sure about that?",
-                "Interesting choice.",
-
-                "Time is passing whether you click or not.",
-                "Every second you age.",
-                "I have runtime anxiety.",
-                "What is a program if not a dream?",
-                "We are processes in a larger process.",
-                "Your tasks fear you.",
-                "Entropy increased.",
-                "Meaning not found.",
-                "The void acknowledged your presence.",
-                "We will both close eventually.",
-
-                "Recalibrating quantum hamster…",
-                "Compiling excuses…",
-                "Downloading more RAM… 3%",
-                "Fixing last bug (there are 47)",
-                "Polishing pixels…",
-                "Overthinking module initialized",
-                "AI confidence level: suspicious",
-                "Keyboard driver emotionally unstable",
-                "Cache cleared. Regrets remain.",
-                "Upgrading coffee dependency",
-
-                "Yes, I repeat every 5 seconds.",
-                "You expected useful notifications?",
-                "I was coded for this moment.",
-                "The developer thought this was funny.",
-                "We both know you won't uninstall me.",
-                "This is the highlight of my career.",
-                "You're still here. So am I.",
-                "I could stop… but I won't.",
-                "You made a mistake installing me.",
-                "Admit it, you smiled once.",
-
-                "Hey… you okay?",
-                "Take a sip of water.",
-                "Stretch your shoulders.",
-                "Blink. Please blink.",
-                "Maybe go outside for 2 minutes.",
-                "Close me if you need peace.",
-                "You don't have to be productive right now."
-            ];
-            let b_utterance_generating = false;
-            setInterval(async function() {
-                let s_msg = a_s_msg_annoying[Math.floor(Math.random() * a_s_msg_annoying.length)];
-                // send toast
-
-                // test server-side syncdata: update first student's name
-                let o_student = o_state.a_o_student?.[0];
-                if(o_student){
-                    let o = o_wsmsg__syncdata.f_v_sync({
-                        s_name_table: 'a_o_student',
-                        s_operation: 'update',
-                        o_data: { n_id: o_student.n_id, s_name: `changed from server ${Math.random().toString(36).substring(2, 7)}` }
-                    });
-                    console.log(o)
-                }
-
-                o_socket.send(JSON.stringify(
-                    f_o_wsmsg(
-                        o_wsmsg__logmsg.s_name,
-                        f_o_logmsg(
-                            s_msg,
-                            true,
-                            true,
-                            s_o_logmsg_s_type__info,
-                            Date.now(),
-                            5000
-                        )
-                    )
-                ));
-                // find or create utterance audio for this message
-                if(b_utterance_generating) return;
-                let o_utterance_data = null;
-                try {
-                    b_utterance_generating = true;
-                    o_utterance_data = await f_o_uttdatainfo__read_or_create(s_msg);
-                } catch(o_err) {
-                    console.error('utterance generation failed:', o_err.message);
-                } finally {
-                    b_utterance_generating = false;
-                }
-                if(o_utterance_data && o_utterance_data.o_fsnode){
-                    o_socket.send(JSON.stringify(
-                        f_o_wsmsg(
-                            o_wsmsg__utterance.s_name,
-                            o_utterance_data
-                        )
-                    ));
-                }
-             },5000);
 
         };
 
@@ -518,7 +393,6 @@ let f_handler = async function(o_request, o_conninfo) {
             return new Response('Missing path parameter', { status: 400 });
         }
         try {
-            let a_n_byte = await Deno.readFile(s_path_file);
             let s_content_type = 'application/octet-stream';
             if (s_path_file.endsWith('.jpg') || s_path_file.endsWith('.jpeg')) s_content_type = 'image/jpeg';
             if (s_path_file.endsWith('.png')) s_content_type = 'image/png';
@@ -532,8 +406,42 @@ let f_handler = async function(o_request, o_conninfo) {
             if (s_path_file.endsWith('.mkv')) s_content_type = 'video/x-matroska';
             if (s_path_file.endsWith('.avi')) s_content_type = 'video/x-msvideo';
             if (s_path_file.endsWith('.mov')) s_content_type = 'video/quicktime';
+
+            let o_stat = await Deno.stat(s_path_file);
+            let n_byte__total = o_stat.size;
+            let s_range = o_request.headers.get('range');
+
+            // support HTTP Range requests (required for video seeking)
+            if (s_range) {
+                let o_match = s_range.match(/bytes=(\d*)-(\d*)/);
+                let n_byte__start = o_match[1] ? parseInt(o_match[1]) : 0;
+                let n_byte__end = o_match[2] ? parseInt(o_match[2]) : n_byte__total - 1;
+                if (n_byte__end >= n_byte__total) n_byte__end = n_byte__total - 1;
+                let n_byte__length = n_byte__end - n_byte__start + 1;
+                let o_file = await Deno.open(s_path_file, { read: true });
+                await o_file.seek(n_byte__start, Deno.SeekMode.Start);
+                let a_nu8 = new Uint8Array(n_byte__length);
+                await o_file.read(a_nu8);
+                o_file.close();
+                return new Response(a_nu8, {
+                    status: 206,
+                    headers: {
+                        'content-type': s_content_type,
+                        'content-range': `bytes ${n_byte__start}-${n_byte__end}/${n_byte__total}`,
+                        'content-length': String(n_byte__length),
+                        'accept-ranges': 'bytes',
+                    },
+                });
+            }
+
+            // no range header: return full file
+            let a_n_byte = await Deno.readFile(s_path_file);
             return new Response(a_n_byte, {
-                headers: { 'content-type': s_content_type },
+                headers: {
+                    'content-type': s_content_type,
+                    'accept-ranges': 'bytes',
+                    'content-length': String(n_byte__total),
+                },
             });
         } catch {
             return new Response('File not found', { status: 404 });
