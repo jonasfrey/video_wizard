@@ -3,6 +3,8 @@ from docx import Document
 from docx.shared import Inches, Pt, Cm, RGBColor
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.enum.table import WD_TABLE_ALIGNMENT
+from docx.oxml.ns import qn
+from docx.oxml import OxmlElement
 import os
 
 s_dir = os.path.dirname(os.path.abspath(__file__))
@@ -161,7 +163,37 @@ f_add_paragraph(
 # --- 3. Technische Umsetzung ---
 f_add_heading('3. Technische Umsetzung', 1)
 
-f_add_heading('3.1 Architektur', 2)
+f_add_heading('3.1 Voraussetzungen', 2)
+
+f_add_table([
+    ['Abh\u00e4ngigkeit', 'Version', 'Zweck'],
+    ['Deno', '2.x', 'Server-Runtime'],
+    ['Python', '3.9+', 'Audioanalyse- und Rendering-Scripts'],
+    ['FFmpeg / FFprobe', 'beliebig', 'Audio-/Videoextraktion und Rendering'],
+    ['pip3', 'beliebig', 'Python-Paketmanager'],
+])
+
+f_add_paragraph('Python-Pakete (werden im Virtual Environment installiert):', b_bold=True)
+a_s_pypackage = [
+    'openai-whisper \u2014 Speech-to-Text-Modell',
+    'torch (PyTorch) \u2014 ML-Framework',
+    'transformers \u2014 Hugging Face Audioklassifikation',
+    'numpy \u2014 Numerische Berechnungen',
+    'pyttsx3 \u2014 Text-to-Speech-Synthese',
+    'python-dotenv \u2014 Umgebungsvariablen laden',
+]
+for s in a_s_pypackage:
+    f_add_paragraph('\u2022  ' + s)
+
+doc.add_paragraph()
+f_add_paragraph(
+    'GPU nicht erforderlich. PyTorch, Whisper und Transformers laufen standardm\u00e4ssig auf der CPU. '
+    'Eine NVIDIA-GPU mit CUDA-Unterst\u00fctzung beschleunigt die Audioanalyse, ist aber keine '
+    'Voraussetzung. Im Code wird kein explizites GPU-Device gesetzt \u2014 die Inferenz findet auf '
+    'dem von PyTorch gew\u00e4hlten Standard-Device statt (CPU).'
+)
+
+f_add_heading('3.2 Architektur', 2)
 
 f_add_paragraph(
     'Die Applikation basiert auf einer Client-Server-Architektur mit folgenden Technologien:'
@@ -211,7 +243,7 @@ run = p.add_run(s_struct)
 run.font.size = Pt(8)
 run.font.name = 'Courier New'
 
-f_add_heading('3.2 Komponenten', 2)
+f_add_heading('3.3 Komponenten', 2)
 
 f_add_paragraph(
     'Die Applikation besteht aus f\u00fcnf Hauptkomponenten, die jeweils eine eigene Verantwortlichkeit haben:'
@@ -233,7 +265,15 @@ f_add_paragraph(
     'erfolgt \u00fcber den gemeinsamen reaktiven o_state und WebSocket-Nachrichten.'
 )
 
-f_add_heading('3.3 Routing', 2)
+f_add_paragraph(
+    'Der gesamte Code folgt der Abstract Prefix Notation (APN) \u2014 einer Namenskonvention, bei der '
+    'der Datentyp als Pr\u00e4fix im Variablennamen kodiert wird (z.B. s_name f\u00fcr Strings, n_age '
+    'f\u00fcr Zahlen, a_o_video f\u00fcr Arrays von Objekten, f_render f\u00fcr Funktionen). Dies '
+    'erh\u00f6ht die Lesbarkeit und macht den Code selbstdokumentierend. '
+    'Das Whitepaper zur APN-Methodik ist unter techrxiv.org ver\u00f6ffentlicht.'
+)
+
+f_add_heading('3.4 Routing', 2)
 
 f_add_paragraph(
     'Das Routing ist mit Vue Router 4 und Hash-basierter Navigation (createWebHashHistory) implementiert:'
@@ -255,7 +295,7 @@ f_add_paragraph(
     'Start wiederhergestellt.'
 )
 
-f_add_heading('3.4 State-Management', 2)
+f_add_heading('3.5 State-Management', 2)
 
 f_add_paragraph(
     'Anstelle eines klassischen Store-Frameworks (Pinia, Vuex) wird ein eigenes reaktives '
@@ -321,7 +361,28 @@ run = p.add_run('Abbildung 2: Entity-Relationship-Modell der Video Wizard Datens
 run.italic = True
 run.font.size = Pt(9)
 
-f_add_heading('4.3 Architektur\u00fcbersicht', 2)
+f_add_heading('4.3 Screenshots der fertigen Applikation', 2)
+
+s_path__gui_dir = os.path.join(s_dir, 'gui', 'v1')
+
+a_a_s_screenshot = [
+    ['filebrowser_page.png', 'Abbildung 3: Filebrowser \u2014 Dateisystem-Navigation mit analysierten Videos in der Seitenleiste'],
+    ['composition_page.png', 'Abbildung 4: Kompositions-Editor \u2014 Videovorschau, Transkript-Suche und Audio-Event-Auswahl'],
+    ['export_page.png', 'Abbildung 5: Export \u2014 Gerenderte Kompositionen mit Vorschau und Download'],
+    ['cli_page.png', 'Abbildung 6: CLI Monitor \u2014 Echtzeit-\u00dcberwachung laufender Prozesse'],
+]
+
+for a_s in a_a_s_screenshot:
+    s_path_img = os.path.join(s_path__gui_dir, a_s[0])
+    doc.add_picture(s_path_img, width=Inches(5.5))
+    doc.paragraphs[-1].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p = doc.add_paragraph()
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run = p.add_run(a_s[1])
+    run.italic = True
+    run.font.size = Pt(9)
+
+f_add_heading('4.4 Architektur\u00fcbersicht', 2)
 
 f_add_paragraph(
     'Die folgende \u00dcbersicht zeigt den Datenfluss der Video-Analysepipeline:'
@@ -387,7 +448,12 @@ f_add_paragraph(
     'das beste Resultat.'
 )
 
-f_add_heading('Verbesserungsvorschl\u00e4ge', 2)
+f_add_heading('Aussicht & Verbesserungsvorschl\u00e4ge', 2)
+
+f_add_paragraph(
+    'Die Applikation kann zu einem vollst\u00e4ndigen Video-Editor erweitert werden. '
+    'Konkrete n\u00e4chste Schritte w\u00e4ren:'
+)
 
 a_s_improve = [
     'FFmpeg im Browser: F\u00fcr eine rein clientseitige L\u00f6sung k\u00f6nnte FFmpeg mit WebAssembly '
@@ -401,6 +467,48 @@ a_s_improve = [
 ]
 for s in a_s_improve:
     f_add_paragraph('\u2022  ' + s)
+
+# --- 6. Quellen ---
+f_add_heading('6. Quellen', 1)
+
+a_a_s_source = [
+    ['Video Wizard Repository', 'https://github.com/jonasfrey/video_wizard'],
+    ['Deno', 'https://github.com/denoland/deno'],
+    ['FFmpeg', 'https://github.com/FFmpeg/FFmpeg'],
+    ['OpenAI Whisper', 'https://github.com/openai/whisper'],
+    ['PyTorch', 'https://github.com/pytorch/pytorch'],
+    ['Hugging Face Transformers', 'https://github.com/huggingface/transformers'],
+    ['Vue 3', 'https://github.com/vuejs/core'],
+    ['Vue Router 4', 'https://github.com/vuejs/router'],
+    ['pyttsx3', 'https://github.com/nateshmbhat/pyttsx3'],
+    ['python-dotenv', 'https://github.com/theskumar/python-dotenv'],
+    ['NumPy', 'https://github.com/numpy/numpy'],
+    ['Abstract Prefix Notation (APN)', 'https://www.techrxiv.org/users/1031649/articles/1391488-abstract-prefix-notation-apn-a-type-encoding-naming-methodology-for-programming'],
+]
+
+f_add_table([['Tool / Bibliothek', 'URL']] + a_a_s_source)
+
+# --- Page numbers in footer ---
+for section in doc.sections:
+    footer = section.footer
+    footer.is_linked_to_previous = False
+    p = footer.paragraphs[0] if footer.paragraphs else footer.add_paragraph()
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run = p.add_run()
+    fld_char_begin = OxmlElement('w:fldChar')
+    fld_char_begin.set(qn('w:fldCharType'), 'begin')
+    run._element.append(fld_char_begin)
+
+    instr_text = OxmlElement('w:instrText')
+    instr_text.set(qn('xml:space'), 'preserve')
+    instr_text.text = ' PAGE '
+    run._element.append(instr_text)
+
+    fld_char_end = OxmlElement('w:fldChar')
+    fld_char_end.set(qn('w:fldCharType'), 'end')
+    run._element.append(fld_char_end)
+
+    run.font.size = Pt(9)
 
 # Save
 doc.save(s_path__output)
