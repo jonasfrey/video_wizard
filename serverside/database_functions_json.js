@@ -18,7 +18,7 @@ import {
 import { s_path__db_json } from "./runtimedata.js";
 import { s_db_create, s_db_read, s_db_update, s_db_delete } from "../localhost/runtimedata.js";
 
-// in-memory store: { "a_o_student": [{...}, ...], ... }
+// in-memory store: { "a_o_<model>": [{...}, ...], ... }
 let o_store = {};
 // track next auto-increment id per table
 let o_next_id = {};

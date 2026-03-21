@@ -3,7 +3,7 @@
 // functions that spawn CLI subprocesses (python, pip, etc.)
 
 import { s_ds, s_root_dir, s_uuid, s_bin__python, s_path__venv, s_path__audio, s_bin__ffmpeg, s_bin__ffprobe, s_bin__which, s_bin__sudo, s_bin__pip3 } from './runtimedata.js';
-import { f_s_name_table__from_o_model, o_model__o_fsnode, o_model__o_utterance, o_model__o_video, o_model__o_audio, o_model__o_audio_event, o_model__o_composition, o_model__o_composition_o_audio_event, o_wsmsg__syncdata } from '../localhost/constructors.js';
+import { f_s_name_table__from_o_model, o_model__o_fsnode, o_model__o_video, o_model__o_audio, o_model__o_audio_event, o_model__o_composition, o_model__o_composition_o_audio_event, o_wsmsg__syncdata } from '../localhost/constructors.js';
 
 let f_install_cli_dependencies = async function(){
     let b_ffmpeg = await f_check_ffmpeg();
@@ -77,75 +77,6 @@ let f_init_python = async function(){
     }
     console.log('[f_init_python] packages installed');
 }
-
-let f_o_uttdatainfo = async function(s_text){
-    let s_name_script = 'f_o_uttdatainfo.py';
-    let s_path__script = `${s_root_dir}${s_ds}serverside${s_ds}${s_name_script}`;
-    // prefer venv python if it exists, fall back to system python
-    let s_path__python = `${s_path__venv}${s_ds}bin${s_ds}python3`;
-    try { await Deno.stat(s_path__python); } catch { s_path__python = s_bin__python; }
-    let a_s_cmd = [s_path__python, s_path__script, s_text, '--s-uuid', s_uuid];
-
-    let o_process = new Deno.Command(a_s_cmd[0], {
-        args: a_s_cmd.slice(1),
-        cwd: s_root_dir,
-        stdout: 'piped',
-        stderr: 'piped',
-    });
-    let o_output = await o_process.output();
-    let s_stdout = new TextDecoder().decode(o_output.stdout);
-    let s_stderr = new TextDecoder().decode(o_output.stderr);
-
-    if(o_output.code !== 0){
-        console.error(`${s_name_script} python script failed:`, s_stderr);
-        throw new Error(`${s_name_script} exited with code ${o_output.code}: ${s_stderr}`);
-    }
-
-    // parse IPC block from stdout
-    let s_tag__start = `${s_uuid}_start_json`;
-    let s_tag__end = `${s_uuid}_end_json`;
-    let n_idx__start = s_stdout.indexOf(s_tag__start);
-    let n_idx__end = s_stdout.indexOf(s_tag__end);
-
-    if(n_idx__start === -1 || n_idx__end === -1){
-        console.error(`${s_name_script}: no IPC block found in stdout:\n`, s_stdout);
-        throw new Error(`${s_name_script} did not emit IPC json block`);
-    }
-
-    let s_json = s_stdout.slice(n_idx__start + s_tag__start.length, n_idx__end).trim();
-    let o_ipc = JSON.parse(s_json);
-    // o_ipc: { o_utterance: { s_text, ... }, o_fsnode: { s_path_absolute, s_name, n_bytes, ... } }
-
-    // create o_fsnode in db for the audio file
-    let s_name_table__fsnode = f_s_name_table__from_o_model(o_model__o_fsnode);
-    let o_fsnode = o_wsmsg__syncdata.f_v_sync({
-        s_name_table: s_name_table__fsnode,
-        s_operation: 'create',
-        o_data: {
-            s_path_absolute: o_ipc.o_fsnode.s_path_absolute,
-            s_name: o_ipc.o_fsnode.s_name,
-            n_bytes: o_ipc.o_fsnode.n_bytes,
-            b_folder: false,
-        }
-    });
-
-    // create o_utterance in db linked to o_fsnode
-    let s_name_table__utterance = f_s_name_table__from_o_model(o_model__o_utterance);
-    let o_utterance = o_wsmsg__syncdata.f_v_sync({
-        s_name_table: s_name_table__utterance,
-        s_operation: 'create',
-        o_data: {
-            s_text: o_ipc.o_utterance.s_text,
-            n_o_fsnode_n_id: o_fsnode.n_id,
-        }
-    });
-
-    return {
-        o_utterance,
-        o_fsnode,
-    };
-};
-
 
 let f_install_linux_binary = async function(s_name_binary){
     // check if already available via PATH (which) before falling back to absolute path
@@ -754,7 +685,6 @@ let f_render_composition = async function(n_o_composition_n_id, f_on_progress){
 export {
     f_install_cli_dependencies,
     f_init_python,
-    f_o_uttdatainfo,
     f_install_linux_binary,
     f_check_ffmpeg,
     f_n_ms_duration__from_s_path,

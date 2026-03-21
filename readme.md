@@ -1,87 +1,187 @@
-# CRUD template
+![Video Wizard Banner](banner.png)
 
-Deno · SQLite · Vue 3 · WebSocket
+# Video Wizard
 
-## Quick start
+KI-gestützte Videoanalyse und Komposition — Videos analysieren, Sprache erkennen, textbasiert schneiden und exportieren.
 
+Deno · Vue 3 · WebSocket · FFmpeg · OpenAI Whisper
+
+---
+
+## Voraussetzungen
+
+| Abhängigkeit | Version | Zweck |
+|---|---|---|
+| [Deno](https://deno.land/) | 2.x | Server-Runtime |
+| [Python](https://www.python.org/) | 3.9+ | Audioanalyse & Rendering-Scripts |
+| [FFmpeg](https://ffmpeg.org/) | beliebig | Audio-/Videoextraktion und Rendering |
+| pip3 | beliebig | Python-Paketmanager |
+
+> **GPU nicht erforderlich.** PyTorch, Whisper und Transformers laufen standardmässig auf der CPU. Eine NVIDIA-GPU mit CUDA beschleunigt die Audioanalyse, ist aber keine Voraussetzung.
+
+### Systemabhängigkeiten installieren (Linux / Debian / Ubuntu)
+
+```bash
+# Deno
+curl -fsSL https://deno.land/install.sh | sh
+
+# FFmpeg & Python
+sudo apt-get update
+sudo apt-get install -y ffmpeg python3 python3-pip python3-venv
 ```
-mkdir project_name && cd project_name
-deno eval "import { f_init_project } from 'jsr:@apn/websersocketgui@{version}/init'; await f_init_project();"
+
+### Systemabhängigkeiten installieren (macOS)
+
+```bash
+# Deno
+curl -fsSL https://deno.land/install.sh | sh
+
+# FFmpeg & Python
+brew install ffmpeg python3
+```
+
+> **Windows wird derzeit nicht unterstützt.**
+
+---
+
+## Installation
+
+```bash
+# 1. Repository klonen
+git clone https://github.com/jonasfrey/video_wizard.git
+cd video_wizard
+
+# 2. Umgebungsvariablen konfigurieren
+cp .env.example .env
+# Optional: PORT, S_DB_TYPE etc. in .env anpassen
+
+# 3. Python Virtual Environment einrichten & Pakete installieren
+python3 -m venv venv
+source venv/bin/activate
+pip install python-dotenv openai-whisper torch transformers numpy pyttsx3
+
+# 4. Server starten
 deno task run
 ```
 
-Open `http://localhost:8000`
+Beim ersten Start erstellt Deno automatisch fehlende Verzeichnisse und prüft Abhängigkeiten.
+
+Öffne danach im Browser: **http://localhost:8000**
+
+> **Hinweis:** Beim ersten Analysieren eines Videos lädt Whisper das Sprachmodell herunter (~1 GB). Dies kann je nach Internetverbindung einige Minuten dauern.
+
+---
+
+## Verwendung
+
+1. **Filebrowser** — Navigiere zu einer Videodatei (MP4, MKV, AVI, MOV, WebM) und klicke «Analyze»
+2. **Composition** — Wähle das analysierte Video, durchsuche die Transkription und wähle Wörter/Sätze aus
+3. **Export** — Rendere die Komposition als MP4 und lade sie herunter
+4. **CLI Monitor** — Überwache laufende Prozesse (Extraktion, Analyse, Rendering)
+5. **Data** — CRUD-Verwaltung aller Datenmodelle
+
+---
+
+## Projektstruktur
+
+```
+video_wizard/
+├── localhost/                   # Frontend (Vue 3 SPA)
+│   ├── index.html               # HTML-Shell
+│   ├── index.js                 # Vue-App, Routing, WebSocket
+│   ├── index.css                # Globales Styling (Dark Theme)
+│   ├── constructors.js          # Datenmodelle & WebSocket-Nachrichten
+│   ├── o_component__data.js     # Datenmanagement-Komponente
+│   ├── o_component__filebrowser.js  # Dateibrowser-Komponente
+│   ├── o_component__composition.js  # Kompositions-Editor
+│   ├── o_component__export.js   # Export & Rendering
+│   ├── o_component__cli_monitor.js  # CLI-Task-Monitor
+│   └── lib/                     # Vue 3 & Vue Router ESM-Bundles
+├── serverside/                  # Backend (Deno)
+│   ├── functions.js             # Server-Utilities
+│   ├── cli_functions.js         # CLI-Subprozesse (FFmpeg, Python)
+│   ├── database_functions.js    # SQLite-Operationen
+│   ├── database_functions_json.js   # JSON-Datenbank-Operationen
+│   ├── f_analyze_audio.py       # Whisper Speech-to-Text + Audioklassifikation
+│   ├── f_render_composition.py  # FFmpeg Video-Rendering
+│   └── testing/                 # Unit-Tests
+├── deno.json                    # Deno-Konfiguration & Tasks
+├── .env.example                 # Vorlage für Umgebungsvariablen
+└── readme.md
+```
+
+---
+
+## Umgebungsvariablen
+
+| Variable | Standardwert | Beschreibung |
+|---|---|---|
+| `PORT` | `8000` | HTTP- und WebSocket-Port |
+| `S_DB_TYPE` | `json` | Datenbanktyp (`json` oder `sqlite`) |
+| `S_PATH__DB_JSON` | `./.gitignored/appdb/` | Pfad zur JSON-Datenbank |
+| `STATIC_DIR` | `./localhost` | Frontend-Verzeichnis |
+| `S_UUID` | (generiert) | Eindeutige ID für IPC-Protokoll |
+| `BIN_PYTHON` | `python3` | Python-Binary |
+| `PATH_VENV` | `./venv` | Pfad zum Python-venv |
+| `BIN_FFMPEG` | `ffmpeg` | FFmpeg-Binary |
+| `S_PATH__AUDIO` | `./.gitignored/audio/` | Extrahierte Audiodateien |
+
+---
 
 ## Tasks
 
-- `deno task run` — start the server
-- `deno task uninit` — delete database and reset project data
+```bash
+deno task run       # Server starten
+deno task stop      # Server stoppen
+deno task restart   # Server neu starten
+deno task test      # Alle Tests ausführen
+deno task uninit    # Datenbank zurücksetzen
+deno task rmdb      # Datenbankdateien löschen
+```
 
+---
 
-## project structure 
-root 
-    serverside
-        basically all server side code goes here
-    localhost
-        all data that is accessable on the website client
-    
+## Technologien
+
+| Technologie | Verwendung |
+|---|---|
+| **Deno** | Server-Runtime (JavaScript) |
+| **Vue 3** | Frontend-Framework (ESM, kein Build-Step) |
+| **Vue Router 4** | Hash-basiertes SPA-Routing |
+| **WebSocket** | Echtzeit-Kommunikation Client ↔ Server |
+| **SQLite / JSON** | Datenbank (konfigurierbar) |
+| **FFmpeg** | Audio-Extraktion & Video-Rendering |
+| **OpenAI Whisper** | Speech-to-Text mit wortgenauen Zeitstempeln |
+| **Hugging Face Transformers** | Audioklassifikation (Sprache/Musik/Stille) |
+| **PyTorch** | ML-Framework (CPU-Inferenz) |
+
+---
+
 ## APN
-This project is coded entirely with APN Abstract Prefix Notation. To get a better understanding you can read the paper https://www.techrxiv.org/users/1031649/articles/1391488-abstract-prefix-notation-apn-a-type-encoding-naming-methodology-for-programming?commit=571d0b8647fbee85c242544375a07d5cf4238bef
 
-## for programmers
-### native javascript main language
-Native Javscript is the main language!!! where ever possible use it!
+Dieses Projekt verwendet durchgehend [Abstract Prefix Notation (APN)](https://www.techrxiv.org/users/1031649/articles/1391488-abstract-prefix-notation-apn-a-type-encoding-naming-methodology-for-programming?commit=571d0b8647fbee85c242544375a07d5cf4238bef) — eine Namenskonvention, bei der der Datentyp als Präfix im Variablennamen kodiert wird (z.B. `s_name`, `n_age`, `a_o_video`, `f_render`).
 
-### shared state
-'o_state' is a runtime object that is synchronized between: server-client-db
-strictly only use f_v_sync to update data!!!
+---
 
-### performance
-it is more important to have a nice and convenient way to write and understand the software than it to be fast 
-This application might not be to most performant but it is without question one of the most handy convenient. 
+## Quellen
 
+| Tool / Bibliothek | Repository |
+|---|---|
+| Deno | https://github.com/denoland/deno |
+| FFmpeg | https://github.com/FFmpeg/FFmpeg |
+| OpenAI Whisper | https://github.com/openai/whisper |
+| PyTorch | https://github.com/pytorch/pytorch |
+| Hugging Face Transformers | https://github.com/huggingface/transformers |
+| Vue 3 | https://github.com/vuejs/core |
+| Vue Router 4 | https://github.com/vuejs/router |
+| pyttsx3 | https://github.com/nateshmbhat/pyttsx3 |
+| python-dotenv | https://github.com/theskumar/python-dotenv |
+| NumPy | https://github.com/numpy/numpy |
 
-### shared functions
-since javascript is used on the client side and on the server side there are many redundancies that can be removed by simply creating a function on the client side and use the same function on the server side.
+---
 
-since client side and server side is mainly programmed in native javascript , all functions that can be shared should be shared. this application already has a perfect example for this by having the data structure models on client side which then are loaded by the server. so all functions that are non sensitive have to be shared.
+## Lizenz
 
-### communication 
-main communication is done by a websocket. http requests should be avoided , instead websocket messages are used. there is also a websocket message function that expects a response. it should be used to replace the 'classical' http fetch. 
+GPLv2 — siehe [LICENSE](LICENSE)
 
-### cli 
-if a part of the programm can only be executed by calling a binary this can be done but the master scripts should all be in javascript. is required
-
-### cli scripts
-each cli script should have a human readable 'normal' text output , but also should output a json.
-
-
-
-## Security through obscurity is bad
-On first glance this project could be considered insecure. but this is only because it is clearly programmed. A system is not more secure just because it is a mess and the programmer themself do not know what they are doing. so keep in mind to program as clear and simple as possible. You can and must use simple and pragmatic code, it does not make the program insecure!
-
-This project exposes many functionalities of the 'server' which is essentaly the computer . The webapplication GUI 'only' serves as a front end for the application. However this can be extended in a way to make it a sturdy and secure webapplication. The fundamentals however are here to give full access to the computer. This is not unsecure, it is just a solid base. 
-Remember: 
-Just because a system is unclear and obfuscated, it does not mean it is secure. security through obscurity is not good. 
-
-
-## Project example templates
-
-the current workspace holds a complete template / boilerplate / preset  for a full front and backend application including a GUI. it mostly written in native javascript. it seems like a  webapplication but is not a 'website' or 'webapp' in the classical sense. it simply makes use of the browser to make use of the convenient javascript/html/css GUI possibilities. it can be extended to any kind of application, for example: 
-- Utility — small focused tool (calculator, file renamer, converter)
-- Monitoring tool — GPU stats, system health, network traffic
-- Dashboard — visual overview of data/metrics
-- Admin panel — manage a service or system
-- Developer tool / devtool — debugger, profiler, code generator
-- Productivity app — notes, task manager, editor
-- Automation tool — scripting, scheduling, batch processing
-- Creative tool — 3D modeling, image editing, music production
-- Communication tool — chat, video, collaboration
-- Data viewer / explorer — database browser, log viewer, file inspector. 
-
-
-## 
-
-[Jonas Immanuel Frey] - 2026
-
-Have Fun !
+Jonas Immanuel Frey — 2026

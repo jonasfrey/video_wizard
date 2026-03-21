@@ -5,13 +5,12 @@ import {
     f_init_db,
     f_v_crud__indb,
 } from "./serverside/database_functions.js";
-import { f_a_o_fsnode, f_o_uttdatainfo__read_or_create, f_v_result_from_o_wsmsg } from "./serverside/functions.js";
+import { f_a_o_fsnode, f_v_result_from_o_wsmsg } from "./serverside/functions.js";
 import { f_install_cli_dependencies } from "./serverside/cli_functions.js";
 import {
     a_o_model,
     f_o_model__from_params,
     f_o_model_instance,
-    o_model__o_course,
     o_model__o_wsclient,
     a_o_wsmsg,
     f_s_name_table__from_o_model,
@@ -19,7 +18,6 @@ import {
     f_o_logmsg,
     o_wsmsg__logmsg,
     o_wsmsg__set_state_data,
-    o_wsmsg__utterance,
     o_wsmsg__f_v_crud__indb,
     o_wsmsg__f_delete_table_data,
     o_wsmsg__syncdata,
@@ -167,7 +165,7 @@ for (let o_model of a_o_model) {
     o_state[s_name_table] = o_wsmsg__syncdata.f_v_sync({s_name_table, s_operation: 'read', o_data: {}}) || [];
 }
 
-// denormalize all state objects for relation access (e.g. o_student.a_o_course)
+// denormalize all state objects for relation access
 let o_relation_map = f_denormalize_o_state(o_state, a_o_model, s_name_prop_id);
 
 // helper: look up a keyvalpair from current DB state by s_key

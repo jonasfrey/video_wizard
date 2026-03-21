@@ -5,9 +5,9 @@
 
 import { s_ds } from './runtimedata.js';
 import { s_db_create, s_db_read, s_db_update, s_db_delete } from '../localhost/runtimedata.js';
-import { a_o_wsmsg, f_o_model_instance, f_s_name_table__from_o_model, f_o_logmsg, s_o_logmsg_s_type__info, s_o_logmsg_s_type__error, o_model__o_fsnode, o_model__o_utterance, o_model__o_keyvalpair, o_wsmsg__deno_copy_file, o_wsmsg__deno_mkdir, o_wsmsg__deno_stat, o_wsmsg__deno_remove, o_wsmsg__f_a_o_fsnode, o_wsmsg__f_delete_table_data, o_wsmsg__f_v_crud__indb, o_wsmsg__logmsg, o_wsmsg__set_state_data, o_wsmsg__syncdata, o_wsmsg__f_extract_audio, o_wsmsg__f_analyze_audio, o_wsmsg__f_analyze_video, o_wsmsg__f_render_composition, f_o_wsmsg } from '../localhost/constructors.js';
+import { a_o_wsmsg, f_o_model_instance, f_s_name_table__from_o_model, f_o_logmsg, s_o_logmsg_s_type__info, s_o_logmsg_s_type__error, o_model__o_fsnode, o_model__o_keyvalpair, o_wsmsg__deno_copy_file, o_wsmsg__deno_mkdir, o_wsmsg__deno_stat, o_wsmsg__deno_remove, o_wsmsg__f_a_o_fsnode, o_wsmsg__f_delete_table_data, o_wsmsg__f_v_crud__indb, o_wsmsg__logmsg, o_wsmsg__set_state_data, o_wsmsg__syncdata, o_wsmsg__f_extract_audio, o_wsmsg__f_analyze_audio, o_wsmsg__f_analyze_video, o_wsmsg__f_render_composition, f_o_wsmsg } from '../localhost/constructors.js';
 import { f_v_crud__indb, f_db_delete_table_data } from './database_functions.js';
-import { f_o_uttdatainfo, f_extract_audio, f_analyze_audio, f_analyze_video, f_render_composition } from './cli_functions.js';
+import { f_extract_audio, f_analyze_audio, f_analyze_video, f_render_composition } from './cli_functions.js';
 
 let f_a_o_fsnode = async function(
     s_path,
@@ -117,21 +117,6 @@ o_wsmsg__set_state_data.f_v_server_implementation = function(o_wsmsg, o_wsmsg__e
     o_state[o_wsmsg.v_data.s_property] = o_wsmsg.v_data.value;
     return null;
 }
-let f_o_uttdatainfo__read_or_create = async function(s_text){
-    let s_name_table__utterance = f_s_name_table__from_o_model(o_model__o_utterance);
-    let s_name_table__fsnode = f_s_name_table__from_o_model(o_model__o_fsnode);
-    let a_o_existing = o_wsmsg__syncdata.f_v_sync({s_name_table: s_name_table__utterance, s_operation: 'read', o_data: { s_text }}) || [];
-    if(a_o_existing.length > 0){
-        let o_utterance = a_o_existing[0];
-        let o_fsnode = o_utterance.n_o_fsnode_n_id
-            ? (o_wsmsg__syncdata.f_v_sync({s_name_table: s_name_table__fsnode, s_operation: 'read', o_data: { n_id: o_utterance.n_o_fsnode_n_id }}) || []).at(0)
-            : null;
-        return { o_utterance, o_fsnode };
-    }
-    // not found in db, generate new utterance audio
-    return await f_o_uttdatainfo(s_text);
-};
-
 // helper: create a o_keyvalpair for process progress, return update + cleanup functions
 let f_o_cli_progress = function(s_key, s_initial_value){
     let s_name_table = f_s_name_table__from_o_model(o_model__o_keyvalpair);
@@ -261,6 +246,5 @@ let f_v_result_from_o_wsmsg = async function(
 
 export {
     f_a_o_fsnode,
-    f_o_uttdatainfo__read_or_create,
     f_v_result_from_o_wsmsg
 };

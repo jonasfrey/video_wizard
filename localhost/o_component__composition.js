@@ -551,8 +551,27 @@ let o_component__composition = {
         f_jump_to_event: function(o_event){
             let el_video = this.$refs.el_video;
             if(!el_video) return;
-            el_video.currentTime = o_event.n_ms_start / 1000;
+            // stop any ongoing preview
+            if(this.b_previewing) this.f_stop_preview();
+            if(this.n_id__raf__single){
+                cancelAnimationFrame(this.n_id__raf__single);
+                this.n_id__raf__single = null;
+            }
+            // play only this single event then stop
+            let n_sec__start = o_event.n_ms_start / 1000;
+            let n_sec__end = (o_event.n_ms_start + o_event.n_ms_duration) / 1000;
+            el_video.currentTime = n_sec__start;
             el_video.play().catch(function(){});
+            let o_self = this;
+            let f_frame = function(){
+                if(el_video.currentTime >= n_sec__end || el_video.paused){
+                    el_video.pause();
+                    o_self.n_id__raf__single = null;
+                    return;
+                }
+                o_self.n_id__raf__single = requestAnimationFrame(f_frame);
+            };
+            this.n_id__raf__single = requestAnimationFrame(f_frame);
             // scroll to matching event in "all events" list
             let v_ref = this.$refs['el_event_' + o_event.n_id];
             let el_target = Array.isArray(v_ref) ? v_ref[0] : v_ref;

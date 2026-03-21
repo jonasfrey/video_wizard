@@ -177,7 +177,7 @@ let f_a_o_relation__from_o_model = function(o_model, a_o_model, s_name_prop_id) 
     let a_o_relation = []
     let s_fk__self = f_s_name_foreign_key__params(o_model, s_name_prop_id)
 
-    // 1. Direct FKs on this model (many-to-one): e.g. o_utterance has n_o_fsnode_n_id
+    // 1. Direct FKs on this model (many-to-one): e.g. o_video has n_o_fsnode_n_id
     for (let o_prop of o_model.a_o_property) {
         if (o_prop.s_name === s_name_prop_id) continue
         if (!o_prop.s_name.startsWith('n_') || !o_prop.s_name.endsWith('_' + s_name_prop_id)) continue

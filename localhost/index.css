@@ -124,6 +124,23 @@ input:focus {
     border-color: var(--c-accent);
 }
 
+.nav__spacer {
+    flex: 1;
+}
+
+.nav__toggle_cli_progress {
+    cursor: pointer;
+    font-size: 1rem;
+    opacity: 0.4;
+    transition: opacity 0.15s;
+}
+
+.nav__toggle_cli_progress.active {
+    opacity: 1;
+    color: var(--c-accent);
+    border-color: var(--c-accent);
+}
+
 .content,
 main {
     flex: 1;

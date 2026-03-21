@@ -295,7 +295,7 @@ let f_ensure_default_data = function(){
                 let o_instance__nested = f_o_instance__processed(o_model__nested, o_data[s_prop]);
                 a_o_nested.push({o_model: o_model__nested, o_instance: o_instance__nested});
             } else {
-                // check if property name matches a table name (e.g. a_o_student) with an array value
+                // check if property name matches a table name with an array value
                 let o_model__related = f_o_model__from_params(s_prop, a_o_model);
                 if(o_model__related && Array.isArray(o_data[s_prop])){
                     for(let v_element of o_data[s_prop]){

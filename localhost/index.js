@@ -76,6 +76,7 @@ let o_state = reactive({
     ],
     n_ts_ms_now: Date.now(),
     b_utterance_muted: true,
+    b_cli_progress_visible: true,
     o_logmsg__run_command,
     a_o_cli_task: [],
 });
@@ -85,7 +86,7 @@ for (let o_model of a_o_model) {
     o_state[f_s_name_table__from_o_model(o_model)] = [];
 }
 
-// precompute relation map once for denormalized access (e.g. o_student.a_o_course)
+// precompute relation map once for denormalized access
 let o_relation_map = f_o_relation_map__from_a_o_model(a_o_model, s_name_prop_id);
 // store on o_state so set_state_data handler can access it for denormalization
 o_state.o_relation_map = o_relation_map;
@@ -250,6 +251,16 @@ let o_app = createApp({
                             'v-for': "o_route in a_o_route.filter(o => o.name)",
                             ':to': 'o_route.path',
                             innerText: "{{ o_route.name }}",
+                        },
+                        {
+                            class: "nav__spacer",
+                        },
+                        {
+                            class: "interactable nav__toggle_cli_progress",
+                            '@click': "b_cli_progress_visible = !b_cli_progress_visible",
+                            ':title': "b_cli_progress_visible ? 'Hide CLI progress' : 'Show CLI progress'",
+                            ':class': "{ active: b_cli_progress_visible }",
+                            innerHTML: "&#9615;",
                         }
                     ]
                 },
@@ -259,7 +270,7 @@ let o_app = createApp({
                 {
                     s_tag: "div",
                     class: "a_o_cli_progress",
-                    'v-if': "a_o_keyvalpair.filter(o => o.s_key && o.s_key.startsWith('s_cli_progress__')).length > 0",
+                    'v-if': "b_cli_progress_visible && a_o_keyvalpair.filter(o => o.s_key && o.s_key.startsWith('s_cli_progress__')).length > 0",
                     a_o: [
                         {
                             s_tag: "div",
