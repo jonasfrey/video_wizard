@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Kurzdokumentation_Video_Wizard.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="video-wizard">Video Wizard</h1>
+<h2 id="kurzdokumentation">Kurzdokumentation</h2>
+<p><strong>Modul WEB2 – SPA-Projekt</strong></p>
+<p>Jonas Immanuel Frey</p>
+<p>Abgabedatum: 21.03.2026</p>
+<hr>
+<h2 id="1-projektbeschreibung">1. Projektbeschreibung</h2>
+<p>Video Wizard ist eine Single Page Application (SPA) für die Analyse und Komposition von Videomaterial. Die Applikation ermöglicht es, aus Videodateien automatisch Audio zu extrahieren, dieses mittels Spracherkennung (OpenAI Whisper) und Audioklassifikation (Hugging Face Transformers) zu analysieren und anschliessend aus den erkannten Audio-Events neue Kompositionen zusammenzustellen, die als fertige Videodateien gerendert werden können.</p>
+<p>Die Zielgruppe sind Content Creator und Videoproduzenten, die effizient mit bestehendem Videomaterial arbeiten möchten – etwa um bestimmte Sprachpassagen zu finden, neu zusammenzustellen und als eigenständige Clips zu exportieren. Der Mehrwert liegt in der Kombination aus KI-gestützter Audioanalyse und einem intuitiven Kompositions-Editor, der den Workflow vom Rohmaterial zum fertigen Clip in einer einzigen Anwendung abbildet.</p>
+<hr>
+<h2 id="2-anforderungen--zielerreichung">2. Anforderungen &amp; Zielerreichung</h2>
+<h3 id="smart-ziele-aus-der-projekteingabe">SMART-Ziele aus der Projekteingabe</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>SMART-Ziel</th>
+<th>Status</th>
+<th>Bemerkung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>Video-Upload und Speicherung:</strong> Benutzer kann Videodateien über die Weboberfläche hochladen, die serverseitig gespeichert und in der Datenbank referenziert werden.</td>
+<td>⚠️ Abweichung</td>
+<td>Statt eines klassischen Uploads wurde ein Dateibrowser implementiert, über den Videos direkt aus dem lokalen Dateisystem ausgewählt werden. Da die Applikation lokal läuft (localhost), ist ein Upload nicht nötig – der Dateibrowser ist die effizientere Lösung.</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Audio-Extraktion:</strong> Audio-Spur eines Videos wird automatisch mittels FFmpeg extrahiert und als separate Datei gespeichert.</td>
+<td>✅ Erreicht</td>
+<td>FFmpeg extrahiert Audio als WAV (16kHz, Mono). Unterstützt MP4, MKV, AVI, MOV, WebM.</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Speech-to-Text-Analyse:</strong> Aus der Audio-Spur werden mithilfe von Whisper alle gesprochenen Wörter mit Start-/End-Zeitstempeln (ms) erkannt und als Events in der Datenbank gespeichert.</td>
+<td>✅ Erreicht</td>
+<td>Whisper erkennt wortgenaue Zeitstempel. Zusätzlich klassifiziert ein Hugging-Face-Transformers-Modell Segmente als Sprache, Musik oder Stille.</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Textbasiertes Schneiden:</strong> Benutzer kann transkribierten Text sehen und durch Auswahl/Entfernung von Wörtern das Video schneiden. Resultat wird serverseitig via FFmpeg zusammengeschnitten.</td>
+<td>✅ Erreicht</td>
+<td>Kompositions-Editor mit Wort- und Satz-Ansicht, Volltextsuche, Mehrfachauswahl und FFmpeg-basiertem Rendering.</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Weboberfläche:</strong> Funktionale Weboberfläche, über die alle Kernfunktionen (Upload, Analyse-Anzeige, Schnitt-Steuerung) bedienbar sind.</td>
+<td>✅ Erreicht</td>
+<td>Vue-3-SPA mit 5 Ansichten: Data, Filebrowser, Composition, Export, CLI Monitor.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="geplante-features-aus-der-projekteingabe">Geplante Features aus der Projekteingabe</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Status</th>
+<th>Bemerkung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Video-Upload über die Weboberfläche</td>
+<td>⚠️ Abweichung</td>
+<td>Ersetzt durch Dateibrowser (siehe SMART-Ziel 1)</td>
+</tr>
+<tr>
+<td>Automatische Extraktion der Audio-Spur (FFmpeg)</td>
+<td>✅ Erreicht</td>
+<td>–</td>
+</tr>
+<tr>
+<td>Speech-to-Text-Analyse mit wortgenauen Zeitstempeln (Whisper)</td>
+<td>✅ Erreicht</td>
+<td>Zusätzlich Audioklassifikation (Musik/Stille) implementiert</td>
+</tr>
+<tr>
+<td>Darstellung des transkribierten Textes mit Zeitstempel-Zuordnung</td>
+<td>✅ Erreicht</td>
+<td>Wort- und Satz-Ansicht mit farbiger Typ-Kennzeichnung</td>
+</tr>
+<tr>
+<td>Textbasiertes Schneiden: Auswahl/Entfernung von Wörtern</td>
+<td>✅ Erreicht</td>
+<td>Inklusive Vorschau im Browser vor dem Rendern</td>
+</tr>
+<tr>
+<td>Export des geschnittenen Videos</td>
+<td>✅ Erreicht</td>
+<td>MP4-Download mit Dateigrösse und Render-Status</td>
+</tr>
+<tr>
+<td>Datenmodell mit Entitäten (Video, Audio, Event, etc.)</td>
+<td>✅ Erreicht</td>
+<td>12 Modelle implementiert; Object, Action, Sense (für zukünftige Erweiterung) noch nicht umgesetzt</td>
+</tr>
+<tr>
+<td>Echtzeit-Kommunikation via WebSockets</td>
+<td>✅ Erreicht</td>
+<td>Bidirektionale Synchronisation mit Auto-Reconnect</td>
+</tr>
+</tbody>
+</table>
+<h3 id="zus%C3%A4tzlich-implementierte-features-nicht-in-projekteingabe">Zusätzlich implementierte Features (nicht in Projekteingabe)</h3>
+<ul>
+<li><strong>CLI-Monitor:</strong> Echtzeit-Überwachung aller laufenden Prozesse (Extraktion, Analyse, Rendering)</li>
+<li><strong>Satz-Gruppierung:</strong> Automatische Gruppierung von Wort-Events zu Sätzen im Kompositions-Editor</li>
+<li><strong>Lücken-Erkennung:</strong> Automatische Erkennung nicht-klassifizierter Abschnitte zwischen Events</li>
+<li><strong>Per-Event-Vorschau:</strong> Einzelne Audio-Events können direkt im Editor abgespielt werden</li>
+<li><strong>CRUD-Interface:</strong> Generisches Datenmanagement für alle Modelle</li>
+</ul>
+<h3 id="zusammenfassung">Zusammenfassung</h3>
+<p>Von den 5 SMART-Zielen wurden 4 vollständig erreicht. SMART-Ziel 1 (Video-Upload) wurde bewusst durch einen Dateibrowser ersetzt, da die Applikation lokal läuft und ein Upload-Mechanismus unnötig wäre. Alle 8 geplanten Features wurden umgesetzt, wobei der Video-Upload durch den Dateibrowser abgelöst wurde und die Entitäten Object, Action und Sense als geplante Erweiterung noch ausstehen. Darüber hinaus wurden 5 zusätzliche Features implementiert, die über den ursprünglichen Projektumfang hinausgehen.</p>
+<hr>
+<h2 id="3-technische-umsetzung">3. Technische Umsetzung</h2>
+<h3 id="31-architektur">3.1 Architektur</h3>
+<p>Die Applikation basiert auf einer Client-Server-Architektur mit folgenden Technologien:</p>
+<ul>
+<li><strong>Frontend:</strong> Vue 3 (ESM-Module, kein Build-Step), Vue Router 4 (Hash-basiertes Routing)</li>
+<li><strong>Backend:</strong> Deno (TypeScript-Runtime) mit WebSocket-Server</li>
+<li><strong>Datenbank:</strong> SQLite oder JSON (konfigurierbar über Umgebungsvariable <code>S_DB_TYPE</code>)</li>
+<li><strong>CLI-Tools:</strong> FFmpeg/FFprobe (Audioextraktion), Python 3 (Audioanalyse und Rendering)</li>
+<li><strong>Python-Bibliotheken:</strong> OpenAI Whisper, Hugging Face Transformers, PyTorch, pyttsx3</li>
+</ul>
+<p>Die gesamte Kommunikation zwischen Client und Server erfolgt über WebSocket. HTTP wird ausschliesslich für das Ausliefern statischer Dateien und Mediendateien verwendet. Der Server verwaltet einen reaktiven <code>o_state</code>, der bei jeder Änderung automatisch an alle verbundenen Clients propagiert wird.</p>
+<p><strong>Projektstruktur:</strong></p>
+<pre class="hljs"><code><div>video_wizard/
+├── localhost/          # Frontend (Vue 3 SPA)
+│   ├── index.html      # HTML-Shell
+│   ├── index.js        # Vue-App, Routing, WebSocket
+│   ├── index.css       # Globales Styling (Dark Theme)
+│   ├── constructors.js # Datenmodelle &amp; WebSocket-Nachrichten
+│   ├── o_component__data.js         # Datenmanagement
+│   ├── o_component__filebrowser.js  # Dateibrowser
+│   ├── o_component__composition.js  # Kompositions-Editor
+│   ├── o_component__export.js       # Export &amp; Rendering
+│   ├── o_component__cli_monitor.js  # CLI-Task-Monitor
+│   └── lib/            # Vue 3 &amp; Vue Router ESM-Bundles
+├── serverside/         # Backend (Deno)
+│   ├── functions.js           # Server-Utilities
+│   ├── cli_functions.js       # CLI-Subprozesse (FFmpeg, Python)
+│   ├── database_functions.js  # SQLite-Operationen
+│   ├── f_analyze_audio.py     # Spracherkennung &amp; Klassifikation
+│   ├── f_render_composition.py # Video-Rendering
+│   └── testing/               # Unit-Tests
+├── deno.json           # Deno-Konfiguration &amp; Tasks
+├── .env                # Umgebungsvariablen
+└── readme.md           # Setup-Anleitung
+</div></code></pre>
+<h3 id="32-komponenten">3.2 Komponenten</h3>
+<p>Die Applikation besteht aus fünf Hauptkomponenten, die jeweils eine eigene Verantwortlichkeit haben:</p>
+<table>
+<thead>
+<tr>
+<th>Komponente</th>
+<th>Datei</th>
+<th>Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Data</strong></td>
+<td><code>o_component__data.js</code></td>
+<td>CRUD-Interface für alle Datenmodelle (Erstellen, Bearbeiten, Löschen)</td>
+</tr>
+<tr>
+<td><strong>Filebrowser</strong></td>
+<td><code>o_component__filebrowser.js</code></td>
+<td>Dateisystem-Navigation, Videoauswahl, Analyse-Trigger</td>
+</tr>
+<tr>
+<td><strong>Composition</strong></td>
+<td><code>o_component__composition.js</code></td>
+<td>Audio-Event-Auswahl, Volltextsuche, Kompositions-Vorschau</td>
+</tr>
+<tr>
+<td><strong>Export</strong></td>
+<td><code>o_component__export.js</code></td>
+<td>Rendering-Auslösung, Download, Vorschau gerenderter Videos</td>
+</tr>
+<tr>
+<td><strong>CLI Monitor</strong></td>
+<td><code>o_component__cli_monitor.js</code></td>
+<td>Echtzeit-Überwachung aller laufenden CLI-Tasks</td>
+</tr>
+</tbody>
+</table>
+<p>Zusätzlich gibt es übergreifende Module:</p>
+<ul>
+<li><strong>constructors.js</strong> — Definiert alle 12 Datenmodelle (o_video, o_audio, o_audio_event, o_composition, etc.) und WebSocket-Nachrichtentypen</li>
+<li><strong>functions.js</strong> — Gemeinsame Hilfsfunktionen (Client &amp; Server)</li>
+<li><strong>bgshader.js</strong> — Animierter Canvas-Hintergrund</li>
+</ul>
+<p>Die Kommunikation zwischen Komponenten erfolgt über den gemeinsamen reaktiven <code>o_state</code> und WebSocket-Nachrichten. Props und Events werden für den direkten Datenaustausch zwischen Eltern- und Kindkomponenten verwendet.</p>
+<h3 id="33-routing">3.3 Routing</h3>
+<p>Das Routing ist mit Vue Router 4 und Hash-basierter Navigation (<code>createWebHashHistory</code>) implementiert:</p>
+<table>
+<thead>
+<tr>
+<th>Route</th>
+<th>Komponente</th>
+<th>Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/</code></td>
+<td>–</td>
+<td>Redirect auf <code>/data</code></td>
+</tr>
+<tr>
+<td><code>/data</code></td>
+<td>Data</td>
+<td>Datenmanagement aller Modelle</td>
+</tr>
+<tr>
+<td><code>/filebrowser</code></td>
+<td>Filebrowser</td>
+<td>Dateisystem-Navigation &amp; Videoanalyse</td>
+</tr>
+<tr>
+<td><code>/composition</code></td>
+<td>Composition</td>
+<td>Audio-Event-Komposition</td>
+</tr>
+<tr>
+<td><code>/export</code></td>
+<td>Export</td>
+<td>Video-Rendering &amp; Download</td>
+</tr>
+<tr>
+<td><code>/cli</code></td>
+<td>CLI Monitor</td>
+<td>Prozessüberwachung</td>
+</tr>
+</tbody>
+</table>
+<p>Die Navigation erfolgt über eine persistente Navigationsleiste. Deep Links funktionieren dank Hash-Routing. Die zuletzt besuchte Seite wird in der Datenbank gespeichert und beim nächsten Start wiederhergestellt.</p>
+<h3 id="34-state-management">3.4 State-Management</h3>
+<p>Anstelle eines klassischen Store-Frameworks (Pinia, Vuex) wird ein eigenes reaktives State-Management-System verwendet. Diese bewusste Entscheidung basiert auf folgenden Gründen:</p>
+<ul>
+<li><strong>Echtzeit-Synchronisation:</strong> Der State wird über WebSocket bidirektional zwischen Server und allen Clients synchronisiert. Ein klassischer clientseitiger Store würde diese Architektur verkomplizieren.</li>
+<li><strong>Einheitliches Datenmodell:</strong> <code>o_state</code> ist ein Vue-3-<code>reactive</code>-Objekt, das alle Datenmodelle als Arrays enthält (z.B. <code>o_state.a_o_video</code>, <code>o_state.a_o_composition</code>). CRUD-Operationen werden über die zentrale Funktion <code>f_v_sync()</code> ausgeführt, die gleichzeitig die Datenbank, den Server-State und alle verbundenen Clients aktualisiert.</li>
+<li><strong>Automatische Denormalisierung:</strong> Fremdschlüssel-Beziehungen werden automatisch aufgelöst (z.B. <code>o_video.o_fsnode</code> wird aus <code>n_o_fsnode_n_id</code> denormalisiert).</li>
+</ul>
+<p><strong>State-Bereiche:</strong></p>
+<ol>
+<li><strong>Anwendungsdaten:</strong> Alle Modelle (Videos, Audios, Audio-Events, Kompositionen, etc.)</li>
+<li><strong>UI-State:</strong> Ladefortschritt, Toast-Nachrichten, CLI-Task-Status, aktive Route</li>
+</ol>
+<hr>
+<h2 id="4-visualisierungen">4. Visualisierungen</h2>
+<h3 id="41-architekturdiagramm">4.1 Architekturdiagramm</h3>
+<pre class="hljs"><code><div>┌─────────────────────────────────────────────────────────────┐
+│                      Browser (Client)                       │
+│  ┌──────────┐ ┌──────────┐ ┌───────────┐ ┌──────────────┐  │
+│  │   Data   │ │Filebrows.│ │Composition│ │    Export     │  │
+│  │Component │ │Component │ │ Component │ │  Component   │  │
+│  └────┬─────┘ └────┬─────┘ └─────┬─────┘ └──────┬───────┘  │
+│       │             │             │               │          │
+│       └─────────────┴──────┬──────┴───────────────┘          │
+│                            │                                 │
+│                    ┌───────┴────────┐                        │
+│                    │ o_state (Vue 3 │                        │
+│                    │   reactive)    │                        │
+│                    └───────┬────────┘                        │
+│                            │                                 │
+│                    ┌───────┴────────┐                        │
+│                    │   WebSocket    │                        │
+│                    │    Client      │                        │
+└────────────────────┼────────────────┼────────────────────────┘
+                     │   WebSocket    │
+                     │   Verbindung   │
+┌────────────────────┼────────────────┼────────────────────────┐
+│                    │   WebSocket    │                        │
+│                    │    Server      │      Deno Backend      │
+│                    └───────┬────────┘                        │
+│                            │                                 │
+│              ┌─────────────┼─────────────┐                   │
+│              │             │             │                    │
+│       ┌──────┴──────┐ ┌───┴────┐ ┌──────┴───────┐           │
+│       │  SQLite /   │ │ FFmpeg │ │   Python 3   │           │
+│       │    JSON     │ │        │ │  (Whisper,   │           │
+│       │  Datenbank  │ │        │ │ Transformers)│           │
+│       └─────────────┘ └────────┘ └──────────────┘           │
+└─────────────────────────────────────────────────────────────┘
+</div></code></pre>
+<h3 id="42-datenflussdiagramm-%E2%80%93-video-analysepipeline">4.2 Datenflussdiagramm – Video-Analysepipeline</h3>
+<pre class="hljs"><code><div>┌──────────┐    ┌───────────┐    ┌──────────┐    ┌─────────────┐
+│  Video-  │    │   Audio-  │    │  Audio-  │    │   Audio-    │
+│  datei   │───▶│ extraktion│───▶│ analyse  │───▶│   Events    │
+│ (MP4/..) │    │  (FFmpeg) │    │ (Whisper │    │ (Sprache/   │
+│          │    │           │    │  +Trans- │    │  Musik/     │
+│          │    │  ──▶ WAV  │    │  former) │    │  Stille)    │
+└──────────┘    └───────────┘    └──────────┘    └──────┬──────┘
+                                                        │
+                                                        ▼
+┌──────────┐    ┌───────────┐    ┌──────────────────────────┐
+│  Fertiges│    │  Video-   │    │   Kompositions-Editor    │
+│  Video   │◀───│ rendering │◀───│  (Auswahl &amp; Anordnung    │
+│  (MP4)   │    │  (FFmpeg) │    │   von Audio-Events)      │
+└──────────┘    └───────────┘    └──────────────────────────┘
+</div></code></pre>
+<h3 id="43-wireframe-%E2%80%93-kompositions-editor-hauptansicht">4.3 Wireframe – Kompositions-Editor (Hauptansicht)</h3>
+<pre class="hljs"><code><div>┌─────────────────────────────────────────────────────────────┐
+│  [Data] [Filebrowser] [Composition] [Export] [CLI]          │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  Video: ▼ [Auswahl des analysierten Videos]                 │
+│                                                             │
+│  ┌─────────────────────────────────────────────────────┐    │
+│  │ 🔍 Suche in Transkripten...                         │    │
+│  ├─────────────────────────────────────────────────────┤    │
+│  │ ☐  00:01.200 – 00:04.800  &quot;Willkommen zum...&quot;      │    │
+│  │ ☑  00:05.100 – 00:08.300  &quot;Heute zeigen wir...&quot;    │    │
+│  │ ☐  00:08.500 – 00:12.100  ♪ Musik ♪                │    │
+│  │ ☑  00:12.400 – 00:18.900  &quot;Der erste Schritt...&quot;   │    │
+│  │ ☐  00:19.000 – 00:20.500  [Stille]                 │    │
+│  └─────────────────────────────────────────────────────┘    │
+│                                                             │
+│  Komposition: &quot;Intro-Zusammenschnitt&quot;                       │
+│  Ausgewählt: 2 Events | Dauer: 6.6s                        │
+│  [▶ Vorschau]  [💾 Speichern]                               │
+│                                                             │
+│  ┌─────────────────────────────────────────────────────┐    │
+│  │  ▶ Videovorschau                                    │    │
+│  │                                                     │    │
+│  └─────────────────────────────────────────────────────┘    │
+└─────────────────────────────────────────────────────────────┘
+</div></code></pre>
+<h3 id="44-wireframe-%E2%80%93-export-ansicht">4.4 Wireframe – Export-Ansicht</h3>
+<pre class="hljs"><code><div>┌─────────────────────────────────────────────────────────────┐
+│  [Data] [Filebrowser] [Composition] [Export] [CLI]          │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  Gespeicherte Kompositionen                                 │
+│                                                             │
+│  ┌─────────────────────────────────────────────────────┐    │
+│  │  Intro-Zusammenschnitt          6.6s    2.4 MB      │    │
+│  │  [▶ Vorschau]  [⬇ Download]  [🔄 Neu rendern]       │    │
+│  ├─────────────────────────────────────────────────────┤    │
+│  │  Kapitel-2-Highlights          24.1s    8.7 MB      │    │
+│  │  [🔄 Rendern]                                       │    │
+│  ├─────────────────────────────────────────────────────┤    │
+│  │  Gesamtzusammenfassung         41.3s   [Rendering…] │    │
+│  │  ██████████░░░░░░░░░░  52%                          │    │
+│  └─────────────────────────────────────────────────────┘    │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+</div></code></pre>
+<hr>
+<h2 id="5-fazit--lessons-learned">5. Fazit &amp; Lessons Learned</h2>
+<h3 id="herausforderungen">Herausforderungen</h3>
+<ol>
+<li>
+<p><strong>Spracherkennung und Sprachklassifikation:</strong>
+Bei einem Testvideo wurde die Sprache fälschlicherweise als Chinesisch erkannt, was die gesamte Transkription unbrauchbar machte. Die Ursache liegt im Whisper-Modell, das bei kurzen oder undeutlichen Audiopassagen die Sprache falsch identifizieren kann. Als möglicher Lösungsansatz könnte man dem Benutzer erlauben, die Sprache manuell vorzugeben, anstatt sich vollständig auf die automatische Erkennung zu verlassen.</p>
+</li>
+<li>
+<p><strong>Richtiges Prompting mit KI-Werkzeugen:</strong>
+Die Entwicklung erfolgte unter starkem Einsatz von Claude Code als KI-Assistenten. Eine zentrale Herausforderung war das präzise Formulieren von Anweisungen (Prompts). Oft programmierte die KI nicht exakt nach Vorstellung oder liess gewünschte Funktionalitäten weg. Es war schwierig nachzuvollziehen, was im Hintergrund mit den Prompts geschieht und wie diese verarbeitet werden. Richtiges Prompting ist eine Fähigkeit, die erlernt und geübt werden muss.</p>
+</li>
+<li>
+<p><strong>Echtzeit-Synchronisation über WebSocket:</strong>
+Die bidirektionale Echtzeit-Synchronisation des Anwendungsstatus über WebSocket stellte sich als komplex heraus. Die Herausforderung bestand darin, CRUD-Operationen konsistent auf Server, Datenbank und allen verbundenen Clients gleichzeitig auszuführen, ohne Race Conditions zu erzeugen. Die Lösung war eine zentrale <code>f_v_sync()</code>-Funktion, die als einziger Eingangspunkt für alle Datenänderungen dient.</p>
+</li>
+</ol>
+<h3 id="pers%C3%B6nliche-erkenntnisse">Persönliche Erkenntnisse</h3>
+<p>Das Arbeiten mit KI ist durchaus praktisch und beschleunigt die Entwicklung erheblich. Dennoch ersetzt es nicht das Verständnis der zugrunde liegenden Technologien. Es ist immer wieder spannend zu sehen, wie mächtig kontextbewusste KI-Werkzeuge sind, aber man muss lernen, sie effektiv einzusetzen. Die Kombination aus eigenem Fachwissen und KI-Unterstützung ergibt das beste Resultat.</p>
+<h3 id="verbesserungsvorschl%C3%A4ge">Verbesserungsvorschläge</h3>
+<ul>
+<li><strong>FFmpeg im Browser:</strong> Für eine rein clientseitige Lösung könnte FFmpeg mit WebAssembly (ffmpeg.wasm) direkt im Browser ausgeführt werden, was den Server-Prozess eliminieren würde.</li>
+<li><strong>Optische Videoanalyse:</strong> Neben der Audioanalyse könnte eine Bildanalyse (z.B. Szenerkennung, Objekterkennung) zusätzliche Kontextinformationen für den Editor liefern.</li>
+<li><strong>Manuelle Sprachauswahl:</strong> Um das Problem der falschen Spracherkennung zu umgehen, könnte eine manuelle Spracheinstellung als Fallback angeboten werden.</li>
+<li><strong>Detaillierteres Fehlerhandling:</strong> Bei fehlgeschlagenen Analysen könnte dem Benutzer genauer erklärt werden, warum der Prozess gescheitert ist und welche Schritte zur Behebung möglich sind.</li>
+</ul>
+
+</body>
+</html>

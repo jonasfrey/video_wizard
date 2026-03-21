@@ -16,7 +16,12 @@
     "run": "B_DENO_TASK=1 deno run --allow-net --allow-read --allow-write --allow-env --allow-ffi --allow-run --env websersocket_20a5cd94-3a5d-4294-b61e-57b27a848f71.js",
     "stop": "pkill -f 'deno run.*websersocket_20a5cd94-3a5d-4294-b61e-57b27a848f71.js' || echo 'No running websersocket process found.'",
     "restart": "deno task stop && deno task run",
-    "test": "deno test --allow-net --allow-read --allow-write --allow-env --allow-ffi serverside/function_testings.js",
+    "test": "deno task test:audio_extraction && deno task test:audio_analysis && deno task test:db_insert_unique_key && deno task test:db_type && deno task test:denormalization",
+    "test:audio_analysis": "deno run --allow-read --allow-write --allow-env --allow-ffi --allow-run --env serverside/testing/audio_analysis.js",
+    "test:audio_extraction": "deno run --allow-read --allow-write --allow-env --allow-ffi --allow-run --env serverside/testing/audio_extraction.js",
+    "test:db_insert_unique_key": "deno run --allow-read --allow-write --allow-env --allow-ffi --env serverside/testing/db_insert_unique_key.js",
+    "test:db_type": "deno run --allow-read --allow-write --allow-env --allow-ffi --env serverside/testing/db_type.js",
+    "test:denormalization": "deno test --allow-net --allow-read --allow-write --allow-env --allow-ffi serverside/testing/denormalization.js",
     "uninit": "deno run --allow-read --allow-write --allow-env --env serverside/uninit.js",
     "rmdb": "rm -rf ./.gitignored/appdb/ && echo 'Database cleared.'"
   },
